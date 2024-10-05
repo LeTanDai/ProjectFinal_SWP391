@@ -139,14 +139,14 @@
                         <img src="img/card_icon/discovercard.png" alt="Discover">
                     </div>
 
-                    <form class="payment-form">
-                        <input type="text" placeholder="Card number" class="input-field">
-                        <input type="text" placeholder="Name on card" class="input-field">
+                    <form action="paymentNotification.html" method="GET" class="payment-form">
+                        <input type="text" placeholder="Card number" class="input-field" required>
+                        <input type="text" placeholder="Name on card" class="input-field" required>
                         <div class="expiration-cvc">
-                            <input type="text" placeholder="Expiration date" class="input-small">
-                            <input type="text" placeholder="CVC" class="input-small">
+                            <input type="text" placeholder="Expiration date" class="input-small" required>
+                            <input type="text" placeholder="CVC" class="input-small" required>
                         </div>
-                        <input type="text" placeholder="Country" class="input-field" value="Viet Nam">
+                        <input type="text" placeholder="Country" class="input-field" value="Viet Nam" required>
                         <button type="submit" class="purchase-button">Complete purchase</button>
                     </form>
                 </div>
