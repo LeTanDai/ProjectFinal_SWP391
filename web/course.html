@@ -13,7 +13,7 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -23,6 +23,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    
 </head>
 
 <body>
@@ -30,10 +32,9 @@
     <nav class="container-fluid sticky-top bg-white">
         <div class="row border-top-logo px-xl-5">
             <div class="col-lg-3-logo">
-                <a href="" class="text-decoration-none">
-                    <h1 class="m-0"><span class="text-primary">E</span>COURSES</h1>
-                </a>
+                <a href="index.html"><img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 20%; height: auto;"></a>
             </div>
+            
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light navbar-link bg-light navbar-light py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
@@ -60,29 +61,26 @@
 
                         <div class="group-search">
                             <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-                              <g>
-                                <path
-                                  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-                                ></path>
-                              </g>
+                                <g>
+                                    <path
+                                        d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                                    ></path>
+                                </g>
                             </svg>
-                          
                             <input
-                              id="query"
-                              class="input-search"
-                              type="search"
-                              placeholder="Search..."
-                              name="searchbar"
+                                id="query"
+                                class="input-search"
+                                type="search"
+                                placeholder="Search..."
+                                name="searchbar"
                             />
-                          </div>
-                        
+                        </div>
                     </div>
                 </nav>
             </div>
         </div>
     </nav>
     <!-- Navbar End -->
-
 
     <!-- Header Start -->
     <div class="container-fluid page-header" style="margin-bottom: 90px;">
@@ -94,12 +92,11 @@
     </div>
     <!-- Header End -->
 
-
     <!-- Category Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-5 category-container">
         <div class="container pt-5 pb-3">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
+            <div class="row category-row justify-content-center">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="cat-item position-relative overflow-hidden rounded mb-2">
                         <img class="img-fluid-cat" src="img/phuong-phap-hoc-toan-hieu-qua-thumb.jpeg" alt="">
                         <a class="cat-overlay text-white text-decoration-none" href="courselist.html">
@@ -107,7 +104,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="cat-item position-relative overflow-hidden rounded mb-2">
                         <img class="img-fluid-cat" src="img/Phuong-phap-hoc-tot-mon-Vat-Ly.jpg" alt="">
                         <a class="cat-overlay text-white text-decoration-none" href="">
@@ -115,7 +112,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="cat-item position-relative overflow-hidden rounded mb-2">
                         <img class="img-fluid-cat" src="img/TU-VUNG-TIENG-ANH-CHUYEN-NGANH-HOA-HOC.jpg" alt="">
                         <a class="cat-overlay text-white text-decoration-none" href="">
@@ -123,127 +120,47 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/370_crop__CT_YYi_tra.jpg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="">
-                            <h3 class="text-white font-weight-medium">Sinh Học</h3>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/hoc-tieng-Anh-1.jpg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="">
-                            <h3 class="text-white font-weight-medium">Tiếng Anh</h3>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/2024_05_04_01_10_281.jpg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="">
-                            <h3 class="text-white font-weight-medium">Ngữ Văn</h3>
+            </div>
+        </div>
+    </div>
+    <!-- Category End -->
 
-                        </a>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-darks text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        <div class="row pt-5">
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên Hệ</h5>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                        <p class="mb-2"><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/lich-su-dich-thuat.jpeg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="">
-                            <h3 class="text-white font-weight-medium">Lịch Sử</h3>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/sach-hay-ve-dia-ly-cover-780x470_e73c43d780.png" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="">
-                            <h3 class="text-white font-weight-medium">Địa Lý</h3>
-                        </a>
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Quick Links</h5>
+                        <a class="text-white" href=""><p class="mb-2">Home</p></a>
+                        <a class="text-white" href=""><p class="mb-2">Courses</p></a>
+                        <a class="text-white" href=""><p class="mb-2">Documents</p></a>
+                        <a class="text-white" href=""><p class="mb-2">Payment</p></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Category Start -->
-
-
-    
-
-
-<!-- Footer Start -->
-<div class="container-fluid bg-darks text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
-    <div class="row pt-5">
-        <div class="col-lg-12 col-md-12">
-            <div class="row">
-                <div class="col-md-6 mb-5">
-                    <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Get In Touch</h5>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
-                    <div class="d-flex justify-content-start mt-4">
-                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-5">
-                    <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Our Courses</h5>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web Design</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Apps Design</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marketing</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Research</a>
-                        <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>SEO</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container-fluid bg-darks text-white border-top py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
-    <div class="row ">
-        <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0 ">
-            <p class="m-0 text-white">&copy; <a href="#">Domain Name</a>. All Rights Reserved. Designed by <a href="https://htmlcodex.com">HTML Codex</a>
-            </p>
-        </div>
-        <div class="col-lg-6 text-center text-md-right">
-            <ul class="nav d-inline-flex">
-                <li class="nav-item">
-                    <a class="nav-link text-white py-0" href="#">Privacy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white py-0" href="#">Terms</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white py-0" href="#">FAQs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white py-0" href="#">Help</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
-
+    <!-- Footer End -->
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
