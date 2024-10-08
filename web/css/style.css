@@ -10476,7 +10476,7 @@ h6,
 }
 
 .desc-payment {
-  font-size: 14px;
+  font-size: 20px;
   color: #6c757d;
   margin-bottom: 20px;
 }
@@ -10519,7 +10519,7 @@ ul.lists li svg {
 }
 
 .card-payment {
-  max-width: 355px;
+  max-width: 700px;
   width: 100%;
   white-space: nowrap;
 }
@@ -10528,6 +10528,7 @@ ul.lists li svg {
 .container-payment {
   text-align: center;
   padding: 50px 20px;
+  font-size: 25px;
 }
 
 .container-payment .title {
@@ -10549,118 +10550,63 @@ ul.lists li svg {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #f0f4f8;
   border-radius: 10px;
-  box-shadow: -13px -4px 6px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.checkout-payment, .checkout-summary {
+  width: 50%;
+  padding: 20px;
 }
 
 .checkout-title {
   text-align: center;
   margin-bottom: 30px;
-  font-size: 24px;
+  font-size: 28px;
   color: #333;
 }
 
-.checkout-content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.checkout-order, .checkout-payment {
-  width: 48%;
-}
-
-h3 {
+.payment-options {
   margin-bottom: 20px;
-  color: #333;
 }
 
-.plan {
+.payment-option {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  background-color: #94d9e2;
   padding: 10px;
-  background-color: #446d98;
-  border-radius: 5px;
-  color: #fff;
-}
-
-.plan input {
-  margin-right: 10px;
-}
-
-.badge {
-  background-color: #ff6600;
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 5px;
-  font-size: 12px;
-}
-
-.total {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  font-size: 18px;
-  color: #333;
-}
-
-.quick-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.quick-buttons button {
-  flex: 1;
-  height: 50px;
-  margin-right: 10px;
-  background-color: white;
-  border: none;
-  color: #fff;
-  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-.quick-buttons button img {
-  height: 100%;
-  width: auto;
+.payment-option label {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  flex-grow: 1;
 }
 
-.quick-buttons button:last-child {
-  margin-right: 0;
-}
-
-.card-icons img {
+.payment-option img {
   height: 30px;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .payment-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 10px;
 }
 
 .payment-form .input-field {
   height: 40px;
-  margin-bottom: 10px;
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  background-color: #e0e0e0;
-}
-
-.expiration-cvc {
-  display: flex;
-  justify-content: space-between;
-}
-
-.expiration-cvc .input-small {
-  width: 48%;
+  background-color: #fff;
 }
 
 .purchase-button {
@@ -10672,6 +10618,59 @@ h3 {
   cursor: pointer;
   border-radius: 5px;
   margin-top: 20px;
+}
+
+.checkout-summary {
+  
+  color: #00ffcc;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.checkout-summary p{
+ color: black;
+}
+
+.checkout-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.pricing-info {
+  margin-bottom: 20px;
+}
+
+.pricing-info p{
+  text-align: center;
+  font-size: 20px;
+}
+
+.premium-benefits {
+  color: #00ffcc;
+  margin-top: 20px;
+}
+
+.premium-benefits h3 {
+  margin-bottom: 10px;
+  font-size: 23px;
+  color: #FF6600;
+}
+
+.premium-benefits ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  color: black;
+}
+
+.note {
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 40px;
 }
 
 /* Reset input number styles */
