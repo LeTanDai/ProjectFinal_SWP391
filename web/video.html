@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ECOURSES - Online Courses HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+          .next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .video-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 20px;
+        }
+    
+        iframe {
+            width: 80%; /* Tăng kích thước video lên 80% của trang */
+            height: 600px; /* Chiều cao của video */
+            max-width: 100%;
+            border-radius: 10px; /* Bo tròn góc video */
+        }
+    
+        .video-links {
+            margin-top: 20px; /* Khoảng cách phía trên danh sách liên kết */
+            font-size: 1.2em; /* Phóng to chữ */
+            text-align: left; /* Căn chữ theo lề trái */
+            width: 80%; /* Đảm bảo các liên kết căn thẳng với video */
+        }
+    
+        .video-links a {
+            display: block; /* Mỗi liên kết sẽ hiển thị trên một dòng */
+            margin-bottom: 10px; /* Khoảng cách giữa các liên kết */
+            color: orange; /* Màu chữ */
+            text-decoration: none; /* Loại bỏ gạch chân mặc định */
+        }
+    
+        .video-links a:hover {
+            text-decoration: underline; /* Thêm gạch chân khi hover */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar start-->
+    <nav class="container-fluid sticky-top bg-white">
+        <div class="row border-top-logo px-xl-5">
+            <div class="col-lg-3-logo">
+                <a href="index.html"><img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 20%; height: auto;"></a>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 py-lg-0 px-0">
+                    <a href="#" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0"><span class="text-primary">E</span>COURSES</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav py-0">
+                            <a href="index.html" class="nav-item nav-link active">Trang Chủ</a>
+                            <div class="nav-item dropdown">
+                                <a href="course.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Môn Học</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="course.html" class="dropdown-item">Lớp 10</a>
+                                    <a href="course.html" class="dropdown-item">Lớp 11</a>
+                                    <a href="course.html" class="dropdown-item">Lớp 12</a>
+                                </div>
+                            </div>
+                            <a href="document.html" class="nav-item nav-link">Tài Liệu</a>
+                            <a href="flashcardList.html" class="nav-item nav-link">Ôn tập</a>
+                            <a href="payment.html" class="nav-item nav-link">Thanh Toán</a>
+                        </div>
+
+                        <div class="group-search">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                                <g>
+                                    <path
+                                        d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                                </g>
+                            </svg>
+                            <input id="query" class="input-search" type="search" placeholder="Search..." name="searchbar" />
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+   
+     
+    <main>
+        <div class="video-section">
+            <h4 class="media-heading text-primary" id="video-title">Chương 1. Ứng dụng đạo hàm để khảo sát và vẽ đồ thị hàm số</h4>           
+            <iframe id="video-frame" src="https://www.youtube.com/embed/zsxktJWNxVI?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    
+            <!-- Nút Next -->
+            <button class="next-button" id="next-button" onclick="nextVideo()">Next</button>
+    
+            <!-- Danh sách các bài học -->
+            <div class="video-links">
+                <a href="#" id="bai1" onclick="showVideo(event, 0)">Bài 1: Tính đơn điệu của hàm số</a>
+                <a href="#" id="bai2" onclick="showVideo(event, 1)">Bài 2: Giá trị lớn nhất và nhỏ nhất</a>
+                <a href="#" id="bai3" onclick="showVideo(event, 2)">Bài 3: Đường tiệm cận của đồ thị hàm số</a>
+                <a href="#" id="bai4" onclick="showVideo(event, 3)">Bài 4: Khảo sát sự biến thiên của đồ thị hàm số</a>
+                <a href="#" id="bai5" onclick="showVideo(event, 4)">Bài 5: Ứng dụng đạo hàm để giải quyết bài toán thực tiễn</a>
+            </div>
+        </div>
+    </main>
+    
+    
+    <!-- Footer Start -->
+    <div class="container-fluid bg-darks text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        <div class="row pt-5">
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Get In Touch</h5>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                        <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                        <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Newsletter</h5>
+                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                        <div class="w-100">
+                            <div class="input-group">
+                                <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary px-4">Sign Up</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- JavaScript to change video -->
+    <script>
+        const videoUrls = [
+            { url: 'https://www.youtube.com/embed/zsxktJWNxVI?autoplay=1', title: 'Chương 1. Ứng dụng đạo hàm để khảo sát và vẽ đồ thị hàm số' },
+            { url: 'https://www.youtube.com/embed/WsMJEaCQsoA', title: 'Chương 2. Đạo hàm và ứng dụng của đạo hàm' },
+            { url: 'https://www.youtube.com/embed/o6g5ZpOczLc', title: 'Chương 3. Tích phân và ứng dụng của tích phân' },
+            { url: 'https://www.youtube.com/embed/990wEB5yo2k', title: 'Chương 4. Giới hạn và tính liên tục' },
+            { url: 'https://www.youtube.com/embed/DYFeDU9oFG4', title: 'Chương 5. Hàm số và đồ thị hàm số' }
+        ];
+
+        let currentIndex = 0;
+
+        function showVideo(event, index) {
+            event.preventDefault();
+            currentIndex = index;
+            const videoFrame = document.getElementById('video-frame');
+            const videoTitle = document.getElementById('video-title');
+            videoFrame.src = videoUrls[index].url;
+            videoTitle.textContent = videoUrls[index].title;
+        }
+
+        function nextVideo() {
+            currentIndex = (currentIndex + 1) % videoUrls.length;
+            showVideo(event, currentIndex);
+        }
+    </script>
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Template JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
