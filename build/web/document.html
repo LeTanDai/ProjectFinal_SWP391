@@ -36,7 +36,6 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        <link href="css/document.css" rel="stylesheet">
         <link href="css/flashcardList.css" rel="stylesheet">
     </head>
 
@@ -107,61 +106,76 @@
             </div>
         </div>
         <!--     Header End -->
-       <!-- Main Content Section -->
-    <div class="container">
-        <div class="row">
-            <!-- Left Content: Tài liệu Sách -->
-            <div class="col-lg-8">
+        <div class ="container">
+            <div class ="row">
+                <div class="search-filter-bar">
+                    <select class="filter-select" name="class">
+                        <option value="">Chọn Lớp</option>
+                        <option value="10">Lớp 10</option>
+                        <option value="11">Lớp 11</option>
+                        <option value="12">Lớp 12</option>
+                    </select>
 
-                <!-- Document Item with Image -->
-                <div class="document-item card mb-4">
-                    <div class="image-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9umeIJcyMBbrhPLpj-6b29OxkUsEKPfevPg&s" alt="Ảnh đại diện của sách Toán 12">
-                    </div>
-                    <div class="card-body"><h5 class="card-title">Start Up - Kiến thức nền tảng Toán 12</h5>
-                        <p class="card-text">Môn: Toán lớp 12</p>
-                        <a href="#" class="btn-view">Xem chi tiết</a>
-                    </div>
+                    <select class="filter-select" name="subject">
+                        <option value="">Chọn Môn</option>
+                        <option value="Toán">Toán</option>
+                        <option value="Lý">Lý</option>
+                        <option value="Hóa">Hóa</option>
+                    </select>
+
+                    <select class="filter-select" name="type">
+                        <option value="">Loại Tài Liệu</option>
+                        <option value="lythuyet">Lý Thuyết</option>
+                        <option value="kiemtra">Kiểm Tra</option>
+                    </select>
+                    <button value="submit">submit</button>
                 </div>
 
-                <div class="document-item card mb-4">
-                    <div class="image-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9umeIJcyMBbrhPLpj-6b29OxkUsEKPfevPg&s" alt="Ảnh đại diện của sách Toán 12">
+                <div class="content-container col-md-12">
+                    <div class="lesson-grid">
+                        <div class="lesson" data-class="10" data-subject="Toán">
+                            <a href="flashcard.html">
+                                <div class="lesson-title">Bài học 1: Giới thiệu về Toán</div>
+                                <div class="lesson-description">Mô tả: Học về các khái niệm cơ bản trong toán học.</div>
+                            </a>
+                        </div>
+                        <div class="lesson" data-class="11" data-subject="Hóa">
+                            <a href="flashcard.html">
+                                <div class="lesson-title">Bài học 2: Các định lý trong Hóa học</div>
+                                <div class="lesson-description">Mô tả: Tìm hiểu về các định lý cơ bản trong hóa học.
+                                </div>
+                            </a>
+                        </div>
+                        <div class="lesson" data-class="12" data-subject="Lý">
+                            <a href="flashcard.html">
+                                <div class="lesson-title">Bài học 3: Nguyên lý cơ bản của Vật lý</div>
+                                <div class="lesson-description">Mô tả: Khám phá các nguyên lý cơ bản trong vật lý.</div>
+                            </a>
+                        </div>
+                        <div class="lesson" data-class="10" data-subject="Hóa">
+                            <a href="flashcard.html">
+                                <div class="lesson-title">Bài học 4: Hóa học cơ bản lớp 10</div>
+                                <div class="lesson-description">Mô tả: Các kiến thức cần biết cho lớp 10 về hóa học.
+                                </div>
+                            </a>
+                        </div>
+                        <div class="lesson" data-class="11" data-subject="Toán">
+                            <a href="flashcard.html">
+                                <div class="lesson-title">Bài học 5: Định lý Pythagore</div>
+                                <div class="lesson-description">Mô tả: Học về định lý Pythagore và ứng dụng của nó.
+                                </div>
+                            </a>
+                        </div>
+                        <div class="lesson" data-class="12" data-subject="Hóa">
+                            <a href="flashcard.html">
+                                <div class="lesson-title">Bài học 6: Phản ứng hóa học</div>
+                                <div class="lesson-description">Mô tả: Tìm hiểu về các loại phản ứng hóa học.</div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Start Up - Kiến thức nền tảng Toán 12</h5>
-                        <p class="card-text">Môn: Toán lớp 12</p>
-                        <a href="#" class="btn-view">Xem chi tiết</a>
-                    </div>
-                </div>
-
-                <div class="document-item card mb-4">
-                    <div class="image-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9umeIJcyMBbrhPLpj-6b29OxkUsEKPfevPg&s" alt="Ảnh đại diện của sách Toán 12">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Start Up - Kiến thức nền tảng Toán 12</h5>
-                        <p class="card-text">Môn: Toán lớp 12</p>
-                        <a href="#" class="btn-view">Xem chi tiết</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Right Content: Exam Categories -->
-            <div class="col-lg-4">
-                <div class="sidebar">
-                    <div class="sidebar-title">Danh mục đề thi</div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><i class="fas fa-pencil-alt sidebar-icon"></i>Đề thi thử Toán lớp 12</li>
-                        <li class="list-group-item"><i class="fas fa-pencil-alt sidebar-icon"></i>Đề thi thử Vật lý lớp 12</li>
-                        <li class="list-group-item"><i class="fas fa-pencil-alt sidebar-icon"></i>Đề thi thử Hóa học lớp 12</li>
-                        <li class="list-group-item"><i class="fas fa-pencil-alt sidebar-icon"></i>Đề thi thử Toán lớp 11</li>
-                    </ul>
                 </div>
             </div>
         </div>
-    </div>
 
 
         <!--         Footer Start -->

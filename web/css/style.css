@@ -10449,51 +10449,60 @@ h6,
 .card-payment {
   background-color: #fff;
   border: 1px solid #dee2e6;
-  border-radius: 10px;
-  padding: 30px;
+  border-radius: 15px; 
+  padding: 40px;
   margin: 20px;
   text-align: center;
-  box-shadow: -13px -4px 6px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.card-payment:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15); 
 }
 
 .header-payment {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px; 
 }
 
 .title-payment {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #007bff;
+  font-size: 1.75rem; 
+  font-weight: 700;
+  color: #007bff; 
+  text-transform: uppercase; 
 }
 
 .price-payment {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #28a745;
 }
 
 .desc-payment {
-  font-size: 20px;
+  font-size: 1.125rem; 
   color: #6c757d;
-  margin-bottom: 20px;
+  margin-bottom: 30px; 
 }
 
 ul.lists {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 ul.lists li.list {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px; 
+  font-size: 1.125rem; 
 }
 
 ul.lists li svg {
-  margin-right: 10px;
+  margin-right: 12px; 
   color: #28a745;
 }
 
@@ -10502,16 +10511,17 @@ ul.lists li svg {
   color: #fff;
   border: none;
   border-radius: 25px;
-  padding: 10px 20px;
+  padding: 12px 25px; 
+  font-size: 1.25rem; 
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .button-payment:hover {
   background-color: #0056b3;
+  transform: scale(1.05); 
 }
 
-/* Adjusting flex layout for cards */
 .row-payment {
   display: flex;
   justify-content: center;
@@ -10519,29 +10529,30 @@ ul.lists li svg {
 }
 
 .card-payment {
-  max-width: 700px;
+  max-width: 750px;
   width: 100%;
   white-space: nowrap;
 }
 
-/* Container for payment section */
 .container-payment {
   text-align: center;
-  padding: 50px 20px;
-  font-size: 25px;
+  padding: 70px 20px; 
+  font-size: 1.25rem; 
 }
 
 .container-payment .title {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 2.5rem; 
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #007bff; 
 }
 
 .container-payment .subtitle {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #6c757d;
-  margin-bottom: 40px;
+  margin-bottom: 50px; 
 }
+
 
 /* Check out */
 
@@ -11085,3 +11096,5 @@ ul.lists li svg {
   padding: 5px 10px;
   cursor: pointer;
 }
+
+
