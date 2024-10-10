@@ -125,18 +125,17 @@
 </head>
 <body>
     <jsp:include page="menu.jsp"/>
+    
+    
     <div class="container-fluid page-header" style="margin-bottom: 90px;">
-        <div class="container">
-            <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
-                <h3 class="display-4 text-white text-uppercase">Ôn tập</h3>
-                <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="">Trang chủ</a></p>
-                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                    <p class="m-0 text-uppercase">Tài liệu</p>
+            <div class="container">
+                <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+                    <h3 class="display-4 text-white text-uppercase" style="text-align: center">Ôn Tập</h3>
                 </div>
             </div>
         </div>
-    </div>
+    
+    
     <div class="container-fluid py-5" style="padding-left: 15%;">
         <div class="container pt-5 pb-3">
             <div class="row">
@@ -200,40 +199,40 @@
                 <div class="content-container">
                     <div class="lesson-grid">
                         <div class="lesson" data-class="10" data-subject="Toán">
-                            <a href="flashcard.html">
+                            <a href="flashcard.jsp">
                                 <div class="lesson-title">Chương 1</div>
                                 <div class="lesson-description">Ôn tập tất cả kiến thức, lý thuyết liên quan đến đạo hàm</div>
                             </a>
                         </div>
                         <div class="lesson" data-class="11" data-subject="Hóa">
-                            <a href="flashcard.html">
+                            <a href="flashcard.jsp">
                                 <div class="lesson-title">Chương 1</div>
                                 <div class="lesson-description">Tìm hiểu về các định lý cơ bản trong hóa học.
                                 </div>
                             </a>
                         </div>
                         <div class="lesson" data-class="12" data-subject="Lý">
-                            <a href="flashcard.html">
+                            <a href="flashcard.jsp">
                                 <div class="lesson-title">Chương 1</div>
                                 <div class="lesson-description">Khám phá các nguyên lý cơ bản trong vật lý</div>
                             </a>
                         </div>
                         <div class="lesson" data-class="10" data-subject="Hóa">
-                            <a href="flashcard.html">
+                            <a href="flashcard.jsp">
                                 <div class="lesson-title">Chương 2</div>
                                 <div class="lesson-description">Các kiến thức cần biết cho lớp 10 về hóa học
                                 </div>
                             </a>
                         </div>
                         <div class="lesson" data-class="11" data-subject="Toán">
-                            <a href="flashcard.html">
+                            <a href="flashcard.jsp">
                                 <div class="lesson-title">Chương 2</div>
                                 <div class="lesson-description">Học về định lý Pythagore và ứng dụng của nó
                                 </div>
                             </a>
                         </div>
                         <div class="lesson" data-class="12" data-subject="Hóa">
-                            <a href="flashcard.html">
+                            <a href="flashcard.jsp">
                                 <div class="lesson-title">Chương 2</div>
                                 <div class="lesson-description">Tìm hiểu về các loại phản ứng hóa học</div>
                             </a>

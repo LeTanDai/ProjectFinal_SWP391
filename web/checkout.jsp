@@ -37,7 +37,7 @@
         <!-- Navbar End -->
 
         <!-- Checkout Form Start -->
-        <div class="checkout-container">
+        <div class="checkout-container" style="background-color: #ffff">
             <div class="checkout-payment">
                 <div class="payment-options">
                     <div class="payment-option">
@@ -69,31 +69,29 @@
                     <label for="cvv">Mã bảo mật:</label>
                     <input type="text" id="cvv" placeholder="CVC" class="input-field" required>
 
-                    <label for="nationality">Quốc tịch:</label>
-                    <input type="text" id="nationality" placeholder="Quốc tịch" class="input-field" value="Viet Nam" required>
-
-                    <button type="submit" class="purchase-button">Thanh toán</button>
+                    <button type="submit" class="purchase-button" style="background-color: #ff6600;">Thanh toán</button>
                 </form>
             </div>
 
-            <div class="checkout-summary">
-                <h2 class="checkout-title" style="color: #ff6600;">Hoàn tất giao dịch</h2>
-                <div class="pricing-info">
-                    <p>250.000 VNĐ/Năm</p>
-                    <p>Giá: 250.000 VNĐ</p>
-                    <p>VAT: 25.000 VNĐ (10% của giá tiền)</p>
-                    <p>Tổng: 275.000 VNĐ</p>
-                </div>
-                <div class="premium-benefits">
+            <div class="checkout-summary" style="margin: 0 auto !important; display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="premium-benefits" style="margin-top: 0 !important; font-size: 20px;">
                     <h3>Đặc quyền tài khoản premium</h3>
-                    <ul>
+                    <ul style=" margin-left: 0 !important;">
                         <li>Truy cập không giới hạn các bài học VIP</li>
                         <li>Ôn tập bằng các bài test</li>
                         <li>Đọc và tải các tài liệu Premium</li>
                     </ul>
                 </div>
-                <div class="note">
-                     (*) Ngân hàng của bạn có thể tính phí xử lý giao dịch tại nước ngoài hoặc phí giao dịch hối đoái.
+                <div>
+                    <div class="pricing-info" style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 0px !important;">
+                    <p>Giá: 250.000 VNĐ</p>
+                    <p>VAT: 25.000 VNĐ (10% của giá tiền)</p>
+                    <p>Tổng: 275.000 VNĐ</p>
+                    <div class="note" style="margin-top: 0 !important;">
+                    (*) Ngân hàng của bạn có thể tính phí xử lý giao dịch tại nước ngoài .
+                </div>
+                </div>
+     
                 </div>
             </div>
         </div>
