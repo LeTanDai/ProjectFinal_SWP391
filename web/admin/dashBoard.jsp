@@ -195,7 +195,7 @@
                     </div>
                     <div class="col-md-3" style="padding-left: 0px !important;">
                         <div class="analytics-card d-flex align-items-center" style="gap: 15px;">
-                            <img src="/img/quiz.png" class="me-3" alt="Calendar Icon" style="width: 38px; height: 38px;" >
+                            <img src="../img/quiz.png" class="me-3" alt="Calendar Icon" style="width: 38px; height: 38px;" >
                             <div class="card-text ms-3">
                                 <div class="number">12+</div>
                                 <div class="label">Bài Ôn Tập</div>

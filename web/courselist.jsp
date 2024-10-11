@@ -37,16 +37,69 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        
+        <style>
+        .sidebar {
+                border: 2px solid #fff;
+                border-radius: 15px;
+                padding: 20px;
+                background-color: #fff;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: black;
+                margin-bottom: 2rem;
+                text-align: center;
+                font-size: 28px;
+            }
+
+            .sidebar-icon {
+                font-size: 1.5rem;
+                color: #FF8C00;
+                margin-right: 10px;
+            }
+
+            .list-group-item {
+                background-color: #ffffff;
+                border: none;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                padding: 12px 20px;
+                font-weight: 500;
+                color: #444;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .list-group-item:hover {
+                background-color: #f9f9f9;
+                cursor: pointer;
+                transform: translateY(-5px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            }
+    </style>
     </head>
     <body>
 
         <!-- Navbar start-->
         <jsp:include page="menu.jsp"/>
         <!-- Navbar End -->
+        
+        <div class="container-fluid page-header" style="margin-bottom: 90px;">
+            <div class="container">
+                <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+                    <h3 class="display-4 text-white text-uppercase" style="text-align: center"> Môn Học</h3>
+                </div>
+            </div>
+        </div>
 
-        <div class="container-fluid py-5">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-9" style="margin-top: 50px; max-width: 1000px; margin-left: auto;">
+                <div class="col-lg-8" style=" max-width: 1000px; margin-left: auto;">
                     <div class="media search-media">
                         <div class="media-body">
                             <!-- Chapter Header -->
@@ -144,24 +197,21 @@
                 </div>
 
 
-                <div class="col-lg-3 mt-5 mt-lg-0">
-                    <!-- Category List -->
-                    <div class="mb-5" style="margin-top: 50px; ">
-                        <h3 class="text-uppercase mb-4"
-                            style="letter-spacing: 5px;">Môn học</h3>
-                        <ul class="list-group list-group-flush" style="margin-top: -20px;">
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <a href
-                                   class="text-decoration-none h6 m-0">Toán Học</a>
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <div class="sidebar-title">Danh mục môn học</div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                <a href="courselist.jsp">Toán</a>
                             </li>
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <a href class="text-decoration-none h6 m-0">Vật Lý</a>
+                             <li class="list-group-item">
+                                <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                <a href="courselist.jsp">Lý</a>
                             </li>
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <a href class="text-decoration-none h6 m-0">Hóa Học</a>
+                             <li class="list-group-item">
+                                <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                <a href="courselist.jsp">Hóa</a>
                             </li>
                         </ul>
                     </div>

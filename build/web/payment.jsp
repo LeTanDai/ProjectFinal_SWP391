@@ -44,7 +44,7 @@
                 <!-- Card 2 -->
                 <div class="card-payment">
                     <div class="header-payment">
-                        <span class="title-payment">Premium</span>
+                        <span class="title-payment" style="color: #ff6600">Premium</span>
                         <span class="price-payment">250.000VND/tháng</span>
                     </div>
                     <p class="desc-payment">Truy cập không giới hạn khóa học nâng cao.</p>
@@ -54,7 +54,7 @@
                         <li class="list">✔ Đọc và tải các tài liệu Premium</li>
                     </ul>
                     <a href="checkout.jsp" class="btn-container">
-                        <button type="button" class="button-payment">Nâng cấp</button>
+                        <button type="button" class="button-payment"style="background-color: #ff6600">Nâng cấp</button>
                     </a>
                 </div>
             </div>
