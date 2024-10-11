@@ -68,8 +68,11 @@
             }
 
             .card {
+                display: flex;
+                flex-direction: row;
+                padding: 30px;
                 border: none;
-                border-radius: 15px;
+                border-radius: 10px;
                 overflow: hidden;
                 transition: all 0.4s ease;
                 background-color: #ffffff;
@@ -102,7 +105,7 @@
                 color: white;
                 font-weight: bold;
                 padding: 0.5rem 1.5rem;
-                border-radius: 30px;
+                border-radius: 10px;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 transition: background-color 0.3s ease, transform 0.2s ease;
@@ -118,20 +121,19 @@
 
             .image-container {
                 width: 100%;
-                max-width: 150px;
+                max-width: 170px;
+                height: 197px;
                 margin: 0 auto;
-                padding: 5px;
                 background-color: #fff;
                 border: 2px solid #FF8C00;
-                border-radius: 15px;
+                border-radius: 10px;
                 box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
             }
 
             .image-container img {
                 width: 100%;
-                height: auto;
-                display: block;
-                border-radius: 10px;
+                height: 100%;
+                border-radius: 8px;
             }
 
             .sidebar {
@@ -149,6 +151,7 @@
                 color: black;
                 margin-bottom: 2rem;
                 text-align: center;
+                font-size: 28px;
             }
 
             .sidebar-icon {
@@ -229,7 +232,7 @@
                         </div>
                         <div class="card-body"><h5 class="card-title">Kĩ thuật giải Toán nhanh lớp 12</h5>
                             <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="#" class="btn-view">Xem chi tiết</a>
+                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
                         </div>
                     </div>
 
@@ -240,18 +243,18 @@
                         <div class="card-body">
                             <h5 class="card-title">Đột phá Tư Duy Toán 12</h5>
                             <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="#" class="btn-view">Xem chi tiết</a>
+                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
                         </div>
                     </div>
 
                     <div class="document-item card mb-4">
                         <div class="image-container">
-                            <img src="https://sachhoc.com/image/cache/catalog/LuyenThi/Lop10-12/Chuyen-de-van-dung-cao-mon-toan-500x554.jpg" alt="Ảnh đại diện của sách Toán 12">
+                            <img src="https://sachhoc.com/image/cache/catalog/LuyenThi/Lop10-12/Chuyen-de-van-dung-cao-mon-toan-500x554.jpg" alt="Ảnh đại diện của sách Toán 12" >
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Toán Nâng Cao 12</h5>
                             <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="#" class="btn-view">Xem chi tiết</a>
+                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
                         </div>
                     </div>
 
@@ -275,10 +278,20 @@
                             </li>
                             <li class="list-group-item">
                                 <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Toán lớp 11</a>
+                                <a href="documentDetail.jsp">Đề thi thử Toán lớp 11</a> 
                             </li>
                         </ul>
+                    </div>
 
+                    <div class="sidebar" style="display: flex;
+                         flex-direction: column;
+                         align-items: center;">
+                        <div class="sidebar-title">Yêu cầu thêm tài liệu</div>
+                        <div style="text-align: center;"><a href="requestAddDocument.jsp" style="text-decoration: none; "><button
+                                    class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px; background-color: #FF8C00"> <svg width="24" height="24"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14 2C14.2652 2 14.5196 2.10536 14.7071 2.29289L19.7071 7.29289C19.8946 7.48043 20 7.73478 20 8V9C20 9.55228 19.5523 10 19 10H13C12.4872 10 12.0645 9.61396 12.0067 9.11662L12 9L11.999 4H7C6.44772 4 6 4.44772 6 5V19C6 19.5523 6.44772 20 7 20H9C9.55228 20 10 20.4477 10 21C10 21.5523 9.55228 22 9 22H7C5.34315 22 4 20.6569 4 19V5C4 3.34315 5.34315 2 7 2H14ZM17 12C17.5523 12 18 12.4477 18 13V16H21C21.5523 16 22 16.4477 22 17C22 17.5523 21.5523 18 21 18H18V21C18 21.5523 17.5523 22 17 22C16.4477 22 16 21.5523 16 21V18H13C12.4477 18 12 17.5523 12 17C12 16.4477 12.4477 16 13 16H16V13C16 12.4477 16.4477 12 17 12ZM13.999 4.414L14 8H17.586L13.999 4.414Z" fill="#fff"/>
+                                    </svg>
+                                    Thêm Tài Liệu</button></a></div>
                     </div>
                 </div>
             </div>

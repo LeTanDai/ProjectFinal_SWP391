@@ -51,31 +51,28 @@
             <div class="row border-top-logo px-xl-5">
                 <div class="col-lg-3-logo">
                     <a href="index.html">
-                        <img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 20%; height: auto;">
+                        <img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 67px; height: 67px;">
                     </a>
                 </div>
                 <div class="col-lg-9">
                     <nav class="navbar navbar-expand-lg navbar-light navbar-link bg-light navbar-light py-3 py-lg-0 px-0">
-                        <a href class="text-decoration-none d-block d-lg-none">
-                            <h1 class="m-0"><span class="text-primary">E</span>COURSES</h1>
-                        </a>
                         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav py-0">
-                                <a href="index.jsp" class="nav-item nav-link active">Trang Chủ</a>
+                                <a href="index.jsp" class="nav-item nav-link " style="font-weight: bold">Trang Chủ</a>
                                 <div class="nav-item dropdown">
-                                    <a href="course.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown">Môn Học</a>
+                                    <a href="course.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-weight: bold">Môn Học</a>
                                     <div class="dropdown-menu rounded-0 m-0">
                                         <a href="course.jsp" class="dropdown-item">Lớp 10</a>
                                         <a href="course.jsp" class="dropdown-item">Lớp 11</a>
                                         <a href="course.jsp" class="dropdown-item">Lớp 12</a>
                                     </div>
                                 </div>
-                                <a href="document.jsp" class="nav-item nav-link">Tài Liệu</a>
-                                <a href="flashcardList.jsp" class="nav-item nav-link">Ôn tập</a>
-                                <a href="payment.jsp" class="nav-item nav-link ">Nâng cấp</a>
+                                <a href="document.jsp" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>
+                                <a href="flashcardList.jsp" class="nav-item nav-link" style="font-weight: bold">Ôn tập</a>
+                                <a href="payment.jsp" class="nav-item nav-link " style="font-weight: bold">Nâng cấp</a>
                             </div>
 
                             <div class="group-search">
@@ -99,6 +96,9 @@
                                     </div>
                                     <a href="userProfile.jsp">
                                         <i class="fas fa-user-circle"></i> Thông tin cá nhân
+                                    </a>
+                                    <a href="admin/dashBoard.jsp">
+                                        <i class="fas fa-user-circle"></i> Quản Lý
                                     </a>
                                     <a href="#">
                                         <i class="fas fa-sign-out-alt"></i> Đăng xuất
