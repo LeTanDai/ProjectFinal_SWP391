@@ -232,7 +232,7 @@
                         </div>
                         <div class="card-body"><h5 class="card-title">Kĩ thuật giải Toán nhanh lớp 12</h5>
                             <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="#" class="btn-view">Xem chi tiết</a>
+                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
                         </div>
                     </div>
 
@@ -243,7 +243,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Đột phá Tư Duy Toán 12</h5>
                             <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="#" class="btn-view">Xem chi tiết</a>
+                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
                         </div>
                     </div>
 
@@ -254,7 +254,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Toán Nâng Cao 12</h5>
                             <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="#" class="btn-view">Xem chi tiết</a>
+                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
                         </div>
                     </div>
 
