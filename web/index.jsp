@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,8 +54,10 @@
                             <div class="p-5" style="width: 100%; max-width: 900px;">
                                 <h5 class="text-white text-uppercase mb-md-3">Best Online Courses</h5>
                                 <h1 class="display-3 text-white mb-md-4">Học,học nữa,học mãi</h1>
-                                <a href="signup.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="width: 140px;">Đăng Ký</a>
-                                <a href="login.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="margin-left: 15px; width: 140px;">Đăng Nhập</a>
+                                <c:if test="${sessionScope.account == null}">
+                                    <a href="signup.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="width: 140px;">Đăng Ký</a>
+                                    <a href="login.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="margin-left: 15px; width: 140px;">Đăng Nhập</a>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -64,9 +67,10 @@
                             <div class="p-5" style="width: 100%; max-width: 900px;">
                                 <h5 class="text-white text-uppercase mb-md-3">Best Online Courses</h5>
                                 <h1 class="display-3 text-white mb-md-4">Học,học nữa,học mãi</h1>
-                                <a href="signup.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="width: 140px;">Đăng Ký</a>
-                                <a href="login.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="margin-left: 15px; width: 140px;">Đăng Nhập</a>
-                            </div>
+                                <c:if test="${sessionScope.account == null}">
+                                    <a href="signup.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="width: 140px;">Đăng Ký</a>
+                                    <a href="login.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="margin-left: 15px; width: 140px;">Đăng Nhập</a>
+                                </c:if> </div>
                         </div>
                     </div>
                     <div class="carousel-item" style="height: 100vh;">
@@ -75,9 +79,10 @@
                             <div class="p-5" style="width: 100%; max-width: 900px;">
                                 <h5 class="text-white text-uppercase mb-md-3">Best Online Courses</h5>
                                 <h1 class="display-3 text-white mb-md-4">Học,học nữa,học mãi</h1>
-                                <a href="signup.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="width: 140px;">Đăng Ký</a>
-                                <a href="login.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="margin-left: 15px; width: 140px;">Đăng Nhập</a>
-                            </div>
+                                <c:if test="${sessionScope.account == null}">
+                                    <a href="signup.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="width: 140px;">Đăng Ký</a>
+                                    <a href="login.jsp" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="margin-left: 15px; width: 140px;">Đăng Nhập</a>
+                                </c:if> </div>
                         </div>
                     </div>
                 </div>

@@ -5,22 +5,21 @@
 
 package controller;
 
-import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.User;
 
 /**
  *
  * @author lethe
  */
-public class LoginController extends HttpServlet {
+@WebServlet(name="LogoutController", urlPatterns={"/logout"})
+public class LogOutController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,18 +31,9 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession();
+        session.removeAttribute("account");
+        response.sendRedirect("index.jsp");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,40 +60,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-        
-        UserDAO loginDAO = new UserDAO();
-        User u = loginDAO.checkLogin(username, password);
-        if(u == null){
-            request.setAttribute("error", "Wrong username or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }else{
-            HttpSession session = request.getSession();
-            session.setAttribute("account", u);
-            //Tao cookie
-            Cookie cuser = new Cookie("cuser", username);
-            Cookie cpass = new Cookie("cpass",password);
-            Cookie crem = new Cookie("crem",remember);
-            if(remember != null){
-                cuser.setMaxAge(60*60*24*90);
-                cpass.setMaxAge(60*60*24*90);
-                crem.setMaxAge(60*60*24*90);
-            }else{
-                cuser.setMaxAge(0);
-                cpass.setMaxAge(0);
-                crem.setMaxAge(0);
-            }
-            response.addCookie(cuser);
-            response.addCookie(cpass);
-            response.addCookie(crem);
-            if (u.isIsAdmin() == true) {
-                response.sendRedirect("admin/listUser.jsp");
-            } else {
-            response.sendRedirect("index.jsp");
-            }
-        }
+        processRequest(request, response);
     }
 
     /** 
