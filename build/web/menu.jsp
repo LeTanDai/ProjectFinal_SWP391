@@ -92,12 +92,15 @@
                             <div id="userDropdown" class="user-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <c:if test="${sessionScope.account != null}">
-                                    <div class="user-profile">
-                                        <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
-                                        <span>${sessionScope.account.userName}</span>
-                                    </div>
+                                        <div class="user-profile">
+                                            <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
+                                            <span>${sessionScope.account.userName}</span>
+                                        </div>
                                         <a href="userProfile.jsp">
                                             <i class="fas fa-user-circle"></i> Thông tin cá nhân
+                                        </a>
+                                        <a href="ResetPasswordController">
+                                            <i class="fas fa-key"></i> Đổi mật khẩu
                                         </a>
 
                                         <a href="admin/dashBoard.jsp">
@@ -111,7 +114,7 @@
                                         <a href="login.jsp">
                                             <i class="fas fa-sign-out-alt"></i> Đăng nhập
                                         </a>
-                                        </c:if>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
