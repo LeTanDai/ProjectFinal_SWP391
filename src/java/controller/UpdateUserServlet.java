@@ -9,21 +9,24 @@ import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
 
 /**
  *
- * @author lethe
+ * @author PC
  */
-public class LoginController extends HttpServlet {
+public class UpdateUserServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +43,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");  
+            out.println("<title>Servlet UpdateUserServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet UpdateUserServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,54 +76,42 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String remember = request.getParameter("remember");
-            
-            UserDAO loginDAO = new UserDAO();
-            User u = loginDAO.checkLogin(username, password);
-            if(u == null){
-                request.setAttribute("error", "Wrong username or password");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }else{
-                HttpSession session = request.getSession();
-                session.setAttribute("account", u);
-                String classify;
-                if (u.isIsAdmin()) {
-                    classify = "Admin";
-                } else if (u.isIsPremium()) {
-                    classify = "Premium User";
-                } else {
-                    classify = "Normal User";
-                }
-                session.setAttribute("classify", classify);
-                //Tao cookie
-                Cookie cuser = new Cookie("cuser", username);
-                Cookie cpass = new Cookie("cpass",password);
-                Cookie crem = new Cookie("crem",remember);
-                if(remember != null){
-                    cuser.setMaxAge(60*60*24*90);
-                    cpass.setMaxAge(60*60*24*90);
-                    crem.setMaxAge(60*60*24*90);
-                }else{
-                    cuser.setMaxAge(0);
-                    cpass.setMaxAge(0);
-                    crem.setMaxAge(0);
-                }
-                response.addCookie(cuser);
-                response.addCookie(cpass);
-                response.addCookie(crem);
-                if (u.isIsAdmin() == true) {
-                    response.sendRedirect("admin/listUser.jsp");
-                } else {
-                    response.sendRedirect("index.jsp");
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  
+    try {
+        UserDAO dao = new UserDAO();
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("account");
+        int id = u.getUserId();
+        String fName = request.getParameter("fullName");
+        String dobS = request.getParameter("dob");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phoneNumber");
+        String address = request.getParameter("address");
+        String avatar = request.getParameter("avatar");
+        
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date dob = formatter.parse(dobS);
+        java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
+        
+        // Update user profile without avatar
+        dao.updateUserProfile(fName, email, sqlDob, phone, address, avatar, id);
+        
+        u.setAvatar(avatar);
+        u.setfName(fName);
+        u.setDob(sqlDob);
+        u.setAddress(address);
+        u.setPhone(phone);
+        u.setEmail(email);
+        session.setAttribute("account", u);
+        request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ParseException ex) {
+        Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
 
     /** 
      * Returns a short description of the servlet.

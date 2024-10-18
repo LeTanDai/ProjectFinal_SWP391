@@ -71,7 +71,7 @@
                                         <a href="course.jsp" class="dropdown-item">Lớp 12</a>
                                     </div>
                                 </div>
-                                <a href="document.jsp" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>
+                                <a href="DocumentController" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>
                                 <a href="flashcardList.jsp" class="nav-item nav-link" style="font-weight: bold">Ôn tập</a>
                                 <a href="payment.jsp" class="nav-item nav-link " style="font-weight: bold">Nâng cấp</a>
                             </div>

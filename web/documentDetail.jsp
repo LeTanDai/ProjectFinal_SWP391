@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,32 +90,22 @@
             <div class="col-lg-8"
                 style=" max-width: 1000px;
             margin-left: auto;">
-                <iframe src="files/Tieng-Anh_-De-thi-chinh-thuc_K24_Ma-de-thi-402.pdf" type="application/docx" frameborder="1" width="100%" height="1000px"></iframe>
+                <iframe src="${ex.examUrl}" type="application/docx" frameborder="1" width="100%" height="1000px"></iframe>
             </div>
 
             <div class="col-lg-4">
                     <div class="sidebar">
                         <div class="sidebar-title">Danh mục đề thi</div>
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Toán lớp 12</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Vật lý lớp 12</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Hóa học lớp 12</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Toán lớp 11</a> 
-                            </li>
+                            <c:forEach items="${listEx}" var="exam">
+                                <li class="list-group-item">
+                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                    <a href="examDetail.jsp?examId=${exam.examId}">${exam.examName}</a>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
-                <div style="display:flex; justify-content: center;"><a href="document.jsp" style="text-decoration: none; "><button
+                <div style="display:flex; justify-content: center;"><a href="DocumentController" style="text-decoration: none; "><button
                                     class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px;"> <svg
                                             width="24" height="24"
                                             viewBox="0 0 24 24" fill="none"

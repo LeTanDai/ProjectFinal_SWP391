@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +40,6 @@
 
         <link href="css/style.css" rel="stylesheet">
         <style>
-
             .section-title {
                 font-size: 2.5rem;
                 font-weight: 700;
@@ -63,7 +63,7 @@
             }
 
             .document-item {
-                max-width: 575px;
+                max-width: 100%; /* Đảm bảo full width */
                 margin: 0 auto;
             }
 
@@ -77,6 +77,7 @@
                 transition: all 0.4s ease;
                 background-color: #ffffff;
                 box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
             }
 
             .card:hover {
@@ -86,6 +87,7 @@
 
             .card-body {
                 padding: 20px;
+                flex-grow: 1;
             }
 
             .card-title {
@@ -120,7 +122,6 @@
             }
 
             .image-container {
-                width: 100%;
                 max-width: 170px;
                 height: 197px;
                 margin: 0 auto;
@@ -194,7 +195,8 @@
                     max-width: 90%;
                 }
 
-                .col-lg-4 {
+                .col-lg-8, .col-lg-4 {
+                    width: 100%; /* Đảm bảo chia đều khi ở màn hình nhỏ */
                     margin-top: 20px;
                 }
 
@@ -207,9 +209,9 @@
     </head>
 
     <body>
-        <!--     Navbar start-->
-        <jsp:include page="menu.jsp"/>
-        <!--     Navbar End -->
+        <!-- Navbar start-->
+        <jsp:include page="menu.jsp" />
+        <!-- Navbar End -->
 
         <div class="container-fluid page-header" style="margin-bottom: 90px;">
             <div class="container">
@@ -218,68 +220,44 @@
                 </div>
             </div>
         </div>
-        <!--     Header End -->
+
         <!-- Main Content Section -->
         <div class="container">
             <div class="row">
                 <!-- Left Content: Tài liệu Sách -->
                 <div class="col-lg-8">
+                    <c:if test="${empty listDoc}">
+                        <div class="alert alert-warning" role="alert">Không có tài liệu nào được tìm thấy.</div>
+                    </c:if>
 
-                    <!-- Document Item with Image -->
-                    <div class="document-item card mb-4">
-                        <div class="image-container">
-                            <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/362/945/products/kythuatgiainhanhbaitoanhayvakh.jpg?v=1617001458097" alt="Ảnh đại diện của sách Toán 12">
+                    <c:forEach items="${listDoc}" var="document">
+                        <div class="document-item card mb-4">
+                            <div class="image-container">
+                                <img src="${document.image_url}" alt="Ảnh đại diện của ${document.docName}" loading="lazy">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${document.docName}</h5>
+                                <p class="card-text">Môn: ${document.subject.subjectName}</p>
+                                <a href="BookDetailController?documentId=${document.docId}" class="btn-view">Xem chi tiết</a>
+                            </div>
                         </div>
-                        <div class="card-body"><h5 class="card-title">Kĩ thuật giải Toán nhanh lớp 12</h5>
-                            <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
-                        </div>
-                    </div>
-
-                    <div class="document-item card mb-4">
-                        <div class="image-container">
-                            <img src="https://salt.tikicdn.com/cache/550x550/ts/product/a7/77/6c/32fd12553d9547fcb9aabb36ec14e737.png" alt="Ảnh đại diện của sách Toán 12">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Đột phá Tư Duy Toán 12</h5>
-                            <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
-                        </div>
-                    </div>
-
-                    <div class="document-item card mb-4">
-                        <div class="image-container">
-                            <img src="https://sachhoc.com/image/cache/catalog/LuyenThi/Lop10-12/Chuyen-de-van-dung-cao-mon-toan-500x554.jpg" alt="Ảnh đại diện của sách Toán 12" >
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Toán Nâng Cao 12</h5>
-                            <p class="card-text">Môn: Toán lớp 12</p>
-                            <a href="bookview.jsp" class="btn-view">Xem chi tiết</a>
-                        </div>
-                    </div>
-
+                    </c:forEach>
                 </div>
 
+                <!-- Right Content: Sidebar -->
                 <div class="col-lg-4">
                     <div class="sidebar">
                         <div class="sidebar-title">Danh mục đề thi</div>
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Toán lớp 12</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Vật lý lớp 12</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Hóa học lớp 12</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="documentDetail.jsp">Đề thi thử Toán lớp 11</a> 
-                            </li>
+                            <c:if test="${empty listE}">
+                                <li class="list-group-item">Không có kỳ thi nào được tìm thấy.</li>
+                            </c:if>
+                            <c:forEach items="${listE}" var="ex">
+                                <li class="list-group-item">
+                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                    <a href="ExamDetailController?examId=${ex.examId}">${ex.examName}</a>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
 
