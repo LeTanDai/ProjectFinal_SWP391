@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import dao.UserDAO;
@@ -17,7 +18,7 @@ import model.User;
  *
  * @author lethe
  */
-public class SignUpController extends HttpServlet {
+public class SignUpController_ extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,7 +39,8 @@ public class SignUpController extends HttpServlet {
         String re_pass = request.getParameter("repassword");
 
         if (!password.equals(re_pass)) {
-            response.sendRedirect("login.jsp");
+            request.setAttribute("Error", "Password is not match !");
+            response.sendRedirect("signup.jsp");
         } else {
             UserDAO loginDAO = new UserDAO();
             User user = loginDAO.checkAccountExist(username);

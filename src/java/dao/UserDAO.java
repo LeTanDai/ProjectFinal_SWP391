@@ -53,17 +53,16 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-    public void signUp(String username, String password, String email, String phone){
+    public void signUp(String username, String password, String email, String phone) {
         String sql = "INSERT INTO Users (username, [password], email, phone_number,full_name, dob, gender, avatar, isAdmin,isNormal,isPremium,[address]) VALUES (?,?,?,?,'','','','','0','1','0','')";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, password);
             st.setString(3, email);
             st.setString(4, phone);
             st.executeUpdate();
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -83,8 +82,8 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
-        public void updatePassword(User user) {
+
+    public void updatePassword(User user) {
         String sql = "UPDATE Users SET password = ? WHERE username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -94,5 +93,27 @@ public class UserDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public User checkEmail(String email) {
+        String sql = "SELECT * FROM Users WHERE email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("full_name"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static void main(String[] args) {
+        UserDAO dao = new UserDAO();
+        User u = dao.checkEmail("lethebao1404@gmail.com");
+        System.out.println(u.toString());
     }
 }
