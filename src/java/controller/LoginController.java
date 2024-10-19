@@ -9,6 +9,7 @@ import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import model.User;
  *
  * @author lethe
  */
+@WebServlet(name="LoginController", urlPatterns={"/Login"})
 public class LoginController extends HttpServlet {
    
     /** 
@@ -57,7 +59,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     } 
 
     /** 
@@ -67,44 +69,26 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-        
-        UserDAO loginDAO = new UserDAO();
-        User u = loginDAO.checkLogin(username, password);
-        if(u == null){
-            request.setAttribute("error", "Wrong username or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }else{
-            HttpSession session = request.getSession();
-            session.setAttribute("account", u);
-            //Tao cookie
-            Cookie cuser = new Cookie("cuser", username);
-            Cookie cpass = new Cookie("cpass",password);
-            Cookie crem = new Cookie("crem",remember);
-            if(remember != null){
-                cuser.setMaxAge(60*60*24*90);
-                cpass.setMaxAge(60*60*24*90);
-                crem.setMaxAge(60*60*24*90);
-            }else{
-                cuser.setMaxAge(0);
-                cpass.setMaxAge(0);
-                crem.setMaxAge(0);
-            }
-            response.addCookie(cuser);
-            response.addCookie(cpass);
-            response.addCookie(crem);
-            if (u.isIsAdmin() == true) {
-                response.sendRedirect("admin/listUser.jsp");
-            } else {
-            response.sendRedirect("index.jsp");
-            }
-        }
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    
+    UserDAO loginDAO = new UserDAO();
+    User u = loginDAO.checkLogin(username, password);
+    
+    if (u == null) {
+        request.setAttribute("error", "Wrong username or password");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+    } else {
+        // Lưu thông tin người dùng vào session
+        HttpSession session = request.getSession();
+        session.setAttribute("account", u); // Lưu đối tượng User vào session
+        response.sendRedirect("index.jsp"); // Chuyển hướng đến servlet lấy thông tin người dùng
     }
+}
+
 
     /** 
      * Returns a short description of the servlet.

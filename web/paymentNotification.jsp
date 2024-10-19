@@ -82,7 +82,7 @@
         <jsp:include page="menu.jsp"/>
         <div class="success-container">
             <h2 class="success-title">Payment Successful</h2>
-            <p class="success-message">Your payment has been processed successfully!</p>
+            <p class="success-message">Your payment has been processed successfully!your account has been upgrade to premium!</p>
             <a href="index.jsp" class="home-button">Return to Homepage</a>
         </div>
         <jsp:include page="footer.jsp"/>
