@@ -5,6 +5,7 @@
 package dao;
 
 import context.DBContext;
+import jakarta.servlet.http.HttpSession;
 import model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -123,4 +124,99 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
+   public List<User> getAllUsers() {
+    List<User> userList = new ArrayList<>();
+    String sql = "SELECT * FROM Users"; // Câu lệnh SQL để lấy tất cả người dùng
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            User u = new User(
+                rs.getInt("user_id"),
+                rs.getString("full_name"),
+                rs.getString("username"),
+                rs.getString("password"),
+                rs.getDate("dob"),
+                rs.getBoolean("gender"),
+                rs.getString("phone_number"),
+                rs.getString("email"),
+                rs.getString("avatar"),
+                rs.getBoolean("isNormal"),
+                rs.getBoolean("isPremium"),
+                rs.getBoolean("isAdmin"),
+                rs.getString("address")
+            );
+            userList.add(u);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return userList;
+}
+public User getUserInfoBySession(HttpSession session) {
+    // Lấy thông tin người dùng từ session
+    if (session != null) {
+        User user = (User) session.getAttribute("account");
+        if (user != null) {
+            return user; // Trả về thông tin người dùng nếu tồn tại
+        }
+    }
+    return null; // Trả về null nếu không tìm thấy
+}
+ public void updateUser(User user) {
+    String sql = "UPDATE Users SET isPremium = ?, isNormal = ? WHERE user_id = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setBoolean(1, user.isIsPremium());
+        st.setBoolean(2, false); // Đặt isNormal về false (0)
+        st.setInt(3, user.getUserId());
+        st.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    public int countPremiumUser() {
+    String sql = "SELECT COUNT(*) FROM Users WHERE isPremium = 1";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1); // Lấy số lượng Premium user
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu có lỗi
+}
+
+public int countNormalUser() {
+    String sql = "SELECT COUNT(*) FROM Users WHERE isNormal = 1";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1); // Lấy số lượng Normal user
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu có lỗi
+}
+public int countAdminUser() {
+    String sql = "SELECT COUNT(*) FROM Users WHERE isAdmin = 1"; // Câu lệnh SQL để đếm admin user
+    int count = 0;
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1); // Lấy số lượng admin user
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
+
+
 }

@@ -1,4 +1,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="dao.UserDAO"%>
+<%
+    UserDAO userDao = new UserDAO();
+    int normalUserCount = userDao.countNormalUser(); // Lấy số lượng Normal User
+    int premiumUserCount = userDao.countPremiumUser(); // Lấy số lượng Premium User
+    int adminUserCount = userDao.countAdminUser(); // Lấy số lượng Admin User
+
+    // Tính toán profit
+    int normalUserProfit = normalUserCount * 0; // Profit cho Normal User
+    int premiumUserProfit = premiumUserCount * 30000; // Profit cho Premium User
+    int adminUserProfit = adminUserCount * 0; // Profit cho Admin User
+
+    // Đưa dữ liệu vào JSON để sử dụng trong JavaScript
+    String jsonData = String.format("{\"quantity\": {\"normalUser\": %d, \"premiumUser\": %d, \"adminUser\": %d}, \"profit\": {\"normalUser\": %d, \"premiumUser\": %d, \"adminUser\": %d}}",
+            normalUserCount, premiumUserCount, adminUserCount,
+            normalUserProfit, premiumUserProfit, adminUserProfit);
+    
+    // Tính tổng số người dùng
+    int totalUserCount = normalUserCount + premiumUserCount + adminUserCount;
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,7 +145,7 @@
 
             <!-- Main Content -->
             <div class="col-md-10" >
-                <div class="row">
+                         <div class="row">
                     <!-- Dropdown Section -->
                     <div class="dropdown-light d-flex justify-content-end mt-3 px-4">
                         <div class="fields">
@@ -146,7 +166,7 @@
                                     <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
                                   </svg>
                             <div class="card-text ms-3">
-                                <div class="number">178+</div>
+                                <div class="number"><%= totalUserCount %></div>
                                 <div class="label">Người Dùng</div>
                             </div>
                         </div>
@@ -204,24 +224,12 @@
                     </div>
                 </div>
 
-                 <!-- User Growth Chart -->
-                 <div class="row mt-4 px-4">
-                    <div class="col-md-12" style="padding-left: 0 !important; max-height: 400px; margin-bottom: 40px; ">
-                        <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" >
-                            <h4 class="fw-bold" style="text-align: center;">Thống Kê Người Dùng</h4>
-                            <canvas id="userGrowthChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-                <!-- Recent Orders & Top Selling Products -->
+                <!--Thống Kê Số Lượng phần trăm người dùng -->
                 <div class="row mt-4 px-4" style="margin-bottom: 30px;">
                     <!-- Recent Orders Section -->
                     <div class="col-md-6" style="padding-left: 0px !important;">
                         <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                            <h4 class="fw-bold" style="padding: 20px 10px 0;">Thống Kê Số Lượng Tài Liệu</h4>
+                            <h4 class="fw-bold" style="padding: 20px 10px 0;">Thống Kê Số Lượng phần trăm người dùng</h4>
                             <div class="d-flex justify-content-center align-items-center" style="position: relative;">
                                 <canvas id="myChart" style="width: 100%; max-width: 300px; max-height: 300px;"></canvas>
                             </div>
@@ -229,91 +237,64 @@
                     </div>
 
                     <!-- Top Selling Products Section -->
-                    <div class="col-md-6">
-                        <div class="top-selling-products bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; height: 100%;">
-                            <div class="d-flex justify-content-between mb-4">
-                                <h4 class="fw-bold" style="padding: 20px 10px 0;">Thống Kê Doanh Thu</h4>
-                                <div class="btn-group">
-                                    <button id="monthBtn" class="btn btn-light">Month</button>
-                                    <button id="weekBtn" class="btn btn-primary">Week</button>
-                                </div>
-                            </div>
-                            <div class="bar" style="padding: 10px;">
-                                <span class="bar-label">Toán</span>
-                                <div class="bar-fill" style="max-width: 460px;">
-                                    <div class="fill fill-google" style="width: 0%;"></div>
-                                </div>
-                                <span class="bar-value bar-google-value">48,345</span>
-                            </div>
-                            <div class="bar" style="padding: 10px;">
-                                <span class="bar-label">Vật Lý</span>
-                                <div class="bar-fill">
-                                    <div class="fill fill-social" style="width: 0;"></div>
-                                </div>
-                                <span class="bar-value bar-social-value">30,000</span>
-                            </div>
-                            <div class="bar" style="padding: 10px;">
-                                <span class="bar-label">Hóa Học</span>
-                                <div class="bar-fill">
-                                    <div class="fill fill-direct" style="width: 0;"></div>
-                                </div>
-                                <span class="bar-value bar-direct-value">23,789</span>
-                            </div>
-                            <div class="chart-footer" id="chart-footer" style="padding: 15px;"></div>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-md-6">
+    <div class="top-selling-products bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; height: 100%;">
+        <div class="d-flex justify-content-between mb-4">
+            <h4 class="fw-bold" style="padding: 20px 10px 0;">Thống Kê Doanh Thu</h4>
+            <div class="btn-group">
+                <button id="monthBtn" class="btn btn-light">Quantity</button>
+                <button id="weekBtn" class="btn btn-primary">Profit</button>
+            </div>
+        </div>
+        <div class="bar" style="padding: 10px;">
+            <span class="bar-label">Normal User</span>
+            <div class="bar-fill" style="max-width: 460px;">
+                <div class="fill fill-google" style="width: 0%;"></div>
+            </div>
+            <span class="bar-value bar-google-value">0</span>
+        </div>
+        <div class="bar" style="padding: 10px;">
+            <span class="bar-label">Premium User</span>
+            <div class="bar-fill">
+                <div class="fill fill-social" style="width: 0;"></div>
+            </div>
+            <span class="bar-value bar-social-value">0</span>
+        </div>
+        <div class="bar" style="padding: 10px;">
+            <span class="bar-label">Admin</span>
+            <div class="bar-fill">
+                <div class="fill fill-direct" style="width: 0;"></div>
+            </div>
+            <span class="bar-value bar-direct-value">0</span>
+        </div>
+        <div>-----------------------------------------------------------------------------------------------------------------------------</div>
+    </div>
+</div>
 
             </div> <!-- End of Main Content -->
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Chart.js Initialization -->
-    <script>
-        const ctx = document.getElementById('userGrowthChart').getContext('2d');
-        const userGrowthChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', ' Tháng9'],
-                datasets: [{
-                    label: 'Số Lượng Người Dùng',
-                    data: [120, 150, 180, 220, 240, 270, 320, 350, 400],
-                    borderColor: '#FF6600',
-                    backgroundColor: 'rgba(255, 102, 0, 0.2)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Users'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month'
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+ 
 <script>
-    var xValues = ["Tài Liệu Chữ", "Video"];
-    var yValues = [55, 45];
-    var barColors = ["#f7941d", "#f47c3c "];
+    // Nhận giá trị số lượng người dùng từ JSP
+    var normalUserCount = <%= normalUserCount %>;
+    var premiumUserCount = <%= premiumUserCount %>;
+    var adminUserCount = <%= adminUserCount %>; // Thêm số lượng admin user
+
+    // Tính tổng số user
+    var totalUsers = normalUserCount + premiumUserCount + adminUserCount;
+
+    // Tính phần trăm
+    var normalUserPercentage = (normalUserCount / totalUsers * 100).toFixed(2); // Phần trăm Normal User
+    var premiumUserPercentage = (premiumUserCount / totalUsers * 100).toFixed(2); // Phần trăm Premium User
+    var adminUserPercentage = (adminUserCount / totalUsers * 100).toFixed(2); // Phần trăm Admin User
+
+    // Gán phần trăm vào yValues
+    var xValues = ["Normal User", "Premium User", "Admin"]; // Thêm Admin User vào danh sách
+    var yValues = [normalUserPercentage, premiumUserPercentage, adminUserPercentage]; // Thay giá trị thành phần trăm
+    var barColors = ["#f7941d", "#f47c3c", "#4caf50"]; // Thêm màu sắc cho Admin User
 
     new Chart("myChart", {
         type: "doughnut",
@@ -335,8 +316,12 @@
                 tooltip: {
                     enabled: true,
                     callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                        label: function(tooltipItem, data) {
+                            // Hiển thị số lượng và phần trăm trong tooltip
+                            var label = data.labels[tooltipItem.dataIndex];
+                            var value = data.datasets[0].data[tooltipItem.dataIndex];
+                            var count = tooltipItem.dataIndex === 0 ? normalUserCount : (tooltipItem.dataIndex === 1 ? premiumUserCount : adminUserCount); // Xác định loại user
+                            return label + ': ' + count + ' users (' + value + '%)';
                         }
                     }
                 },
@@ -361,54 +346,55 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const weekData = {
-        math: 48345,
-        physics: 30000,
-        chemistry: 23789
+    const data = <%= jsonData %>;
+
+    const updateChart = (data, type) => {
+        const maxDataValue = Math.max(data.quantity.normalUser, data.quantity.premiumUser, data.quantity.adminUser);
+        const footerStep = 150; // Max height set to 150
+
+        $('#chart-footer').html(`
+            <span>0</span>
+            <span>${footerStep / 4}k</span>
+            <span>${(footerStep * 2) / 4}k</span>
+            <span>${(footerStep * 3) / 4}k</span>
+            <span>${footerStep}k</span>
+        `);
+
+        if (type === 'quantity') {
+            $('.fill-google').animate({ width: `${(data.quantity.normalUser / footerStep) * 100}%` }, 500);
+            $('.fill-social').animate({ width: `${(data.quantity.premiumUser / footerStep) * 100}%` }, 500);
+            $('.fill-direct').animate({ width: `${(data.quantity.adminUser / footerStep) * 100}%` }, 500);
+
+            $('.bar-google-value').text(data.quantity.normalUser.toLocaleString());
+            $('.bar-social-value').text(data.quantity.premiumUser.toLocaleString());
+            $('.bar-direct-value').text(data.quantity.adminUser.toLocaleString());
+        } else {
+            $('.fill-google').animate({ width: `${(data.profit.normalUser / footerStep) * 100}%` }, 500);
+            $('.fill-social').animate({ width: `${(data.profit.premiumUser / footerStep) * 100}%` }, 500);
+            $('.fill-direct').animate({ width: `${(data.profit.adminUser / footerStep) * 100}%` }, 500);
+
+            $('.bar-google-value').text(data.profit.normalUser.toLocaleString());
+            $('.bar-social-value').text(data.profit.premiumUser.toLocaleString());
+            $('.bar-direct-value').text(data.profit.adminUser.toLocaleString());
+        }
     };
 
-    const monthData = {
-        math: 193450,
-        physics: 125000,
-        chemistry: 95000
-    };
+    $('#monthBtn').click(() => {
+        $('#monthBtn').addClass('btn-primary').removeClass('btn-light');
+        $('#weekBtn').addClass('btn-light').removeClass('btn-primary');
+        updateChart(data, 'quantity');
+    });
 
-    const updateChart = (data) => {
-            const maxDataValue = Math.max(data.math, data.physics, data.chemistry);
-            const footerStep = Math.ceil(maxDataValue / 4 / 10000) * 10000;
+    $('#weekBtn').click(() => {
+        $('#weekBtn').addClass('btn-primary').removeClass('btn-light');
+        $('#monthBtn').addClass('btn-light').removeClass('btn-primary');
+        updateChart(data, 'profit');
+    });
 
-            $('#chart-footer').html(`
-                <span>0</span>
-                <span>${footerStep / 1000}k</span>
-                <span>${(footerStep * 2) / 1000}k</span>
-                <span>${(footerStep * 3) / 1000}k</span>
-                <span>${(footerStep * 4) / 1000}k</span>
-            `);
-
-            $('.fill-google').animate({ width: `${(data.math / (footerStep * 4)) * 100}%` }, 500);
-            $('.fill-social').animate({ width: `${(data.physics / (footerStep * 4)) * 100}%` }, 500);
-            $('.fill-direct').animate({ width: `${(data.chemistry / (footerStep * 4)) * 100}%` }, 500);
-
-            $('.bar-google-value').text(data.math.toLocaleString());
-            $('.bar-social-value').text(data.physics.toLocaleString());
-            $('.bar-direct-value').text(data.chemistry.toLocaleString());
-        };
-
-        $('#weekBtn').click(() => {
-            $('#weekBtn').addClass('btn-primary').removeClass('btn-light');
-            $('#monthBtn').addClass('btn-light').removeClass('btn-primary');
-            updateChart(weekData);
-        });
-
-        $('#monthBtn').click(() => {
-            $('#monthBtn').addClass('btn-primary').removeClass('btn-light');
-            $('#weekBtn').addClass('btn-light').removeClass('btn-primary');
-            updateChart(monthData);
-        });
-
-
-    updateChart(weekData);
+    // Khởi chạy với dữ liệu lượng ban đầu
+    updateChart(data, 'profit');
 </script>
 </body>
 
