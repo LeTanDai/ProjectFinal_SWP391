@@ -85,8 +85,13 @@ throws ServletException, IOException {
         // Lưu thông tin người dùng vào session
         HttpSession session = request.getSession();
         session.setAttribute("account", u); // Lưu đối tượng User vào session
-        response.sendRedirect("index.jsp"); // Chuyển hướng đến servlet lấy thông tin người dùng
+        if (u.isIsAdmin() == true) {
+                response.sendRedirect("admin/listUser.jsp");
+            } else {
+            response.sendRedirect("index.jsp");
+            }
     }
+    
 }
 
 

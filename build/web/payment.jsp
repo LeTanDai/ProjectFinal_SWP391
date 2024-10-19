@@ -53,7 +53,7 @@
                         <li class="list">✔ Ôn tập bằng các bài test</li>
                         <li class="list">✔ Đọc và tải các tài liệu Premium</li>
                     </ul>
-                    <a href="checkout.jsp" class="btn-container">
+                    <a href="/FinalProject_SWP391/checkout" class="btn-container">
                         <button type="button" class="button-payment"style="background-color: #ff6600">Nâng cấp</button>
                     </a>
                 </div>
