@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author TanDai
+ * @author PC
  */
 public class Document {
     private int docId;
@@ -14,16 +14,18 @@ public class Document {
     private String docName;    
     private String image_url;
     private int subject_id;
+    private int class_id;
 
     public Document() {
     }
 
-    public Document(int docId, String doc_url, String docName, String image_url, int subject_id) {
+    public Document(int docId, String doc_url, String docName, String image_url, int subject_id, int class_id) {
         this.docId = docId;
         this.doc_url = doc_url;
         this.docName = docName;
         this.image_url = image_url;
         this.subject_id = subject_id;
+        this.class_id = class_id;
     }
 
     public int getDocId() {
@@ -66,9 +68,19 @@ public class Document {
         this.subject_id = subject_id;
     }
 
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
+    }
+
     @Override
     public String toString() {
-        return "Document{" + "docId=" + docId + ", doc_url=" + doc_url + ", docName=" + docName + ", image_url=" + image_url + ", subject_id=" + subject_id + "} \n";
+        return "Document{" + "docId=" + docId + ", doc_url=" + doc_url + ", docName=" + docName + ", image_url=" + image_url + ", subject_id=" + subject_id + ", class_id=" + class_id + "} \n";
     }
+    
+    
     
 }

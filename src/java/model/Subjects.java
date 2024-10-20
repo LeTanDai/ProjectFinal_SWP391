@@ -6,10 +6,9 @@ package model;
 
 /**
  *
- * @author TanDai
+ * @author PC
  */
 public class Subjects {
-
     private int id;
     private String name;
 
@@ -36,4 +35,11 @@ public class Subjects {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Subject{" + "subjectId=" + id + ", subjectName=" + name + "} \n";
+    }
+    
+    
 }
