@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package model;
 
 /**
  *
- * @author Admin
+ * @author PC
  */
 public class Classes {
     private int id;
@@ -35,5 +35,11 @@ public class Classes {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "ClassS{" + "classId=" + id + ", className=" + name + "} \n";
+    }
+    
     
 }
