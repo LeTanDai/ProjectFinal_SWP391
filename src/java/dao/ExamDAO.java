@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.ClassS;
 import model.Exam;
-import model.Subject;
 
 /**
  *
@@ -25,20 +23,16 @@ public class ExamDAO extends DBContext{
     public List<Exam> getAllExam() throws SQLException {
         List<Exam> examList = new ArrayList<>();
         String sql = "SELECT * FROM Exam";
-        SubjectDAO subDAO = new SubjectDAO();
-        ClassDAO clDAO = new ClassDAO();
         try (PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
-                Subject subject = subDAO.getSubjectById(rs.getInt("subject_id"));
-                ClassS _class = clDAO.getClassById(rs.getInt("class_id"));
                 Exam ex = new Exam(
                     rs.getInt("exam_id"),
                     rs.getString("exam_url"),
                     rs.getString("exam_name"),
-                    _class,
-                    subject
+                    rs.getInt("class_id"),
+                    rs.getInt("subject_id")
                 );
 
                 examList.add(ex);
@@ -56,8 +50,8 @@ public class ExamDAO extends DBContext{
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, exam.getExamUrl());
             st.setString(2, exam.getExamName());
-            st.setInt(3, exam.getClassS().getClassId());  // Giả sử getClassS() trả về ClassS object
-            st.setInt(4, exam.getSubject().getSubjectId());  // Giả sử getSubject() trả về Subject object
+            st.setInt(3, exam.getClass_id());  // Giả sử getClassS() trả về ClassS object
+            st.setInt(4, exam.getSubject_id());  // Giả sử getSubject() trả về Subject object
 
             st.executeUpdate(); // Không cần trả về giá trị
         } catch (SQLException e) {
@@ -71,8 +65,8 @@ public class ExamDAO extends DBContext{
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, exam.getExamUrl());
             st.setString(2, exam.getExamName());
-            st.setInt(3, exam.getClassS().getClassId());
-            st.setInt(4, exam.getSubject().getSubjectId());
+            st.setInt(3, exam.getClass_id());
+            st.setInt(4, exam.getSubject_id());
             st.setInt(5, exam.getExamId()); // Điều kiện cập nhật theo exam_id
 
             st.executeUpdate(); // Không cần trả về giá trị
@@ -96,22 +90,18 @@ public class ExamDAO extends DBContext{
     public Exam getExamById(int examId) throws SQLException {
         String sql = "SELECT * FROM Exam WHERE exam_id = ?";
         Exam exam = null;
-        SubjectDAO subDAO = new SubjectDAO();
-        ClassDAO clDAO = new ClassDAO();
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, examId);
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    Subject subject = subDAO.getSubjectById(rs.getInt("subject_id"));
-                    ClassS _class = clDAO.getClassById(rs.getInt("class_id"));
 
                     exam = new Exam(
                         rs.getInt("exam_id"),
                         rs.getString("exam_url"),
                         rs.getString("exam_name"),
-                        _class,
-                        subject
+                        rs.getInt("class_id"),
+                        rs.getInt("subject_id")
                     );
                 }
             }

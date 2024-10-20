@@ -12,18 +12,18 @@ public class Exam {
     private int examId;
     private String examUrl;
     private String examName;
-    private ClassS _class;
-    private Subject subject;
+    private int class_id;
+    private int subject_id;
 
     public Exam() {
     }
 
-    public Exam(int examId, String examUrl, String examName, ClassS _class, Subject subject) {
+    public Exam(int examId, String examUrl, String examName, int class_id, int subject_id) {
         this.examId = examId;
         this.examUrl = examUrl;
         this.examName = examName;
-        this._class = _class;
-        this.subject = subject;
+        this.class_id = class_id;
+        this.subject_id = subject_id;
     }
 
     public int getExamId() {
@@ -50,25 +50,25 @@ public class Exam {
         this.examName = examName;
     }
 
-    public ClassS getClassS() {
-        return _class;
+    public int getClass_id() {
+        return class_id;
     }
 
-    public void setClass(ClassS _class) {
-        this._class = _class;
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public int getSubject_id() {
+        return subject_id;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubject_id(int subject_id) {
+        this.subject_id = subject_id;
     }
 
     @Override
     public String toString() {
-        return "Exam{" + "examId=" + examId + ", examUrl=" + examUrl + ", examName=" + examName + ", _class=" + _class + ", subject=" + subject + "} \n";
+        return "Exam{" + "examId=" + examId + ", examUrl=" + examUrl + ", examName=" + examName + ", class_id=" + class_id + ", subject_id=" + subject_id + "} \n";
     }
     
     

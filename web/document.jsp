@@ -237,7 +237,8 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">${document.docName}</h5>
-                                <p class="card-text">Môn: ${document.subject.subjectName}</p>
+                                <p class="card-text">Môn: ${subjectMap[document.subject_id]}</p>
+                                <p class="card-text">Môn: ${classMap[document.class_id]}</p>
                                 <a href="BookDetailController?documentId=${document.docId}" class="btn-view">Xem chi tiết</a>
                             </div>
                         </div>
@@ -250,7 +251,7 @@
                         <div class="sidebar-title">Danh mục đề thi</div>
                         <ul class="list-group">
                             <c:if test="${empty listE}">
-                                <li class="list-group-item">Không có kỳ thi nào được tìm thấy.</li>
+                                <li class="list-group-item">Không có đề thi nào được tìm thấy.</li>
                             </c:if>
                             <c:forEach items="${listE}" var="ex">
                                 <li class="list-group-item">

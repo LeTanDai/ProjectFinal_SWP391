@@ -132,9 +132,16 @@
                                     <img src="../img/quiz.png" class="me-3"
                                          alt="Calendar Icon"
                                          style="width: 24px; height: 24px;">
-                                    <span class="menu-text">Bài kiểm tra</span>
+                                    <span class="menu-text">Bài Ôn Tập</span>
                                 </div>
                             </a>
+                            <a href="listExam.jsp" class="nav-item nav-link">
+                            <div class="menu-item d-flex align-items-center " style="gap: 5px; color: black;">
+                                <img src="../img/quiz.png" class="me-3" alt="Calendar Icon" style="width: 24px; height: 24px;" >
+                                <span class="menu-text">Bài Kiểm Tra</span>
+                            </div>
+                            </a>
+                            
                         </div>
 
                     </div>

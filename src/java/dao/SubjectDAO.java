@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Subject;
+import model.Subjects;
 
 
 /**
@@ -21,8 +21,8 @@ public class SubjectDAO extends DBContext {
     public SubjectDAO() throws SQLException {
     }
     
-    public List<Subject> getAllSubject() {
-        List<Subject> subjectList = new ArrayList<>();
+    public List<Subjects> getAllSubject() {
+        List<Subjects> subjectList = new ArrayList<>();
         String sql = "SELECT * FROM Subjects";
 
         try (PreparedStatement st = connection.prepareStatement(sql);
@@ -30,7 +30,7 @@ public class SubjectDAO extends DBContext {
 
             while (rs.next()) {
                 
-                Subject subjcet = new Subject(
+                Subjects subjcet = new Subjects(
                     rs.getInt("subject_id"),
                     rs.getString("subject_name")     
                 );
@@ -44,8 +44,8 @@ public class SubjectDAO extends DBContext {
         return subjectList;
     }
     
-    public Subject getSubjectById(int id) {
-        Subject subject = null;
+    public Subjects getSubjectById(int id) {
+        Subjects subject = null;
         String sql = "SELECT * FROM Subjects WHERE subject_id = ?";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -53,7 +53,7 @@ public class SubjectDAO extends DBContext {
 
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    subject = new Subject(
+                    subject = new Subjects(
                         rs.getInt("subject_id"),
                         rs.getString("subject_name")
                     );
@@ -64,5 +64,35 @@ public class SubjectDAO extends DBContext {
         }
 
         return subject; // Returns null if no subject found
+    }
+    
+    public Subjects getSubjectByName(String subjectName) {
+        Subjects subject = null;
+        String sql = "SELECT * FROM Subjects WHERE subject_name = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, subjectName); // Set the subject name parameter
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    subject = new Subjects(
+                            rs.getInt("subject_id"),
+                            rs.getString("subject_name")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return subject; // Returns null if no subject found
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        SubjectDAO dao = new SubjectDAO();
+        List<Subjects> list = dao.getAllSubject();
+        System.out.println(list);
+        Subjects sr = dao.getSubjectByName("Hóa");
+        System.out.println(sr);
     }
 }

@@ -10,28 +10,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.ClassS;
-
+import model.Classes;
 
 /**
  *
  * @author PC
  */
-public class ClassDAO extends DBContext{
+public class ClassDAO extends DBContext {
 
     public ClassDAO() throws SQLException {
     }
-    
-    public List<ClassS> getAllClass() {
-        List<ClassS> classtList = new ArrayList<>();
+
+    public List<Classes> getAllClass() {
+        List<Classes> classtList = new ArrayList<>();
         String sql = "SELECT * FROM Classes";
 
-        try (PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
-                
-                ClassS _class = new ClassS(
+
+                Classes _class = new Classes(
                         rs.getInt("class_id"),
                         rs.getString("class_name")
                 );
@@ -44,19 +42,19 @@ public class ClassDAO extends DBContext{
 
         return classtList;
     }
-    
-    public ClassS getClassById(int id) {
-        ClassS _class = null;
+
+    public Classes getClassById(int id) {
+        Classes _class = null;
         String sql = "SELECT * FROM Classes WHERE class_id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id); // Set the subject ID parameter
 
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    _class = new ClassS(
-                        rs.getInt("class_id"),
-                        rs.getString("class_name")
+                    _class = new Classes(
+                            rs.getInt("class_id"),
+                            rs.getString("class_name")
                     );
                 }
             }
@@ -66,10 +64,34 @@ public class ClassDAO extends DBContext{
 
         return _class; // Returns null if no subject found
     }
-    
+
+    public Classes getClassByName(String className) {
+        Classes _class = null;
+        String sql = "SELECT * FROM Classes WHERE class_name = ?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, className); // Set the class name parameter
+
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    _class = new Classes(
+                            rs.getInt("class_id"),
+                            rs.getString("class_name")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return _class; // Returns null if no class found
+    }
+
     public static void main(String[] args) throws SQLException {
         ClassDAO dao = new ClassDAO();
-        ClassS cl = dao.getClassById(1);
+        List<Classes> cl = dao.getAllClass();
         System.out.println(cl);
+        Classes c = dao.getClassByName("Lớp 10");
+        System.out.println(c);
     }
 }
