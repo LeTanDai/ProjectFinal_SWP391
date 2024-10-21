@@ -66,9 +66,9 @@
                                 <div class="nav-item dropdown">
                                     <a href="course.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-weight: bold">Môn Học</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="course.jsp" class="dropdown-item">Lớp 10</a>
-                                        <a href="course.jsp" class="dropdown-item">Lớp 11</a>
-                                        <a href="course.jsp" class="dropdown-item">Lớp 12</a>
+                                        <a href="CourseServlet?class=10" class="dropdown-item">Lớp 10</a>
+                                        <a href="CourseServlet?class=11" class="dropdown-item">Lớp 11</a>
+                                        <a href="CourseServlet?class=12" class="dropdown-item">Lớp 12</a>
                                     </div>
                                 </div>
                                 <a href="document.jsp" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>

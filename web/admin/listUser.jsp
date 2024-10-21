@@ -84,7 +84,7 @@
                                     <span class="menu-text">Người Dùng</span>
                                 </div>
                             </a>
-                            <a href="listDocument.jsp"
+                            <a href="AdminListDocument"
                                class="nav-item nav-link">
                                 <div
                                     class="menu-item d-flex align-items-center  "
