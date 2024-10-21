@@ -6,25 +6,25 @@ package model;
 
 /**
  *
- * @author TanDai
+ * @author Admin
  */
 public class Lesson {
-
     private int id;
     private String name;
     private int moduleid;
     private boolean status;
     private int contentid;
-
+    private int videoid;
     public Lesson() {
     }
 
-    public Lesson(int id, String name, int moduleid, boolean status, int contentid) {
+    public Lesson(int id, String name, int moduleid, boolean status, int contentid, int videoid) {
         this.id = id;
         this.name = name;
         this.moduleid = moduleid;
         this.status = status;
         this.contentid = contentid;
+        this.videoid = videoid;
     }
 
     public int getId() {
@@ -67,4 +67,17 @@ public class Lesson {
         this.contentid = contentid;
     }
 
+    public int getVideoid() {
+        return videoid;
+    }
+
+    public void setVideoid(int videoid) {
+        this.videoid = videoid;
+    }
+
+    
+
+    
+    
+    
 }
