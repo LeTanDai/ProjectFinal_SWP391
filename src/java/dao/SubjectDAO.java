@@ -44,27 +44,27 @@ public class SubjectDAO extends DBContext {
         return subjectList;
     }
     
-    public Subjects getSubjectById(int id) {
-        Subjects subject = null;
-        String sql = "SELECT * FROM Subjects WHERE subject_id = ?";
-
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, id); // Set the subject ID parameter
-
-            try (ResultSet rs = st.executeQuery()) {
-                if (rs.next()) {
-                    subject = new Subjects(
-                        rs.getInt("subject_id"),
-                        rs.getString("subject_name")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return subject; // Returns null if no subject found
-    }
+//    public Subjects getSubjectById(int id) {
+//        Subjects subject = null;
+//        String sql = "SELECT * FROM Subjects WHERE subject_id = ?";
+//
+//        try (PreparedStatement st = connection.prepareStatement(sql)) {
+//            st.setInt(1, id); // Set the subject ID parameter
+//
+//            try (ResultSet rs = st.executeQuery()) {
+//                if (rs.next()) {
+//                    subject = new Subjects(
+//                        rs.getInt("subject_id"),
+//                        rs.getString("subject_name")
+//                    );
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//
+//        return subject; // Returns null if no subject found
+//    }
     
     public Subjects getSubjectByName(String subjectName) {
         Subjects subject = null;

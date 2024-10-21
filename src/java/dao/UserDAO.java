@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class UserDAO extends DBContext {
 
-    public UserDAO() throws SQLException {
+    public UserDAO() {
     }
     
     public List<User> getAllUser() {
