@@ -15,11 +15,11 @@ public class TestUserDAO {
         UserDAO userDAO = new UserDAO();
 
         // Gọi hàm countPremiumUser và countNormalUser để kiểm tra
-        int premiumCount = userDAO.countPremiumUser();
-        int normalCount = userDAO.countNormalUser();
+//        int premiumCount = userDAO.countPremiumUser();
+//        int normalCount = userDAO.countNormalUser();
 
         // Hiển thị kết quả
-        System.out.println("Số lượng người dùng Premium: " + premiumCount);
-        System.out.println("Số lượng người dùng Normal: " + normalCount);
+//        System.out.println("Số lượng người dùng Premium: " + premiumCount);
+//        System.out.println("Số lượng người dùng Normal: " + normalCount);
     }
 }
