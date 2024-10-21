@@ -4,10 +4,10 @@
  */
 package controller.admin;
 
-import DAO.ContentDAO;
-import DAO.VideoDAO;
-import Model.Lesson_Content;
-import Model.Video;
+import dao.ContentDAO;
+import dao.VideoDAO;
+import model.Lesson_Content;
+import model.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -40,7 +40,7 @@ public class ListVideoController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Admin_ListVideo</title>");            
+            out.println("<title>Servlet Admin_ListVideo</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Admin_ListVideo at " + request.getContextPath() + "</h1>");
@@ -63,20 +63,20 @@ public class ListVideoController extends HttpServlet {
             throws ServletException, IOException {
         String videoid = request.getParameter("video");
         String contentid = request.getParameter("content");
-        VideoDAO viddao = new VideoDAO();
-        ContentDAO contdao = new ContentDAO();
-        if ( videoid != null && contentid != null ) {
+        if (videoid != null && contentid != null) {
             try {
+                VideoDAO viddao = new VideoDAO();
+                ContentDAO contdao = new ContentDAO();
                 int contid = Integer.parseInt(contentid);
                 int vidid = Integer.parseInt(videoid);
                 Video video = viddao.getVideoByVideoid(vidid);
                 Lesson_Content lesson_content = contdao.getContentByContentid(contid);
-                request.setAttribute("videotitle",video.getTitle());
+                request.setAttribute("videotitle", video.getTitle());
                 request.setAttribute("videourl", video.getUrl());
                 request.setAttribute("content_title", lesson_content.getContent_title());
                 request.setAttribute("content", lesson_content.getContent());
                 request.getRequestDispatcher("/video.jsp").forward(request, response);
-            } catch ( NumberFormatException e ) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {

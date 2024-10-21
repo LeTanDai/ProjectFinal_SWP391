@@ -4,15 +4,15 @@
  */
 package controller.admin;
 
-import DAO.ClassDAO;
-import DAO.ContentDAO;
-import DAO.CourseDAO;
-import DAO.VideoDAO;
-import DAO.SubjectDAO;
-import Model.Classes;
-import Model.Lesson_Content;
-import Model.Subjects;
-import Model.Video;
+import dao.ClassDAO;
+import dao.ContentDAO;
+import dao.CourseDAO;
+import dao.VideoDAO;
+import dao.SubjectDAO;
+import model.Classes;
+import model.Lesson_Content;
+import model.Subjects;
+import model.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 /**
  *
  * @author Admin
@@ -47,7 +48,7 @@ public class ListDocumentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Admin_ListDocument</title>");            
+            out.println("<title>Servlet Admin_ListDocument</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Admin_ListDocument at " + request.getContextPath() + "</h1>");
@@ -68,25 +69,29 @@ public class ListDocumentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        VideoDAO viddao = new VideoDAO();
-        ClassDAO classdao = new ClassDAO();
-        SubjectDAO subdao = new SubjectDAO();
-        CourseDAO coudao = new CourseDAO();
-        ContentDAO condao = new ContentDAO();
-        ArrayList<Video> listvid = viddao.getAllVideo();
-        Map<Map<Video,Lesson_Content>, Map<Subjects,Classes>> map = new LinkedHashMap<>();
-        for ( Video vid : listvid ) {
-            Map<Video,Lesson_Content> maplc = new LinkedHashMap<>();
-            Map<Subjects,Classes> mapsc = new LinkedHashMap<>();
-            Subjects sub = subdao.getSubjectById(vid.getSubjectid());
-            Classes c = classdao.getClassbyid(vid.getClassid());
-            Lesson_Content lc = condao.getContentByContentid(coudao.getLessonByVideoid(vid.getId()).getContentid());
-            mapsc.put(sub, c);
-            maplc.put(vid, lc);
-            map.put(maplc, mapsc);
+        try {
+            VideoDAO viddao = new VideoDAO();
+            ClassDAO classdao = new ClassDAO();
+            SubjectDAO subdao = new SubjectDAO();
+            CourseDAO coudao = new CourseDAO();
+            ContentDAO condao = new ContentDAO();
+            ArrayList<Video> listvid = viddao.getAllVideo();
+            Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> map = new LinkedHashMap<>();
+            for (Video vid : listvid) {
+                Map<Video, Lesson_Content> maplc = new LinkedHashMap<>();
+                Map<Subjects, Classes> mapsc = new LinkedHashMap<>();
+                Subjects sub = subdao.getSubjectById(vid.getSubjectid());
+                Classes c = classdao.getClassById(vid.getClassid());
+                Lesson_Content lc = condao.getContentByContentid(coudao.getLessonByVideoid(vid.getId()).getContentid());
+                mapsc.put(sub, c);
+                maplc.put(vid, lc);
+                map.put(maplc, mapsc);
+            }
+            request.setAttribute("mapvideo", map);
+            request.getRequestDispatcher("listDocument.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        request.setAttribute("mapvideo", map);
-        request.getRequestDispatcher("listDocument.jsp").forward(request, response);
     }
 
     /**
