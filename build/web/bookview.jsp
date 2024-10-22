@@ -47,7 +47,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-9"
             style="margin-top: 5px">
-            <iframe src="files/sachtoan10tap1.pdf" type="application/pdf" frameborder="1" width="100%" height="1000px"></iframe> <!-- Increased height -->
+            <iframe src="${doc.doc_url}" type="application/pdf" frameborder="1" width="100%" height="1000px"></iframe> <!-- Increased height -->
         </div>
     </div>
 </div>

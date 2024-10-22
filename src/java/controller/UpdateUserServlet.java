@@ -105,8 +105,6 @@ public class UpdateUserServlet extends HttpServlet {
         session.setAttribute("account", u);
         request.getRequestDispatcher("userProfile.jsp").forward(request, response);
         
-    } catch (SQLException ex) {
-        Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
     } catch (ParseException ex) {
         Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
     }

@@ -66,9 +66,9 @@
                                 <div class="nav-item dropdown">
                                     <a href="course.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-weight: bold">Môn Học</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="course.jsp" class="dropdown-item">Lớp 10</a>
-                                        <a href="course.jsp" class="dropdown-item">Lớp 11</a>
-                                        <a href="course.jsp" class="dropdown-item">Lớp 12</a>
+                                        <a href="CourseServlet?class=10" class="dropdown-item">Lớp 10</a>
+                                        <a href="CourseServlet?class=11" class="dropdown-item">Lớp 11</a>
+                                        <a href="CourseServlet?class=12" class="dropdown-item">Lớp 12</a>
                                     </div>
                                 </div>
                                 <a href="document.jsp" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>
@@ -76,14 +76,6 @@
                                 <a href="payment.jsp" class="nav-item nav-link " style="font-weight: bold">Nâng cấp</a>
                             </div>
 
-                            <div class="group-search">
-                                <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-                                <g>
-                                <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-                                </g>
-                                </svg>
-                                <input id="query" class="input-search" type="search" placeholder="Search..." name="searchbar" />
-                            </div>
 
                             <!-- Icon User -->
                             <a href="userProfile.html" id="userProfile" class="nav-item nav-link">
@@ -92,15 +84,12 @@
                             <div id="userDropdown" class="user-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <c:if test="${sessionScope.account != null}">
-                                        <div class="user-profile">
-                                            <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
-                                            <span>${sessionScope.account.userName}</span>
-                                        </div>
+                                    <div class="user-profile">
+                                        <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
+                                        <span>${sessionScope.account.fName}</span>
+                                    </div>
                                         <a href="userProfile.jsp">
                                             <i class="fas fa-user-circle"></i> Thông tin cá nhân
-                                        </a>
-                                        <a href="ResetPasswordController">
-                                            <i class="fas fa-key"></i> Đổi mật khẩu
                                         </a>
 
                                         <a href="admin/dashBoard.jsp">
@@ -114,7 +103,7 @@
                                         <a href="login.jsp">
                                             <i class="fas fa-sign-out-alt"></i> Đăng nhập
                                         </a>
-                                    </c:if>
+                                        </c:if>
                                 </div>
                             </div>
                         </div>
