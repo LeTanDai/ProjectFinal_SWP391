@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="model.Module" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -95,7 +98,7 @@
 
             .lesson-title {
                 font-weight: bold;
-                color: #007bff;
+                color: orange;
                 font-size: 1.2em;
                 margin-bottom: 10px;
                 min-height: 50px;
@@ -122,165 +125,143 @@
         </style>
 
 
-</head>
-<body>
-    <jsp:include page="menu.jsp"/>
-    
-    
-    <div class="container-fluid page-header" style="margin-bottom: 90px;">
+    </head>
+    <body>
+        <jsp:include page="menu.jsp"/>
+
+
+        <div class="container-fluid page-header" style="margin-bottom: 90px;">
             <div class="container">
                 <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
                     <h3 class="display-4 text-white text-uppercase" style="text-align: center">Ôn Tập</h3>
                 </div>
             </div>
         </div>
-    
-    
-    <div class="container-fluid py-5" style="padding-left: 15%;">
-        <div class="container pt-5 pb-3">
+
+
+        <div class="container-fluid py-5" style="padding-left: 15%;">
+            <div class="container pt-5 pb-3">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="cat-item position-relative overflow-hidden rounded mb-2">
+                            <img class="img-fluid-cat" src="img/phuong-phap-hoc-toan-hieu-qua-thumb.jpeg" alt="">
+                            <a class="cat-overlay text-white text-decoration-none" href="flashcardList.jsp">
+                                <h3 class="text-white font-weight-medium">Toán Học</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="cat-item position-relative overflow-hidden rounded mb-2">
+                            <img class="img-fluid-cat" src="img/Phuong-phap-hoc-tot-mon-Vat-Ly.jpg" alt="">
+                            <a class="cat-overlay text-white text-decoration-none" href="flashcardList.jsp">
+                                <h3 class="text-white font-weight-medium">Vật Lý</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="cat-item position-relative overflow-hidden rounded mb-2">
+                            <img class="img-fluid-cat" src="img/TU-VUNG-TIENG-ANH-CHUYEN-NGANH-HOA-HOC.jpg" alt="">
+                            <a class="cat-overlay text-white text-decoration-none" href="flashcardList.jsp">
+                                <h3 class="text-white font-weight-medium">Hóa Học</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/phuong-phap-hoc-toan-hieu-qua-thumb.jpeg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="courselist.html">
-                            <h3 class="text-white font-weight-medium">Toán Học</h3>
-                        </a>
+                <div class="col-md-4">
+                    <div class="filter-container">
+                        <div class="filter-header">BỘ LỌC TÌM KIẾM</div>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="filter-section">
+                            <span class="font-weight-bold">Theo Lớp</span>
+                            <label class="d-block"><input type="checkbox" class="class-filter" value="Lớp 10"> Lớp 10</label>
+                            <label class="d-block"><input type="checkbox" class="class-filter" value="Lớp 11"> Lớp 11</label>
+                            <label class="d-block"><input type="checkbox" class="class-filter" value="Lớp 12"> Lớp 12</label>
+                        </div>
+
+                        <div class="filter-section">
+                            <span class="font-weight-bold">Theo Môn</span>
+                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Toán"> Toán</label>
+                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Lý"> Lý</label>
+                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Hoá"> Hóa</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/Phuong-phap-hoc-tot-mon-Vat-Ly.jpg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="courselist.html">
-                            <h3 class="text-white font-weight-medium">Vật Lý</h3>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                        <img class="img-fluid-cat" src="img/TU-VUNG-TIENG-ANH-CHUYEN-NGANH-HOA-HOC.jpg" alt="">
-                        <a class="cat-overlay text-white text-decoration-none" href="courselist.html">
-                            <h3 class="text-white font-weight-medium">Hóa Học</h3>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="filter-container">
-                    <div class="filter-header">BỘ LỌC TÌM KIẾM</div>
 
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="filter-section">
-                        <span class="font-weight-bold">Theo Lớp</span>
-                        <label class="d-block"><input type="checkbox" class="class-filter" value="10"> Lớp 10</label>
-                        <label class="d-block"><input type="checkbox" class="class-filter" value="11"> Lớp 11</label>
-                        <label class="d-block"><input type="checkbox" class="class-filter" value="12"> Lớp 12</label>
-                    </div>
-
-                    <div class="filter-section">
-                        <span class="font-weight-bold">Theo Môn</span>
-                        <label class="d-block"><input type="checkbox" class="subject-filter" value="Toán"> Toán</label>
-                        <label class="d-block"><input type="checkbox" class="subject-filter" value="Lý"> Lý</label>
-                        <label class="d-block"><input type="checkbox" class="subject-filter" value="Hóa"> Hóa</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="content-container">
-                    <div class="lesson-grid">
-                        <div class="lesson" data-class="10" data-subject="Toán">
-                            <a href="flashcard.jsp">
-                                <div class="lesson-title">Chương 1</div>
-                                <div class="lesson-description">Ôn tập tất cả kiến thức, lý thuyết liên quan đến đạo hàm</div>
-                            </a>
-                        </div>
-                        <div class="lesson" data-class="11" data-subject="Hóa">
-                            <a href="flashcard.jsp">
-                                <div class="lesson-title">Chương 1</div>
-                                <div class="lesson-description">Tìm hiểu về các định lý cơ bản trong hóa học.
-                                </div>
-                            </a>
-                        </div>
-                        <div class="lesson" data-class="12" data-subject="Lý">
-                            <a href="flashcard.jsp">
-                                <div class="lesson-title">Chương 1</div>
-                                <div class="lesson-description">Khám phá các nguyên lý cơ bản trong vật lý</div>
-                            </a>
-                        </div>
-                        <div class="lesson" data-class="10" data-subject="Hóa">
-                            <a href="flashcard.jsp">
-                                <div class="lesson-title">Chương 2</div>
-                                <div class="lesson-description">Các kiến thức cần biết cho lớp 10 về hóa học
-                                </div>
-                            </a>
-                        </div>
-                        <div class="lesson" data-class="11" data-subject="Toán">
-                            <a href="flashcard.jsp">
-                                <div class="lesson-title">Chương 2</div>
-                                <div class="lesson-description">Học về định lý Pythagore và ứng dụng của nó
-                                </div>
-                            </a>
-                        </div>
-                        <div class="lesson" data-class="12" data-subject="Hóa">
-                            <a href="flashcard.jsp">
-                                <div class="lesson-title">Chương 2</div>
-                                <div class="lesson-description">Tìm hiểu về các loại phản ứng hóa học</div>
-                            </a>
+                <div class="col-md-8">
+                    <%
+                        List<Module> modules = (List<Module>) request.getAttribute("modules");
+                    %>
+                    <div class="content-container">
+                        <div class="lesson-grid">
+                            <% if (modules != null) { %>
+                            <% for (Module module : modules) { %>
+                            <div class="lesson" data-class="<%= request.getAttribute("className" + module.getId()) %>" 
+                                 data-subject="<%= request.getAttribute("subjectName" + module.getId()) %>">
+                                <a href="flashcard.jsp?moduleId=<%= module.getId() %>">
+                                    <div class="lesson-title"><%= module.getName() %></div>
+                                    <div class="lesson-description"><%= module.getDescription() %></div>
+                                </a>
+                            </div>
+                            <% } %>
+                            <% } else { %>
+                            <p>No modules available.</p>
+                            <% } %>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <jsp:include page="footer.jsp"/>
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-            class="fa fa-angle-double-up"></i></a>
+        <jsp:include page="footer.jsp"/>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+                class="fa fa-angle-double-up"></i></a>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Filtering functionality (as in your previous code)
-            function filterLessons() {
-                const selectedClasses = [];
-                const selectedSubjects = [];
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
 
-                $('.class-filter:checked').each(function () {
-                    selectedClasses.push($(this).val());
-                });
+        <script>
+            $(document).ready(function () {
+                function filterLessons() {
+                    const selectedClasses = [];
+                    const selectedSubjects = [];
 
-                $('.subject-filter:checked').each(function () {
-                    selectedSubjects.push($(this).val());
-                });
+                    $('.class-filter:checked').each(function () {
+                        selectedClasses.push($(this).val().trim());
+                    });
 
-                if (selectedClasses.length === 0 && selectedSubjects.length === 0) {
-                    $('.lesson').show();
-                } else {
+                    $('.subject-filter:checked').each(function () {
+                        selectedSubjects.push($(this).val().trim());
+                    });
+
+                    if (selectedClasses.length === 0 && selectedSubjects.length === 0) {
+                        $('.lesson').show();
+                        return;
+                    }
                     $('.lesson').each(function () {
-                        const lessonClass = $(this).data('class');
-                        const lessonSubject = $(this).data('subject');
+                        const lessonClass = $(this).data('class').toString().trim();
+                        const lessonSubject = $(this).data('subject').toString().trim();
 
-                        const showClass = selectedClasses.length === 0 || selectedClasses.includes(lessonClass.toString());
+                        const showClass = selectedClasses.length === 0 || selectedClasses.includes(lessonClass);
                         const showSubject = selectedSubjects.length === 0 || selectedSubjects.includes(lessonSubject);
 
                         if (showClass && showSubject) {
@@ -290,15 +271,18 @@
                         }
                     });
                 }
-            }
 
-            $('.class-filter, .subject-filter').change(function () {
+                $('.class-filter, .subject-filter').change(function () {
+                    filterLessons();
+                });
+
                 filterLessons();
             });
 
-            filterLessons();
-        });
-    </script>
 
-</body>
+        </script>
+
+
+
+    </body>
 </html>
