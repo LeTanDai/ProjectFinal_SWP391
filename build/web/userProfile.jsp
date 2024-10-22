@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,14 +51,14 @@
                                     <div
                                         class="d-flex flex-column align-items-center text-center">
                                         <img
-                                            src="https://static.vecteezy.com/system/resources/thumbnails/037/336/395/small/user-profile-flat-illustration-avatar-person-icon-gender-neutral-silhouette-profile-picture-free-vector.jpg"
-                                            alt="Admin"
+                                            src="${sessionScope.account.avatar}"
+                                            alt="Avatar"
                                             class="rounded-circle p-1 bg-dark"
                                             width="110">
                                         <div class="mt-3">
-                                            <h4>Trương Quốc Cường</h4>
+                                            <h4>${sessionScope.account.fName}</h4>
                                         </div>
-                                        <h6 class="mb-0">Hạng: Premium</h6>
+                                        <h6 class="mb-0">Hạng: ${sessionScope.classify}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +77,7 @@
                                             style="gap: 10px; display: flex; flex-direction: column;">
                                             <h6 class="mb-0">Họ và Tên</h6>
                                             <div
-                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">Trương Quốc Cường</div>
+                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">${sessionScope.account.fName}</div>
                                         
                                         </div>
 
@@ -83,7 +85,7 @@
                                             style="gap: 10px; display: flex; flex-direction: column;">
                                             <h6 class="mb-0">Tên Đăng Nhập</h6>
                                             <div
-                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">Cuongtq</div>
+                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">${sessionScope.account.userName}</div>
                                         </div>
                                     </div>
                                     <div class="row"
@@ -91,14 +93,15 @@
                                         <div class="col-sm-6"
                                             style="gap: 10px; display: flex; flex-direction: column;">
                                             <h6 class="mb-0">Ngày Sinh</h6>
-                                            <div
-                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">dd/mm/yyy</div>
+                                            <div style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">
+                                                <fmt:formatDate value="${sessionScope.account.dob}" pattern="dd/MM/yyyy" />
+                                            </div>
                                         </div>
                                         <div class="col-sm-6"
                                             style="gap: 10px; display: flex; flex-direction: column;">
                                             <h6 class="mb-0">Số Điện Thoại</h6>
                                             <div
-                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">1234567890</div>
+                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">${sessionScope.account.phone}</div>
                                         </div>
                                     </div>
                                     <div class="row"
@@ -107,13 +110,13 @@
                                             style="gap: 10px; display: flex; flex-direction: column;">
                                             <h6 class="mb-0">Địa Chỉ</h6>
                                             <div
-                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">Đà Nẵng</div>
+                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">${sessionScope.account.address}</div>
                                         </div>
                                         <div class="col-sm-6"
                                             style="gap: 10px; display: flex; flex-direction: column;">
                                             <h6 class="mb-0">Email</h6>
                                             <div
-                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">example@gmail.com</div>
+                                                style="width: 100%; height: 40px; background-color: white; border: 1px solid black; border-radius: 5px; padding: 8px 10px; color: black;">${sessionScope.account.email}</div>
                                         </div>
                                     </div>
 
