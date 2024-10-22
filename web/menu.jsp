@@ -86,7 +86,7 @@
                                     <c:if test="${sessionScope.account != null}">
                                     <div class="user-profile">
                                         <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
-                                        <span>${sessionScope.account.userName}</span>
+                                        <span>${sessionScope.account.fName}</span>
                                     </div>
                                         <a href="userProfile.jsp">
                                             <i class="fas fa-user-circle"></i> Thông tin cá nhân
