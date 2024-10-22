@@ -21,7 +21,7 @@ import model.User;
  *
  * @author lethe
  */
-@WebServlet(name="LoginController", urlPatterns={"/Login"})
+@WebServlet(name="LoginController", urlPatterns={"/LoginController"})
 public class LoginController extends HttpServlet {
    
     /** 

@@ -107,17 +107,19 @@
 </head>
 <body>
     <div class="login-container">
-        <c:if test="${error!=null }">
-                <div class="alert alert-danger" role="alert">
+        <div class="col-md-6 login-form" >
+                <div class="alert alert-danger" role="alert" style="${error != null ? 'display: block;' : 'display: none;'}">
                     ${error}
                 </div>
-            </c:if>
-        <!-- Left: Login Form Column -->
-        <div class="col-md-6 login-form">
-            <div class="container">
-                <h3>Đăng Ký</h3>
-                <c:set var="cookie" value="${pageContext.request.cookies}"></c:set>
-                <form class="form-signin" action="GoogleLoginInfoController" method="post">
+                <div class="container" style="box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 20px; height: 600px; ">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px">
+                        <a href="login.jsp" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <h3 style="text-align: center; flex-grow: 1;">Đăng Ký</h3>
+                    </div>
+                    <c:set var="cookie" value="${pageContext.request.cookies}"></c:set>
+                    <form class="form-signin" action="GoogleLoginInfoController" method="post">
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                         <label for="username">Tên đăng nhập</label>
                         <input name="username"  type="text" id="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
@@ -136,13 +138,10 @@
                     </div>
                     <button type="submit" class="btn btn-login btn-block w-100 mt-4">Đăng Ký</button>
                 </form>
-                <div style="text-align: center; margin-top: 30px;">
-                    <p class="p">Ðã có tài khoản ? <a href="login.jsp" style="text-decoration: none;"><span
-                        class="span" >Đăng Nhập</span></a>
+                    
+                  
                 </div>
             </div>
-        </div>
-
         <!-- Right: Image Column -->
         <div class="col-md-6 image-container"></div>
     </div>

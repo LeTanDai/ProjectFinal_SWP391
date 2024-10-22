@@ -26,7 +26,7 @@ import model.User;
  *
  * @author lethe
  */
-@WebServlet(name="GoogleLoginController", urlPatterns={"/Login"})
+@WebServlet(name="GoogleLoginController", urlPatterns={"/GoogleLoginController"})
 public class GoogleLoginController extends HttpServlet {
 
     /**
