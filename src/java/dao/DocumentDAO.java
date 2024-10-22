@@ -115,5 +115,18 @@ public class DocumentDAO extends DBContext {
         List<Document> list = dao.getAllDocument();
         System.out.println(list);
     }
-
+    public ArrayList<Document> getAllDocumentWithSubject() throws Exception {
+        ArrayList<Document> list = new ArrayList<>();
+        String sql = "select Document.document_id, Document.document_name, Document.document_url, Subjects.subject_name, Classes.class_name\n"
+                + "from Document join Subjects on Document.subject_id = Subjects.subject_id\n"
+                + "join Subjects_Class on Subjects_Class.subject_id = Subjects.subject_id\n"
+                + "join Classes on Subjects_Class.class_id = Classes.class_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

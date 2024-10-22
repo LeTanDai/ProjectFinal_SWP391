@@ -93,43 +93,6 @@
     <!-- Footer Start -->
     <jsp:include page="footer.jsp"/>
     <!-- Footer End -->
-
-    <!-- JavaScript to change video -->
-    <script>
-        const videoUrls = [
-            { url: 'https://www.youtube.com/embed/zsxktJWNxVI?autoplay=1', title: 'Chương 1. Ứng dụng đạo hàm để khảo sát và vẽ đồ thị hàm số' },
-            { url: 'https://www.youtube.com/embed/WsMJEaCQsoA', title: 'Chương 2. Đạo hàm và ứng dụng của đạo hàm' },
-            { url: 'https://www.youtube.com/embed/o6g5ZpOczLc', title: 'Chương 3. Tích phân và ứng dụng của tích phân' },
-            { url: 'https://www.youtube.com/embed/990wEB5yo2k', title: 'Chương 4. Giới hạn và tính liên tục' },
-            { url: 'https://www.youtube.com/embed/DYFeDU9oFG4', title: 'Chương 5. Hàm số và đồ thị hàm số' }
-        ];
-
-        let currentIndex = 0;
-
-        function showVideo(event, index) {
-            event.preventDefault();
-            currentIndex = index;
-            const videoFrame = document.getElementById('video-frame');
-            const videoTitle = document.getElementById('video-title');
-            videoFrame.src = videoUrls[index].url;
-            videoTitle.textContent = videoUrls[index].title;
-        }
-
-        function nextVideo() {
-            currentIndex = (currentIndex + 1) % videoUrls.length;
-            showVideo(event, currentIndex);
-        }
-    </script>
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <!-- Template JavaScript -->
-    <script src="js/main.js"></script>
 </body>
 
 </html>
