@@ -5,8 +5,7 @@
 package controller;
 
 import dao.ClassDAO;
-import dao.DocumentDAO;
-import dao.ExamDAO;
+import dao.DocumentPendingDAO;
 import dao.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,23 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Classes;
 import model.Document;
-import model.Exam;
-import model.Subjects;
 
 /**
  *
  * @author PC
  */
-@WebServlet(name = "DocumentController", urlPatterns = {"/DocumentController"})
-public class DocumentController extends HttpServlet {
+@WebServlet(name = "RequestAddDocumentController", urlPatterns = {"/RequestAddDocumentController"})
+public class RequestAddDocumentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,36 +33,20 @@ public class DocumentController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //b1 : get data from ProductDAO
-        DocumentDAO documentDAO = new DocumentDAO();
-        ExamDAO exDAO = new ExamDAO();
-        List<Document> list = documentDAO.getAllDocument();
-        List<Exam> listE = exDAO.getAllExam();
-
-        SubjectDAO subjectDAO = new SubjectDAO();
-        List<Subjects> subjects = subjectDAO.getAllSubject();
-
-        Map<Integer, String> subjectMap = new HashMap<>();
-        for (Subjects subject : subjects) {
-            subjectMap.put(subject.getId(), subject.getName()); // Giả sử bạn có getId() và getName()
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RequestAddDocumentController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RequestAddDocumentController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        ClassDAO classDAO = new ClassDAO(); // Giả sử bạn có ClassDAO
-        List<Classes> classes = classDAO.getAllClass(); // Lấy tất cả lớp học
-
-        
-        Map<Integer, String> classMap = new HashMap<>();
-        for (Classes cls : classes) {
-            classMap.put(cls.getId(), cls.getName()); // Lưu id và tên lớp
-        }
-        //b2 : set data to jsp
-        request.setAttribute("classMap", classMap);
-        request.setAttribute("subjectMap", subjectMap);
-        request.setAttribute("listDoc", list);
-        request.setAttribute("listE", listE);
-        request.getRequestDispatcher("document.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,11 +61,7 @@ public class DocumentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -105,11 +75,20 @@ public class DocumentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String docName = request.getParameter("docName");
+        String docUrl = request.getParameter("docUrl");
+        String imageUrl = request.getParameter("imageUrl");
+        String className = request.getParameter("className");
+        String subjectName = request.getParameter("subjectName");
+
+        DocumentPendingDAO docDAO = new DocumentPendingDAO();
+        ClassDAO clDAO = new ClassDAO();
+        SubjectDAO sjDAO = new SubjectDAO();
+        
+        Document doc =  new Document(0, docUrl, docName, imageUrl, sjDAO.getSubjectByName(subjectName).getId(), clDAO.getClassByName(className).getId());
+        docDAO.createDocument(doc);
+        
+        request.getRequestDispatcher("DocumentController").forward(request, response);
     }
 
     /**

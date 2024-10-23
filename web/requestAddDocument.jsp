@@ -151,53 +151,69 @@
                 </div>
 
                 <div>
-                    <form id="documentForm">
+                    <form id="docPenningForm" action="/FinalProject_SWP391/RequestAddDocumentController" method="post" >
                         <label for="docName">Tên Tài Liệu</label>
-                        <input type="text" id="docName"
-                               name="docName"
-                               placeholder="Nhập tên tài liệu"
-                               required>
+                        <input type="text" id="docName" name="docName" placeholder="Nhập tên tài liệu" required>
 
-                        <label for="createDay">Ngày Thêm</label>
-                        <input type="date" id="createDay"
-                               name="createDay" required>
+                        <label for="docUrl">Document URL</label>
+                        <input type="text" id="docUrl" name="docUrl" placeholder="Nhập URL tài liệu" required>
 
-                        <label for="docType">Loại</label>
-                        <select id="docType" name="docType"
-                                required>
-                            <option value="PDF">PDF</option>
-                            <option value="Video">Video</option>
+                        <label for="imageUrl">Image URL</label>
+                        <input type="text" id="imageUrl" name="imageUrl" placeholder="Nhập Image URL tài liệu" required>
+
+                        <label for="className">Lớp</label>
+                        <select id="className" name="className" required>
+                            <option>Lớp 10</option>
+                            <option>Lớp 11</option>
+                            <option>Lớp 12</option>
                         </select>
 
-                        <label for="description">Ghi Chú</label>
-                        <textarea id="description"
-                                  name="description" rows="4"
-                                  placeholder="Enter a brief description"></textarea>
+                        <label for="subjectName">Môn Học</label>
+                        <select id="subjectName" name="subjectName" required>
+                            <option>Toán</option>
+                            <option>Lý</option>
+                            <option>Hóa</option>
+                        </select>
 
-                        <label for="fileUpload">Tải File</label>
-                        <input type="file" id="fileUpload"
-                               name="fileUpload" required>
-
-                        <div style="display:flex; gap:10px;">
-                            <a href="requestAddDocument.jsp" style="text-decoration: none; "><button
-                                    class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px;"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15.2929 8.29289L10 13.5858L8.70711 12.2929C8.31658 11.9024 7.68342 11.9024 7.29289 12.2929C6.90237 12.6834 6.90237 13.3166 7.29289 13.7071L9.29289 15.7071C9.68342 16.0976 10.3166 16.0976 10.7071 15.7071L16.7071 9.70711C17.0976 9.31658 17.0976 8.68342 16.7071 8.29289C16.3166 7.90237 15.6834 7.90237 15.2929 8.29289Z" fill="#fff"/>
-                                    </svg>
-
-
-                                    Thêm</button></a>
-                            <a href="document.jsp" style="text-decoration: none; " class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px;">
-                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM7.29325 7.29325C7.65417 6.93233 8.22045 6.90456 8.61296 7.20996L8.70725 7.29325L12.0002 10.5863L15.2933 7.29325C15.6842 6.90225 16.3162 6.90225 16.7072 7.29325C17.0682 7.65417 17.0959 8.22045 16.7905 8.61296L16.7072 8.70725L13.4142 12.0002L16.7072 15.2933C17.0982 15.6842 17.0982 16.3162 16.7072 16.7072C16.5122 16.9022 16.2562 17.0002 16.0002 17.0002C15.7869 17.0002 15.5736 16.9322 15.3956 16.7967L15.2933 16.7072L12.0002 13.4142L8.70725 16.7072C8.51225 16.9022 8.25625 17.0002 8.00025 17.0002C7.74425 17.0002 7.48825 16.9022 7.29325 16.7072C6.93233 16.3463 6.90456 15.7801 7.20996 15.3875L7.29325 15.2933L10.5863 12.0002L7.29325 8.70725C6.90225 8.31625 6.90225 7.68425 7.29325 7.29325Z" fill="#fff"/>
-                                    </svg>
-
-                                    Hủy</a>
-                        </div>
+                        <button type="button" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Gửi Phê Duyệt Tài Liệu</button>
                     </form>
                 </div>
             </div>
         </div>
+        
+        <div class="popup-overlay" id="popup-addDocument" style="display:none;">
+            <div class="popup-addDocument">
+                <h2>Xác Nhận</h2>
+                <p>Bạn có chắc chắn muốn gửi phê duyệt tài liệu này không?</p>
+                <button type="button" id="confirmButton">Xác Nhận</button>
+                <button type="button" class="cancel-btn" id="cancelButton">Hủy Bỏ</button>
+            </div>
+        </div>
+        
+        <script>
+            // Get references to the DOM elements
+            const addButton = document.getElementById('addButton');
+            const popup = document.getElementById('popup-addDocument');
+            const confirmButton = document.getElementById('confirmButton');
+            const cancelButton = document.getElementById('cancelButton');
+            const docPenningForm = document.getElementById('docPenningForm');
 
+            // Show the popup when the Add button is clicked
+            addButton.addEventListener('click', function () {
+                popup.style.display = 'flex';  // Show the popup
+            });
+
+            // Close the popup when the Cancel button is clicked
+            cancelButton.addEventListener('click', function () {
+                popup.style.display = 'none';  // Hide the popup
+            });
+
+            // Handle the form submission when the Confirm button is clicked
+            confirmButton.addEventListener('click', function () {
+                // Here, we submit the form
+                docPenningForm.submit();
+            });
+        </script>
         <!--         Footer Start -->
         <jsp:include page="footer.jsp"/>
         <!--     Footer End -->
