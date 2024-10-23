@@ -208,7 +208,7 @@
                             <% for (Module module : modules) { %>
                             <div class="lesson" data-class="<%= request.getAttribute("className" + module.getId()) %>" 
                                  data-subject="<%= request.getAttribute("subjectName" + module.getId()) %>">
-                                <a href="flashcard.jsp?moduleId=<%= module.getId() %>">
+                                <a href="FlashCardController?moduleId=<%= module.getId() %>">
                                     <div class="lesson-title"><%= module.getName() %></div>
                                     <div class="lesson-description"><%= module.getDescription() %></div>
                                 </a>

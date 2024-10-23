@@ -6,11 +6,11 @@ package model;
 
 /**
  *
- * @author TanDai
+ * @author lethe
  */
-public class Quiz {
-    private int id;
-    private String name;
+public class FlashCard {
+    private int flashCardId;
+    private String questionName;
     private String option1;
     private String option2;
     private String option3;
@@ -18,12 +18,13 @@ public class Quiz {
     private String true_answer;
     private int points;
     private int index;
-    
-    public Quiz(){}
 
-    public Quiz(int id, String name, String option1, String option2, String option3, String option4, String true_answer, int points, int index) {
-        this.id = id;
-        this.name = name;
+    public FlashCard() {
+    }
+
+    public FlashCard(int flashCardId, String questionName, String option1, String option2, String option3, String option4, String true_answer, int points, int index) {
+        this.flashCardId = flashCardId;
+        this.questionName = questionName;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
@@ -33,20 +34,20 @@ public class Quiz {
         this.index = index;
     }
 
-    public int getId() {
-        return id;
+    public int getFlashCardId() {
+        return flashCardId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFlashCardId(int flashCardId) {
+        this.flashCardId = flashCardId;
     }
 
-    public String getName() {
-        return name;
+    public String getQuestionName() {
+        return questionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName;
     }
 
     public String getOption1() {
@@ -107,6 +108,8 @@ public class Quiz {
 
     @Override
     public String toString() {
-        return "Quiz{" + "id=" + id + ", name=" + name + ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4 + ", true_answer=" + true_answer + ", points=" + points + ", index=" + index + '}';
+        return "FlashCard{" + "flashCardId=" + flashCardId + ", questionName=" + questionName + ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4 + ", true_answer=" + true_answer + ", points=" + points + ", index=" + index + '}';
     }
+    
+    
 }

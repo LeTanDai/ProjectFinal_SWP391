@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.Module" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -142,116 +143,42 @@
 
     <body>
         <!-- Navbar start-->
-        <nav class="container-fluid sticky-top bg-white">
-            <div class="row border-top-logo px-xl-5">
-                <div class="col-lg-3-logo">
-                    <a href="index.jsp">
-                        <img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 20%; height: auto;">
-                    </a>
-                </div>
-                <div class="col-lg-9">
-                    <nav class="navbar navbar-expand-lg navbar-light navbar-link bg-light navbar-light py-3 py-lg-0 px-0">
-                        <a href class="text-decoration-none d-block d-lg-none">
-                            <h1 class="m-0"><span class="text-primary">E</span>COURSES</h1>
-                        </a>
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav py-0">
-                                <a href="index.jsp" class="nav-item nav-link active">Trang Chủ</a>
-                                <div class="nav-item dropdown">
-                                    <a href="course.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown">Môn Học</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="course.jsp" class="dropdown-item">Lớp 10</a>
-                                        <a href="course.jsp" class="dropdown-item">Lớp 11</a>
-                                        <a href="course.jsp" class="dropdown-item">Lớp 12</a>
-                                    </div>
-                                </div>
-                                <a href="document.jsp" class="nav-item nav-link">Tài Liệu</a>
-                                <a href="flashcardList.jsp" class="nav-item nav-link">Ôn tập</a>
-                                <a href="payment.jsp" class="nav-item nav-link ">Nâng cấp</a>
-                            </div>
-
-                            <div class="group-search">
-                                <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-                                <g>
-                                <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-                                </g>
-                                </svg>
-                                <input id="query" class="input-search" type="search" placeholder="Search..." name="searchbar" />
-                            </div>
-
-                            <!-- Icon User -->
-                            <a href="userProfile.jsp" id="userProfile" class="nav-item nav-link">
-                                <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="img-fluid" style="width: 40px; height: 40px; border-radius: 50%;">
-                            </a>
-                            <div id="userDropdown" class="user-dropdown" style="display: none;">
-                                <div class="dropdown-content">
-                                    <div class="user-profile">
-                                        <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
-                                        <span>Le Tan Dai</span>
-                                    </div>
-                                    <a href="userProfile.jsp">
-                                        <i class="fas fa-user-circle"></i> Thông tin cá nhân
-                                    </a>
-                                    <a href="#">
-                                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="menu.jsp"/>
         <!-- Navbar End -->
 
         <!-- Detail Start -->
         <div class="container-fluid py-5">
 
-            <div class="row">
-                <div class="col-lg-10">
+            <div class="">
+                <%
+                    Module m = (Module) request.getAttribute("module");
+                %>
+                <h2 style="text-align: center;"><%=m.getName()%> : <%= m.getDescription()%></h2>
+                <div class="">
                     <!-- Flash Card Slider Start -->
                     <div class="flashcard-container">
+                        <div class="row d-flex justify-content-between " style="margin: 10px auto;">
+
+                            <a class="btn btn-primary py-2 px-4" href="FlashCardController?moduleId=${requestScope.modules -1}" style="width: 200px; height: 40px;">Chương trước</a>
+                            <a
+                                class="btn btn-primary py-2 px-4"
+                                href="FlashCardController?moduleId=${requestScope.modules + 1}"
+                                style="width: 200px; height: 40px;">Chương tiếp theo</a>
+                        </div>
                         <div class="arrow arrow-left" onclick="prevCard()">&#10094;</div>
                         <div class="flashcard" onclick="flipCard()">
-                            <div class="flashcard-content flashcard-front">
-                                <div class="flashcard-item">
-                                    <div class="card-title">Question 1</div>
-                                    <div>What is the capital of France?</div>
+                            <c:forEach items="${requestScope.flashList}" var="f">
+                                <div class="flashcard-content flashcard-front">
+                                    <div class="flashcard-item">
+                                        <div>${f.questionName}</div>
+                                    </div>
                                 </div>
-                                <div class="flashcard-item">
-                                    <div class="card-title">Question 2</div>
-                                    <div>What is the largest planet in our solar system?</div>
+                                <div class="flashcard-content flashcard-back">
+                                    <div class="flashcard-item">
+                                        <div>${f.true_answer}</div>
+                                    </div>
                                 </div>
-                                <div class="flashcard-item">
-                                    <div class="card-title">Question 3</div>
-                                    <div>Who wrote "Romeo and Juliet"?</div>
-                                </div>
-                                <div class="flashcard-item">
-                                    <div class="card-title">Question 4</div>
-                                    <div>1 + 1 = ?</div>
-                                </div>
-                            </div>
-                            <div class="flashcard-content flashcard-back">
-                                <div class="flashcard-item">
-                                    <div class="card-title">Answer</div>
-                                    <div>Paris</div>
-                                </div>
-                                <div class="flashcard-item">
-                                    <div class="card-title">Answer</div>
-                                    <div>Jupiter</div>
-                                </div>
-                                <div class="flashcard-item">
-                                    <div class="card-title">Answer</div>
-                                    <div>William Shakespeare</div>
-                                </div>
-                                <div class="flashcard-item">
-                                    <div class="card-title">Answer</div>
-                                    <div>3</div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                         <div class="arrow arrow-right" onclick="nextCard()">&#10095;</div>
                     </div>
@@ -264,110 +191,29 @@
                             <h2>Câu hỏi</h2>
                             <a
                                 class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block"
-                                href="quiz.jsp"
+                                href="FlashCardQuizController?moduleId=${requestScope.modules}"
                                 style="width: 200px; height: 40px;">Làm bài kiểm
                                 tra</a>
                         </div>
 
-                        <div class="question-item">
-                            <div class="question">
-                                <strong>Q:</strong> What is the capital of
-                                France?
-                                <br>
-                                <strong>A:</strong><span class> Paris</span>
+                        <c:forEach items="${requestScope.flashList}" var="f">
+                            <div class="question-item">
+                                <div class="question">
+                                    <div><strong>Q:</strong> ${f.questionName}</div>
+                                    <div><strong>A:</strong><span class> ${f.true_answer}</span></div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="question-item">
-                            <div class="question">
-                                <strong>Q:</strong> What is the largest planet
-                                in
-                                our solar
-                                system?
-                                <br>
-                                <strong>A:</strong><span class> Jupiter</span>
-                            </div>
-                        </div>
-
-                        <div class="question-item">
-                            <div class="question">
-                                <strong>Q:</strong> Who wrote
-                                "Romeo and Juliet"?
-                                <br>
-                                <strong>A:</strong><span class> William
-                                    Shakespeare</span>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
 
-                <div class="col-lg-2 mt-5 mt-lg-0">
-                    <!-- Category List -->
-                    <div class="mb-5"
-                         style="margin-top: 50px; margin-left: -100px !important;">
-                        <h3 class="text-uppercase mb-4"
-                            style="letter-spacing: 5px;">Môn Học</h3>
-                        <ul class="list-group list-group-flush" style="margin-top: -20px;">
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <a href
-                                   class="text-decoration-none h6 m-0">Toán</a>
-                            </li>
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <a href class="text-decoration-none h6 m-0">Vật
-                                    Lý</a>
-                            </li>
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <a href class="text-decoration-none h6 m-0">Hóa
-                                    Học</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
         </div>
         <!-- Detail End -->
 
         <!-- Footer Start -->
-        <div class="container-fluid bg-darks text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
-            <div class="row pt-5">
-                <div class="col-lg-12 col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 mb-5">
-                            <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
-                            <p><i class="fa fa-map-marker-alt mr-2"></i>FPT University</p>
-                            <p><i class="fa fa-phone-alt mr-2"></i>0342740625</p>
-                            <p><i class="fa fa-envelope mr-2"></i>FPTEducation@gmail.com</p>
-                            <div class="d-flex justify-content-start mt-4">
-                                <a class="btn btn-outline-light btn-square mr-2" href="https://www.facebook.com/profile.php?id=100064175499693"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-light btn-square mr-2" href="https://www.facebook.com/profile.php?id=100064175499693"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-light btn-square" href="https://www.facebook.com/profile.php?id=100064175499693"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-5">
-                            <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Online Learning</h5>
-                            <div class="d-flex flex-column justify-content-start">
-                                <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Trang chủ</a>
-                                <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Môn học</a>
-                                <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Tài liệu</a>
-                                <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Ôn tập</a>
-                                <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Nâng cấp</a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid bg-darks text-white border-top py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-6 text-center">
-                    <p class="m-0 text-white">&copy; <a href="#" class="text-white">Online Learning Web Application</a></p>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="footer.jsp"/>
         <!-- Footer End -->
 
         <!-- Back to Top -->

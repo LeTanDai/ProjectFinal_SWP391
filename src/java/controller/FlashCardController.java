@@ -4,7 +4,10 @@
  */
 package controller;
 
-import dao.QuizDAO;
+import dao.ClassDAO;
+import dao.FlashCardDAO;
+import dao.ModuleDAO;
+import dao.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,14 +16,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Quiz;
+import model.FlashCard;
+import model.Module;
 
 /**
  *
- * @author TanDai
+ * @author lethe
  */
-@WebServlet(name = "QuizController", urlPatterns = {"/QuizController"})
-public class QuizController extends HttpServlet {
+@WebServlet(name = "FlashCardController", urlPatterns = {"/FlashCardController"})
+public class FlashCardController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +38,15 @@ public class QuizController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizController</title>");
+            out.println("<title>Servlet FlashCardController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet QuizController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FlashCardController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,26 +65,35 @@ public class QuizController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int module_id = Integer.parseInt(request.getParameter("moduleId"));
-        QuizDAO dao = new QuizDAO();
-        List<Quiz> listBank = dao.getQuizzesByModule(module_id);
-        request.setAttribute("listBank", listBank);
-        request.getRequestDispatcher("quiz.jsp").forward(request, response);
+        ModuleDAO moduleDAO = new ModuleDAO();
+        Module module = moduleDAO.GetModuleById(module_id);
+        request.setAttribute("module", module);
+        FlashCardDAO dao = new FlashCardDAO();
+        List<FlashCard> flashList = dao.GetFlashCardByModule(module_id);
+        request.setAttribute("flashList", flashList);
+        request.setAttribute("modules", module_id);
+        request.getRequestDispatcher("flashcard.jsp").forward(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int point = Integer.parseInt(request.getParameter("point"));
-        int totalQuestions = Integer.parseInt(request.getParameter("totalQuestions"));
-
-        float percentage = ((float) point / totalQuestions) * 100;
-
-        request.setAttribute("score", point);
-        request.setAttribute("totalQuestions", totalQuestions);
-        request.setAttribute("percentage", Math.round(percentage)); 
-
-        request.getRequestDispatcher("result.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
