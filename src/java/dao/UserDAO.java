@@ -261,4 +261,58 @@ public class UserDAO extends DBContext {
         User u = dao.getUserById(2);
         System.out.println(u);
     }
+    public void updateUser(User user) {
+    String sql = "UPDATE Users SET isPremium = ?, isNormal = ? WHERE user_id = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setBoolean(1, user.isIsPremium());
+        st.setBoolean(2, false); // Đặt isNormal về false (0)
+        st.setInt(3, user.getUserId());
+        st.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+ public int countPremiumUser() {
+    String sql = "SELECT COUNT(*) FROM Users WHERE isPremium = 1";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1); // Lấy số lượng Premium user
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu có lỗi
+}
+
+public int countNormalUser() {
+    String sql = "SELECT COUNT(*) FROM Users WHERE isNormal = 1";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1); // Lấy số lượng Normal user
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // Trả về 0 nếu có lỗi
+}
+public int countAdminUser() {
+    String sql = "SELECT COUNT(*) FROM Users WHERE isAdmin = 1"; // Câu lệnh SQL để đếm admin user
+    int count = 0;
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1); // Lấy số lượng admin user
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
 }
