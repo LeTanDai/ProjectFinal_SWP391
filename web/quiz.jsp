@@ -186,7 +186,7 @@
 
                 {
                     numb:${qu.index},
-                    question: "${qu.name}",
+                    question: "${qu.questionName}",
                     answer: "${qu.true_answer}",
                     options: [
                         "${qu.option1}",
