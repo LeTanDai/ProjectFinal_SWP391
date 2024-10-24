@@ -76,24 +76,16 @@
     <!-- Navbar End -->
 
    
-     
      <main>
         <div class="video-section">
-            <h4 class="media-heading text-primary" id="video-title">Chương 1. Ứng dụng đạo hàm để khảo sát và vẽ đồ thị hàm số</h4>           
-            <iframe id="video-frame" src="https://www.youtube.com/embed/zsxktJWNxVI?autoplay=1" frameborder="0" allowfullscreen></iframe>
-    
+            <h4 class="media-heading text-primary" id="video-title">${videotitle}</h4>           
+            <iframe id="video-frame" src="${videourl}" frameborder="0" allowfullscreen></iframe>
+          
             <!-- Nút Next -->
             <button class="next-button" id="next-button" onclick="nextVideo()">Next</button>
     
-            <!-- Danh sách các bài học -->
-            <div class="video-links">
-                <a href="#" id="bai1" onclick="showVideo(event, 0)">Bài 1: Tính đơn điệu của hàm số</a>
-                <a href="#" id="bai2" onclick="showVideo(event, 1)">Bài 2: Giá trị lớn nhất và nhỏ nhất</a>
-                <a href="#" id="bai3" onclick="showVideo(event, 2)">Bài 3: Đường tiệm cận của đồ thị hàm số</a>
-                <a href="#" id="bai4" onclick="showVideo(event, 3)">Bài 4: Khảo sát sự biến thiên của đồ thị hàm số</a>
-                <a href="#" id="bai5" onclick="showVideo(event, 4)">Bài 5: Ứng dụng đạo hàm để giải quyết bài toán thực tiễn</a>
-            </div>
         </div>
+        <p style="margin:10px;">${content}</p>
     </main>
     
     

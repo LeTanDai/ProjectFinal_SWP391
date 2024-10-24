@@ -51,25 +51,34 @@
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="cat-item position-relative overflow-hidden rounded mb-2">
                             <img class="img-fluid-cat" src="img/phuong-phap-hoc-toan-hieu-qua-thumb.jpeg" alt="">
-                            <a class="cat-overlay text-white text-decoration-none" href="courselist.jsp">
-                                <h3 class="text-white font-weight-medium">Toán Học</h3>
-                            </a>
+                            <form action="CourseServlet" method="POST">
+                                <input type="hidden" name="subject" value="Math">
+                                <button type="submit" class="cat-overlay text-white text-decoration-none">
+                                    <h3 class="text-white font-weight-medium">Toán Học</h3>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="cat-item position-relative overflow-hidden rounded mb-2">
                             <img class="img-fluid-cat" src="img/Phuong-phap-hoc-tot-mon-Vat-Ly.jpg" alt="">
-                            <a class="cat-overlay text-white text-decoration-none" href="courselist.jsp">
-                                <h3 class="text-white font-weight-medium">Vật Lý</h3>
-                            </a>
+                            <form action="CourseServlet" method="POST">
+                                <input type="hidden" name="subject" value="Physics">
+                                <button type="submit" class="cat-overlay text-white text-decoration-none">
+                                    <h3 class="text-white font-weight-medium">Vật Lý</h3>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="cat-item position-relative overflow-hidden rounded mb-2">
                             <img class="img-fluid-cat" src="img/TU-VUNG-TIENG-ANH-CHUYEN-NGANH-HOA-HOC.jpg" alt="">
-                            <a class="cat-overlay text-white text-decoration-none" href="courselist.jsp">
-                                <h3 class="text-white font-weight-medium">Hóa Học</h3>
-                            </a>
+                            <form action="CourseServlet" method="POST">
+                                <input type="hidden" name="subject" value="Chemistry">
+                                <button type="submit" class="cat-overlay text-white text-decoration-none">
+                                    <h3 class="text-white font-weight-medium">Hoá Học</h3>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

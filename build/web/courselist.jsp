@@ -1,6 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Module" %>
+<%@ page import="model.Lesson" %>
+<%@ page import="model.Video" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,9 +42,9 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        
+
         <style>
-        .sidebar {
+            .sidebar {
                 border: 2px solid #fff;
                 border-radius: 15px;
                 padding: 20px;
@@ -81,14 +86,14 @@
                 transform: translateY(-5px);
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             }
-    </style>
+        </style>
     </head>
     <body>
 
         <!-- Navbar start-->
         <jsp:include page="menu.jsp"/>
         <!-- Navbar End -->
-        
+
         <div class="container-fluid page-header" style="margin-bottom: 90px;">
             <div class="container">
                 <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
@@ -100,120 +105,43 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8" style=" max-width: 1000px; margin-left: auto;">
-                    <div class="media search-media">
-                        <div class="media-body">
-                            <!-- Chapter Header -->
-                            <div style="margin: 0 0 15px 0;">
-                                <h4 class="media-heading text-primary">Chương 1.
-                                    Ứng dụng đạo hàm để khảo sát và vẽ đồ thị
-                                    hàm số</h4>
-                            </div>
-
-                            <!-- Lesson Links -->
-                            <div style="margin-bottom: 10px;">
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            1. Tính đơn điệu và cực trị của hàm
-                                            số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            2. Giá trị lớn nhất và giá trị nhỏ
-                                            nhất của hàm số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            3. Đường tiệm cận của đồ thị hàm
-                                            số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            4. Khảo sát sự biến thiên và vẽ đồ
-                                            thị của hàm số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            5. Ứng dụng đạo hàm để giải quyết
-                                            một số vấn đề liên quan đến thực
-                                            tiễn</b></h6>
-                                </a>
-
-                                <!-- Flashcard Link -->
-                                <a href="payment.jsp">
-                                    <h6 style="margin: 10px 0;">
-                                        <b>Bài tập cuối chương 1</b> 
-                                        <i class="fa fa-lock"></i>
-                                    </h6>
-                                </a>
+                    <c:forEach var="entry" items="${Map}">
+                        <div class="media search-media">
+                            <div class="media-body">
+                                <div style="margin: 0 0 15px 0;">
+                                     <h4 class="media-heading text-primary">${entry.key.getName()} - ${entry.key.getDescription()}</h4>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <c:forEach var="lesson" items="${entry.value}">
+                                        <c:forEach var="entry2" items="${lesson}">
+                                            <a href="VideoServlet?video=${entry2.value.getId()}&content=${entry2.key.getContentid()}">
+                                                <h6 style="margin: 10px 0;"><b>${entry2.key.getName()}</b></h6>
+                                            </a>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach> 
 
-                    <div class="media search-media">
-                        <div class="media-body">
-                            <div style="margin: 0 0 15px 0;">
-                                <h4 class="media-heading text-primary">Chương 1.
-                                    Ứng dụng đạo hàm để khảo sát và vẽ đồ thị
-                                    hàm số</h4>
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            1. Tính đơn điệu và cực trị của hàm
-                                            số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            2. Giá trị lớn nhất và giá trị nhỏ
-                                            nhất của hàm số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            3. Đường tiệm cận của đồ thị hàm
-                                            số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            4. Khảo sát sự biến thiên và vẽ đồ
-                                            thị của hàm số</b></h6>
-                                </a>
-                                <a href="video.jsp">
-                                    <h6 style="margin: 10px 0;"><b>Bài
-                                            5. Ứng dụng đạo hàm để giải quyết
-                                            một số vấn đề liên quan đến thực
-                                            tiễn</b></h6>
-                                </a>
-                                <a href="payment.jsp">
-                                    <h6 style="margin: 10px 0;">
-                                        <b>Bài tập cuối chương 1</b> 
-                                        <i class="fa fa-lock"></i>
-                                    </h6>
-                                </a>
-                            </div>
+                    <div class="col-lg-4">
+                        <div class="sidebar">
+                            <div class="sidebar-title">Danh mục môn học</div>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                    <a href="courselist.jsp">Toán</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                    <a href="courselist.jsp">Lý</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                    <a href="courselist.jsp">Hóa</a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-
-                    <!-- More chapters can be added here following the same structure -->
-                </div>
-
-
-                <div class="col-lg-4">
-                    <div class="sidebar">
-                        <div class="sidebar-title">Danh mục môn học</div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="courselist.jsp">Toán</a>
-                            </li>
-                             <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="courselist.jsp">Lý</a>
-                            </li>
-                             <li class="list-group-item">
-                                <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="courselist.jsp">Hóa</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -225,7 +153,7 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
                 class="fa fa-angle-double-up"></i></a>
-                
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

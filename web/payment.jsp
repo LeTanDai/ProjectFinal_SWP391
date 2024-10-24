@@ -45,7 +45,7 @@
                 <div class="card-payment">
                     <div class="header-payment">
                         <span class="title-payment" style="color: #ff6600">Premium</span>
-                        <span class="price-payment">250.000VND/tháng</span>
+                        <span class="price-payment">30.000VND/tháng</span>
                     </div>
                     <p class="desc-payment">Truy cập không giới hạn khóa học nâng cao.</p>
                     <ul class="lists">
