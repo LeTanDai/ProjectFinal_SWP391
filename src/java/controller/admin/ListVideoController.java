@@ -75,12 +75,12 @@ public class ListVideoController extends HttpServlet {
                 request.setAttribute("videourl", video.getUrl());
                 request.setAttribute("content_title", lesson_content.getContent_title());
                 request.setAttribute("content", lesson_content.getContent());
-                request.getRequestDispatcher("/video.jsp").forward(request, response);
+                request.getRequestDispatcher("listVideo.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            request.getRequestDispatcher("courselist.jsp").forward(request, response);
+            request.getRequestDispatcher("dashBoard.jsp").forward(request, response);
         }
     }
 

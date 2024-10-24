@@ -52,7 +52,9 @@
             <div class="row border-top-logo px-xl-5">
                 <div class="col-lg-3-logo">
                     <a href="index.jsp">
-                        <img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 67px; height: 67px;">
+
+                        <img class="img-fluid-cat" src="${pageContext.request.contextPath}/img/Logo.png" alt="ECOURSES Logo" style="width: 67px; height: 67px;">
+
                     </a>
                 </div>
                 <div class="col-lg-9">
