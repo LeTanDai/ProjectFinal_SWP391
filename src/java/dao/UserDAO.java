@@ -219,6 +219,22 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
+    
+    public User checkPhone(String phone) {
+        String sql = "SELECT * FROM Users WHERE phone_number = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, phone);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("full_name"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public User checkAccountExistByUsernameAndEmail(String username, String email) {
         String sql = "SELECT * FROM Users WHERE username = ? AND email = ?";
