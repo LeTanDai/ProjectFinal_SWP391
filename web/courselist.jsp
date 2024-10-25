@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     </c:forEach> 
-
+                </div>
                     <div class="col-lg-4">
                         <div class="sidebar">
                             <div class="sidebar-title">Danh mục môn học</div>
@@ -145,7 +145,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+  
 
         <!-- Footer Start -->
         <jsp:include page="footer.jsp"/>

@@ -15,12 +15,12 @@ import java.sql.ResultSet;
  * @author Admin
  */
 public class ContentDAO extends DBContext {
-    
-   public ContentDAO() throws Exception {
-       
-   }
 
-    public Lesson_Content getContentByContentid(int contentid) throws Exception{
+    public ContentDAO() throws Exception {
+
+    }
+
+    public Lesson_Content getContentByContentid(int contentid) throws Exception {
         Lesson_Content lct = null;
         PreparedStatement prepare = null;
         ResultSet rs = null;
@@ -36,6 +36,34 @@ public class ContentDAO extends DBContext {
             e.printStackTrace();
         }
         return lct;
+    }
+
+    public void addContent(Lesson_Content cont) {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        try {
+            prepare = connection.prepareStatement("INSERT INTO Lesson_Content(content_title,content) VALUES (?,?)");
+            prepare.setString(1, cont.getContent_title());
+            prepare.setString(2, cont.getContent());
+            prepare.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getMaxContentId() {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        try {
+            prepare = connection.prepareStatement("select MAX(content_id) from Lesson_Content");
+            rs = prepare.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }

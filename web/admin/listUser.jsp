@@ -101,10 +101,10 @@
                                     <path
                                         d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
                                     </svg>
-                                    <span class="menu-text">Tài Liệu</span>
+                                    <span class="menu-text">Sách</span>
                                 </div>
                             </a>
-                            <a href="listLesson.jsp" class="nav-item nav-link">
+                            <a href="AdminListLesson" class="nav-item nav-link">
                                 <div
                                     class="menu-item d-flex align-items-center "
                                     style="gap: 5px; color: black;">

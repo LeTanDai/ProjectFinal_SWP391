@@ -284,44 +284,51 @@
                                         Quay Lại</button></a>
                             </div>
                         </div>
+                        <!-- Dynamic Lesson Content Container -->
+                        <form action="AdminAddLesson" method="post">
+                            <%
+                                Integer number = (Integer) request.getAttribute("number");
+                                if (number == null) {
+                                    number = 1; 
+                                }
+                                for (int i = 1; i <= number; i++) {
+                            %>
+                            <div id="lessonContentContainer<%=i%>">
+                                <div class="bg-white rounded-3 p-3 content-section" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
+                                    <label for="docName<%=i%>">Đề Mục <%=i%></label>
+                                    <input type="text" id="docName<%=i%>" name="docName[]" placeholder="Nhập tiêu đề" required>
 
-                        <form action="AdminAddDocument">
-                            <!-- Lesson Information Section -->
-                            <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
-                                <div>
-                                    <label for="docName">Tên Bài Học</label>
-                                    <input type="text" id="docName" name="documentname" placeholder="Nhập tên bài học" required>
+                                    <label for="description<%=i%>">Nội Dung Đề Mục</label>
+                                    <textarea id="description<%=i%>" name="description[]" rows="10" placeholder="Enter a brief description"></textarea>
 
-                                    <label for="docType">Môn</label>
-                                    <select id="docType" name="subjectid" required>
-                                        <option value="Toán">Toán</option>
-                                        <option value="Lý">Lý</option>
-                                        <option value="Hoá">Hóa</option>
-                                    </select>
-
-                                    <label for="classType">Lớp</label>
-                                    <select id="classType" name="classid" required>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-
-                                   <label for="video-url">Hình ảnh url</label>
-                                    <textarea id="video-url" name="imageurl" rows="3" placeholder="Nhập URL hình ảnh"></textarea>
-
-                                    <label for="video-url">Tài liệu sách url</label>
-                                    <textarea id="video-url" name="bookurl" rows="3" placeholder="Nhập URL tài liệu sách"></textarea>
-
+                                    <button type="button" class="delete-button">Xóa</button>
                                 </div>
                             </div>
+                            <%
+                                } 
+                            %>
+
+                            <!-- Buttons (Always at the bottom) -->
                             <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">
-                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Xác nhận">
+                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Lưu bài học">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Popup for confirmation -->
+        <div class="popup-overlay" id="popup-addDocument">
+            <div class="popup-addDocument">
+                <h2>Xác Nhận</h2>
+                <p>Bạn có chắc chắn muốn thêm tài liệu này không?</p>
+                <button type="button" id="confirmButton">Xác Nhận</button>
+                <button type="button" class="cancel-btn" id="cancelButton">Hủy Bỏ</button>
+            </div>
+        </div>
+
+
     </body>
 
 </html>

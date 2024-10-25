@@ -5,15 +5,9 @@
 package controller.admin;
 
 import dao.ClassDAO;
-import dao.ContentDAO;
-import dao.CourseDAO;
 import dao.DocumentDAO;
-import dao.VideoDAO;
+import dao.DocumentPendingDAO;
 import dao.SubjectDAO;
-import model.Classes;
-import model.Lesson_Content;
-import model.Subjects;
-import model.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,18 +15,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import model.Classes;
 import model.Document;
+import model.Subjects;
 
 /**
  *
  * @author Admin
  */
-@WebServlet("/admin/AdminListDocument")
-public class ListDocumentController extends HttpServlet {
+@WebServlet("/admin/AdminListDocumentPending")
+public class ListDocumentPendingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +46,10 @@ public class ListDocumentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Admin_ListDocument</title>");
+            out.println("<title>Servlet ListDocumentPendingController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Admin_ListDocument at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListDocumentPendingController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -80,10 +75,10 @@ public class ListDocumentController extends HttpServlet {
         int startItems = 0;
         int endItems = 0;
         try {
-            DocumentDAO docdao = new DocumentDAO();
+            DocumentPendingDAO docpenddao = new DocumentPendingDAO();
             SubjectDAO subdao = new SubjectDAO();
             ClassDAO cldao = new ClassDAO();
-            ArrayList<Document> doclist = docdao.getAllDocumentWithSubject();
+            ArrayList<Document> doclist = docpenddao.getAllDocumentWithSubject();
             Map<Document, Map<Subjects, Classes>> map = new LinkedHashMap<>();
             Map<Subjects, Classes> mapclsj = new LinkedHashMap<>();
             for (Document doc : doclist) {
@@ -126,10 +121,10 @@ public class ListDocumentController extends HttpServlet {
                     break;
                 }
             }
-            request.setAttribute("submapdocument", submap);
+            request.setAttribute("submapdocumentpending", submap);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("totalPage", totalPage);
-            request.getRequestDispatcher("listDocument.jsp").forward(request, response);
+            request.getRequestDispatcher("documentPending.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().write("An error occurred: " + e.getMessage());
@@ -148,18 +143,20 @@ public class ListDocumentController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            DocumentPendingDAO docpendingdao = new DocumentPendingDAO();
             DocumentDAO docdao = new DocumentDAO();
-            String operate = request.getParameter("operatedocument");
-            String docid = request.getParameter("documentid");
+            String operate = request.getParameter("operatedocumentpending");
+            String docpendingid = request.getParameter("documentpendingid");
             if (operate != null) {
+                int docpendiid = Integer.parseInt(docpendingid);
                 if (operate.equals("delete")) {
-                    if ( docid != null ) {
-                        request.getRequestDispatcher("listUser.jsp").forward(request, response);
-                    }
-                    int doccid = Integer.parseInt(docid);
-                    docdao.deleteDocument(doccid);
-                    doGet(request, response);
+                    docpendingdao.deleteDocument(docpendiid);
+                } else if (operate.equals("add")) {
+                    Document doc = docpendingdao.getDocumentById(docpendiid);
+                    docdao.createDocument(doc);
+                    docpendingdao.deleteDocument(docpendiid);
                 }
+                doGet(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

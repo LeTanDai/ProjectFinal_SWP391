@@ -140,7 +140,7 @@ public class UserDAO extends DBContext {
                 User u = new User(rs.getInt("user_id"), rs.getString("full_name"), rs.getString("username"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
                 return u;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
