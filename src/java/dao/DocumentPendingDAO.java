@@ -20,24 +20,30 @@ public class DocumentPendingDAO extends DBContext {
 
     public DocumentPendingDAO() {
     }
+    
 
-    public ArrayList<Document> getAllDocumentWithSubject() throws Exception {
-        ArrayList<Document> list = new ArrayList<>();
-        String sql = "select Document_Pending.documentpending_id, Document_Pending.document_url, Document_Pending.document_name,Document_Pending.image_url, Classes.class_id, Subjects.subject_id from Document_Pending\n"
-                + "join Subjects on Document_Pending.subject_id = Subjects.subject_id\n"
-                + "join Classes on Document_Pending.class_id = Classes.class_id";
-        Document doc = null;
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+    public List<Document> getAllDocumentPending() throws SQLException {
+        List<Document> documentPendingList = new ArrayList<>();
+        String sql = "SELECT * FROM Document_Pending";
+        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
+
             while (rs.next()) {
-                doc = new Document(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(6), rs.getInt(5));
-                list.add(doc);
+                Document document = new Document(
+                        rs.getInt("documentpending_id"),
+                        rs.getString("document_url"),
+                        rs.getString("document_name"),
+                        rs.getString("image_url"),
+                        rs.getInt("subject_id"),
+                        rs.getInt("class_id")
+                );
+
+                documentPendingList.add(document);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-        return list;
+
+        return documentPendingList;
     }
 
     public void createDocument(Document documentPending) {
@@ -111,6 +117,7 @@ public class DocumentPendingDAO extends DBContext {
 
     public static void main(String[] args) throws SQLException {
         DocumentPendingDAO dao = new DocumentPendingDAO();
-        
+        List<Document> list = dao.getAllDocumentPending();
+        System.out.println(list);
     }
 }

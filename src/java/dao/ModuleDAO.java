@@ -41,47 +41,20 @@ public class ModuleDAO extends DBContext {
         Module module = null;
         String sql = "SELECT * FROM Module\n"
                 + "WHERE Module.module_id = ?";
-        try {
+        try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 String moduleName = rs.getString("module_name");
                 String description = rs.getString("module_description");
                 int subjectId = rs.getInt("subject_id");
                 int classId = rs.getInt("class_id");
-
+                
                 module = new Module(id, moduleName, description, subjectId, classId);
             }
-        } catch (Exception e) {
-            System.out.println(e);
         }
-        return module;
-    }
-
-    public Module getModuleByName(String name, int classid, int subjectid) {
-        if (!name.toLowerCase().contains("chương")) {
-            name = "chương" + name;
-        }
-        Module module = null;
-        String sql = "select * from Module\n"
-                + "where Module.module_name like ? \n"
-                + "and Module.subject_id = ? and Module.class_id = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setInt(2, subjectid);
-            ps.setInt(3, classid);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String moduleName = rs.getString("module_name");
-                String description = rs.getString("module_description");
-                int subjectId = rs.getInt("subject_id");
-                int classId = rs.getInt("class_id");
-                int moduleid = rs.getInt("module_id");
-                module = new Module(moduleid, moduleName, description, subjectId, classId);
-            }
-        } catch (Exception e) {
+        catch(Exception e){
             System.out.println(e);
         }
         return module;
