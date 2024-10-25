@@ -2,11 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.admin;
 
-import dao.CourseDAO;
-import model.Lesson;
-import model.Video;
+import dao.VideoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,15 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import model.Video;
 
 /**
  *
  * @author Admin
  */
-@WebServlet("/CourseServlet")
-public class CourseServlet extends HttpServlet {
+@WebServlet("/admin/AdminListSearchDocument")
+public class ListSearchDocumentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class CourseServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseDAO</title>");
+            out.println("<title>Servlet ListSearchDocumentController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CourseDAO at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListSearchDocumentController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,13 +61,23 @@ public class CourseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String grade = request.getParameter("class");
+        String searchrs = request.getParameter("search");
         HttpSession session = request.getSession();
-        if (grade != null) {
-            session.setAttribute("Grade", grade);
-            request.getRequestDispatcher("course.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        try {
+            VideoDAO viddao = new VideoDAO();
+            if (searchrs != null) {
+                ArrayList<Video> listvid = viddao.getListVideoBySearch(searchrs);
+                request.setAttribute("listvideo", listvid);
+            } 
+//            else if (searchrs == null) {
+//                if (session.getAttribute("listvideo") != null) {
+//                    session.removeAttribute("listvideo");
+//                }
+//            }
+            request.getRequestDispatcher("AdminListDocument").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("An error occurred: " + e.getMessage());
         }
     }
 
@@ -85,35 +92,7 @@ public class CourseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String[] subject = {"Math", "Physics", "Chemistry"};
-        String[] grade = {"10", "11", "12"};
-        String graderq = (String) session.getAttribute("Grade");
-        String subjectrq = request.getParameter("subject");
-        int gradeid = 0, subjectid = 0;
-        for (int i = 0; i < subject.length; i++) {
-            if (subjectrq.equalsIgnoreCase(subject[i])) {
-                subjectid = (i + 1);
-                break;
-            }
-        }
-        for (int i = 0; i < grade.length; i++) {
-            if (graderq.equalsIgnoreCase(grade[i])) {
-                gradeid = (i + 1);
-                break;
-            }
-        }
-        try {
-            CourseDAO dao = new CourseDAO();
-            Map<model.Module, ArrayList<Map<Lesson, Video>>> map = new LinkedHashMap<>();
-            map = dao.getAllModuleBySubjectid(subjectid, gradeid);
-            request.setAttribute("Map", map);
-            request.getRequestDispatcher("courselist.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().write("An error occurred: " + e.getMessage());
-        }
-
+        processRequest(request, response);
     }
 
     /**

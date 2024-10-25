@@ -7,13 +7,8 @@ package controller.admin;
 import dao.ClassDAO;
 import dao.ContentDAO;
 import dao.CourseDAO;
-import dao.DocumentDAO;
-import dao.VideoDAO;
 import dao.SubjectDAO;
-import model.Classes;
-import model.Lesson_Content;
-import model.Subjects;
-import model.Video;
+import dao.VideoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -25,14 +20,17 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import model.Document;
+import model.Classes;
+import model.Lesson_Content;
+import model.Subjects;
+import model.Video;
 
 /**
  *
  * @author Admin
  */
-@WebServlet("/admin/AdminListDocument")
-public class ListDocumentController extends HttpServlet {
+@WebServlet("/admin/AdminListLesson")
+public class ListLessonController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +49,10 @@ public class ListDocumentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Admin_ListDocument</title>");
+            out.println("<title>Servlet ListLessonController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Admin_ListDocument at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListLessonController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,24 +72,35 @@ public class ListDocumentController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String currentPage_get = request.getParameter("currentPage");
+        // String searchrs = request.getParameter("search");
         int currentPage = 0;
         int totalItems = 0;
         int totalPage = 0;
         int startItems = 0;
         int endItems = 0;
+        HttpSession session = request.getSession();
+        ArrayList<Video> listvid = new ArrayList<>();
+        Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> map = new LinkedHashMap<>();
         try {
-            DocumentDAO docdao = new DocumentDAO();
+            VideoDAO viddao = new VideoDAO();
+            ClassDAO classdao = new ClassDAO();
             SubjectDAO subdao = new SubjectDAO();
-            ClassDAO cldao = new ClassDAO();
-            ArrayList<Document> doclist = docdao.getAllDocumentWithSubject();
-            Map<Document, Map<Subjects, Classes>> map = new LinkedHashMap<>();
-            Map<Subjects, Classes> mapclsj = new LinkedHashMap<>();
-            for (Document doc : doclist) {
-                mapclsj = new LinkedHashMap<>();
-                Subjects sub = subdao.getSubjectById(doc.getSubject_id());
-                Classes class_ = cldao.getClassById(doc.getClass_id());
-                mapclsj.put(sub, class_);
-                map.put(doc, mapclsj);
+            CourseDAO coudao = new CourseDAO();
+            ContentDAO condao = new ContentDAO();
+            listvid = viddao.getAllVideo();
+//            if (searchrs != null) {
+//                listvid = viddao.getListVideoBySearch(searchrs);
+//            }
+
+            for (Video vid : listvid) {
+                Map<Video, Lesson_Content> maplc = new LinkedHashMap<>();
+                Map<Subjects, Classes> mapsc = new LinkedHashMap<>();
+                Subjects sub = subdao.getSubjectById(vid.getSubjectid());
+                Classes c = classdao.getClassById(vid.getClassid());
+                Lesson_Content lc = condao.getContentByContentid(coudao.getLessonByVideoid(vid.getId()).getContentid());
+                mapsc.put(sub, c);
+                maplc.put(vid, lc);
+                map.put(maplc, mapsc);
             }
             totalItems = map.size();
             if (action != null && currentPage_get != null) {
@@ -103,7 +112,7 @@ public class ListDocumentController extends HttpServlet {
                         currentPage--;
                     }
                 } else if (action.equals("next")) {
-                    totalPage = (int) Math.ceil((double) totalItems / 3);
+                    totalPage = (int) Math.ceil((double) totalItems / 6);
                     if (currentPage < totalPage) {
                         currentPage++;
                     } else {
@@ -113,11 +122,11 @@ public class ListDocumentController extends HttpServlet {
             } else {
                 currentPage = 1;
             }
-            Map<Document, Map<Subjects, Classes>> submap = new LinkedHashMap<>();
-            startItems = (currentPage - 1) * 3;
-            endItems = Math.min(startItems + 3, totalItems);
+            Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> submap = new LinkedHashMap<>();
+            startItems = (currentPage - 1) * 6;
+            endItems = Math.min(startItems + 6, totalItems);
             int currentIndex = 0;
-            for (Map.Entry<Document, Map<Subjects, Classes>> entry : map.entrySet()) {
+            for (Map.Entry<Map<Video, Lesson_Content>, Map<Subjects, Classes>> entry : map.entrySet()) {
                 if (currentIndex >= startItems && currentIndex <= endItems) {
                     submap.put(entry.getKey(), entry.getValue());
                 }
@@ -126,10 +135,10 @@ public class ListDocumentController extends HttpServlet {
                     break;
                 }
             }
-            request.setAttribute("submapdocument", submap);
+            request.setAttribute("submapvideo", submap);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("totalPage", totalPage);
-            request.getRequestDispatcher("listDocument.jsp").forward(request, response);
+            request.getRequestDispatcher("listLesson.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().write("An error occurred: " + e.getMessage());
@@ -148,16 +157,16 @@ public class ListDocumentController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            DocumentDAO docdao = new DocumentDAO();
-            String operate = request.getParameter("operatedocument");
-            String docid = request.getParameter("documentid");
+            VideoDAO viddao = new VideoDAO();
+            HttpSession session = request.getSession();
+            String operate = request.getParameter("operatevideo");
+            String videoid = request.getParameter("videoid");
+            String contentid = request.getParameter("contentid");
             if (operate != null) {
                 if (operate.equals("delete")) {
-                    if ( docid != null ) {
-                        request.getRequestDispatcher("listUser.jsp").forward(request, response);
-                    }
-                    int doccid = Integer.parseInt(docid);
-                    docdao.deleteDocument(doccid);
+                    int vidid = Integer.parseInt(videoid);
+                    int contid = Integer.parseInt(contentid);
+                    viddao.DeleteVideobyVideoid(vidid, contid);
                     doGet(request, response);
                 }
             }

@@ -15,16 +15,18 @@ public class Lesson {
     private boolean status;
     private int contentid;
     private int videoid;
+    private boolean isPremium;
     public Lesson() {
     }
 
-    public Lesson(int id, String name, int moduleid, boolean status, int contentid, int videoid) {
+    public Lesson(int id, String name, int moduleid, boolean status, int contentid, int videoid, boolean isPremium) {
         this.id = id;
         this.name = name;
         this.moduleid = moduleid;
         this.status = status;
         this.contentid = contentid;
         this.videoid = videoid;
+        this.isPremium = isPremium;
     }
 
     public int getId() {
@@ -75,9 +77,12 @@ public class Lesson {
         this.videoid = videoid;
     }
 
-    
+    public boolean isIsPremium() {
+        return isPremium;
+    }
 
-    
-    
+    public void setIsPremium(boolean isPremium) {
+        this.isPremium = isPremium;
+    }
     
 }

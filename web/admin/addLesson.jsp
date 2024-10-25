@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Online Learning Website</title>
+        <meta charset="utf-8">
+        <title>ECOURSES - Online Courses HTML Template</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -13,115 +14,136 @@
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Font Awesome -->
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-            rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css"
-              rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
         <!-- Customized Bootstrap Stylesheet -->
         <link rel="stylesheet" href="../css/style.css">
 
-    </head>
-
-    <style>
-        /* Basic styles */
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        select {
-            height: 40px;
-        }
-
-        textarea {
-            resize: none;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        .popup-addDocument {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .popup-addDocument h2 {
-            margin-bottom: 20px;
-        }
-
-        .popup-addDocument button {
-            margin: 10px;
-        }
-
-        .popup-addDocument button.cancel-btn {
-            background-color: #dc3545;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
+        <style>
+            /* Basic styles for form elements */
+            h2 {
+                text-align: center;
+                margin-bottom: 20px;
             }
-        }
-    </style>
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            input,
+            select,
+            textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            select {
+                height: 40px;
+            }
+
+            textarea {
+                resize: none;
+            }
+
+            button {
+                padding: 10px 20px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            button:hover {
+                background-color: #218838;
+            }
+
+            .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 999;
+            }
+
+            .popup-addDocument {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                width: 90%;
+                max-width: 400px;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .popup-addDocument h2 {
+                margin-bottom: 20px;
+            }
+
+            .popup-addDocument button {
+                margin: 10px;
+            }
+
+            .popup-addDocument button.cancel-btn {
+                background-color: #dc3545;
+            }
+
+            @media (max-width: 600px) {
+                .container {
+                    width: 90%;
+                }
+            }
+
+            /* Style for the delete button */
+            .delete-button {
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                padding: 10px;
+                margin-top: 10px;
+            }
+
+            .delete-button:hover {
+                background-color: #c82333;
+            }
+
+            .content-section {
+                position: relative;
+            }
+
+            /* Ensure delete button stays at the top right of the section */
+            .delete-button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+            }
+        </style>
+    </head>
 
     <body style="background-color: #f7f8fc;">
 
         <div class="container-fluid">
-
             <div class="row">
                 <div class="col-md-2 p-0">
                     <div class="sidebar-light d-flex flex-column bg-white"
@@ -137,7 +159,7 @@
                              align-content: center;
                              flex-wrap: wrap;
                              gap: 30px; ">
-                            <a href="dashBoard.jsp"
+                            <a href="dashBoard.html"
                                class="nav-item nav-link active">
                                 <div
                                     class="menu-item d-flex align-items-center "
@@ -154,7 +176,7 @@
                                     <span class="menu-text">Dashboard</span>
                                 </div>
                             </a>
-                            <a href="listUser.jsp" class="nav-item nav-link">
+                            <a href="listUser.html" class="nav-item nav-link">
                                 <div
                                     class="menu-item d-flex align-items-center  "
                                     style="gap: 5px; color: black;">
@@ -169,7 +191,7 @@
                                     <span class="menu-text">Người Dùng</span>
                                 </div>
                             </a>
-                            <a href="listDocument.jsp"
+                            <a href="listDocument.html"
                                class="nav-item nav-link"
                                >
                                 <div
@@ -190,7 +212,7 @@
                                     <span class="menu-text">Tài Liệu</span>
                                 </div>
                             </a>
-                            <a href="listLesson.jsp" class="nav-item nav-link" style="background-color: #ff6600; border-radius: 15px; width: 200px; height: 50px; padding: 12px 30px;">
+                            <a href="listLesson.html" class="nav-item nav-link" style="background-color: #ff6600; border-radius: 15px; width: 200px; height: 50px; padding: 12px 30px;">
                                 <div
                                     class="menu-item d-flex align-items-center "
                                     style="gap: 5px; color: black;">
@@ -211,7 +233,7 @@
                                     <span class="menu-text">Bài Học</span>
                                 </div>
                             </a>
-                            <a href="listQuiz.jsp" class="nav-item nav-link">
+                            <a href="listQuiz.html" class="nav-item nav-link">
                                 <div
                                     class="menu-item d-flex align-items-center "
                                     style="gap: 5px; color: black;">
@@ -227,14 +249,11 @@
                 </div>
 
                 <div class="container col-md-10">
-
                     <div class="row">
                         <!-- Dropdown Section -->
-                        <div
-                            class="dropdown-light d-flex justify-content-end mt-3 px-4">
+                        <div class="dropdown-light d-flex justify-content-end mt-3 px-4">
                             <div class="fields">
-                                <div
-                                    class="field-item d-flex align-items-center justify-content-between">
+                                <div class="field-item d-flex align-items-center justify-content-between">
                                     <div class="text">
                                         <h2>Quản Lý Bài Học</h2>
                                     </div>
@@ -245,14 +264,12 @@
 
                     <!-- Header -->
                     <div class>
-                        <div class="header bg-white rounded-3 p-3"
-                             style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
-                            <div
-                                style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
+                        <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
+                            <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
                                 <h4>Thêm Bài Học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="listLesson.jsp"
+                                <a href="listLesson.html"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -268,108 +285,47 @@
                             </div>
                         </div>
 
-                        <div class=" bg-white rounded-3 p-3"
-                             style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
-                            <div style="margin: 0 3px;">
-
-                            </div>
-
-                            <div>
-                                <form id="documentForm">
+                        <form action="AdminAddLesson">
+                            <!-- Lesson Information Section -->
+                            <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
+                                <div>
                                     <label for="docName">Tên Bài Học</label>
-                                    <input type="text" id="docName"
-                                           name="docName"
-                                           placeholder="Nhập tên bài học"
-                                           required>
-
-                                    <label for="createDay">Ngày Thêm</label>
-                                    <input type="date" id="createDay"
-                                           name="createDay" required>
+                                    <input type="text" id="docName" name="lessonname" placeholder="Nhập tên bài học" required>
 
                                     <label for="docType">Môn</label>
-                                    <select id="docType" name="docType"
-                                            required>
-                                        <option value>Toán</option>
-                                        <option value="PDF">Lý</option>
-                                        <option value="Video">Hóa</option>
+                                    <select id="docType" name="subjectid" required>
+                                        <option value="Toán">Toán</option>
+                                        <option value="Lý">Lý</option>
+                                        <option value="Hoá">Hóa</option>
                                     </select>
 
                                     <label for="classType">Lớp</label>
-                                    <select id="classType" name="docType"
-                                            required>
-                                        <option value>10</option>
-                                        <option value="PDF">11</option>
-                                        <option value="Video">12</option>
+                                    <select id="classType" name="classid" required>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
                                     </select>
 
-                                    <label for="docName">Chương</label>
-                                    <input type="text" id="docName"
-                                           name="docName"
-                                           placeholder="Nhập chương"
-                                           required>
+                                    <label for="chapter">Chương</label>
+                                    <input type="text" id="chapter" name="chapter" placeholder="Nhập chương" required>
 
-                                    <label for="description">Ghi Chú</label>
-                                    <textarea id="description"
-                                              name="description" rows="4"
-                                              placeholder="Enter a brief description"></textarea>
+                                    <label for="video-url">Video url</label>
+                                    <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
 
-                                    <label for="fileUpload">Tải File</label>
-                                    <input type="file" id="fileUpload"
-                                           name="fileUpload" required>
-
-                                    <button type="button" id="addButton"
-                                            class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Thêm
-                                        Tài Liệu</button>
-                                </form>
+                                    <label for="title">Tiêu Đề</label>
+                                    <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
+                                    <label for="title">Số lượng đề mục</label>
+                                    <input type="text" id="number" name="numbersubheading" placeholder="1,2,3,..." required>
+                                </div>
                             </div>
-                        </div>
-
+                            <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">
+                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Xác nhận">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
-
-        <!-- Popup for confirmation -->
-        <div class="popup-overlay" id="popup-addDocument">
-            <div class="popup-addDocument">
-                <h2>Xác Nhận</h2>
-                <p>Bạn có chắc chắn muốn thêm tài liệu này không?</p>
-                <button type="button" id="confirmButton">Xác Nhận</button>
-                <button type="button" class="cancel-btn"
-                        id="cancelButton">Hủy Bỏ</button>
-            </div>
-        </div>
-
-        <script>
-            // Get references to the DOM elements
-            const addButton = document.getElementById('addButton');
-            const popup = document.getElementById('popup-addDocument');
-            const confirmButton = document.getElementById('confirmButton');
-            const cancelButton = document.getElementById('cancelButton');
-
-            // Show the popup when the Add button is clicked
-            addButton.addEventListener('click', function () {
-                popup.style.display = 'flex';  // Show the popup
-            });
-
-            // Close the popup when the Cancel button is clicked
-            cancelButton.addEventListener('click', function () {
-                popup.style.display = 'none';  // Hide the popup
-            });
-
-            // Handle the form submission when the Confirm button is clicked
-            confirmButton.addEventListener('click', function () {
-                // Here you can handle the form submission, for example, send the data to a server
-                alert('Document has been added!');
-
-                // After submission, hide the popup and reset the form
-                popup.style.display = 'none';
-                document.getElementById('documentForm').reset();
-            });
-        </script>
-
-        <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
+
 </html>

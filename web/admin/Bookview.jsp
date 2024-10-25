@@ -10,7 +10,7 @@
         <meta content="Free HTML Templates" name="description">
 
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <link href="../img/favicon.ico" rel="icon">
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -20,18 +20,15 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
-        <style>
-            i
-        </style>
+        <link href="../css/style.css" rel="stylesheet">
     </head>
 
     <body>
         <!-- Navbar Start -->
-        <jsp:include page="menu.jsp"/>
+        <jsp:include page="../menu.jsp"/>
         <!-- Navbar End -->
 
         <!-- Header Start -->
@@ -54,7 +51,7 @@
 
 
         <!-- Footer Start -->
-        <jsp:include page="footer.jsp"/>  
+        <jsp:include page="../footer.jsp"/>  
         <!-- Footer End -->
 
 
