@@ -9,6 +9,7 @@ import dao.DocumentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import model.Document;
  *
  * @author PC
  */
+@WebServlet(name = "BookDetailController", urlPatterns = {"/BookDetailController"})
 public class BookDetailController extends HttpServlet {
    
     /** 
