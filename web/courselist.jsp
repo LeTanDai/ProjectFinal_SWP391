@@ -109,7 +109,7 @@
                         <div class="media search-media">
                             <div class="media-body">
                                 <div style="margin: 0 0 15px 0;">
-                                     <h4 class="media-heading text-primary">${entry.key.getName()} - ${entry.key.getDescription()}</h4>
+                                    <h4 class="media-heading text-primary">${entry.key.getName()} - ${entry.key.getDescription()}</h4>
                                 </div>
                                 <div style="margin-bottom: 10px;">
                                     <c:forEach var="lesson" items="${entry.value}">
@@ -123,29 +123,30 @@
                             </div>
                         </div>
                     </c:forEach> 
+                </div>
 
-                    <div class="col-lg-4">
-                        <div class="sidebar">
-                            <div class="sidebar-title">Danh mục môn học</div>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                    <a href="courselist.jsp">Toán</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                    <a href="courselist.jsp">Lý</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                    <a href="courselist.jsp">Hóa</a>
-                                </li>
-                            </ul>
-                        </div>
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <div class="sidebar-title">Danh mục môn học</div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                <a href="courselist.jsp">Toán</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                <a href="courselist.jsp">Lý</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-pencil-alt sidebar-icon"></i>
+                                <a href="courselist.jsp">Hóa</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <!-- Footer Start -->
         <jsp:include page="footer.jsp"/>

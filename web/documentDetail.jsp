@@ -100,7 +100,7 @@
                             <c:forEach items="${listEx}" var="exam">
                                 <li class="list-group-item">
                                     <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                    <a href="examDetail.jsp?examId=${exam.examId}">${exam.examName}</a>
+                                    <a href="ExamDetailController?examId=${exam.examId}">${exam.examName}</a>
                                 </li>
                             </c:forEach>
                         </ul>
