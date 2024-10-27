@@ -106,7 +106,9 @@ public class UpdateLessonController extends HttpServlet {
         String chapter = request.getParameter("chapter");
         String videourl = request.getParameter("videourl");
         String videotitle = request.getParameter("videotitle");
+        String type = request.getParameter("type");
         HttpSession session = request.getSession();
+        Lesson newLesson = null;
         if (lessonid != null && !lessonid.isEmpty()
                 && lessonname != null && !lessonname.isEmpty()
                 && subject != null && !subject.isEmpty()
@@ -125,7 +127,11 @@ public class UpdateLessonController extends HttpServlet {
                 Lesson oldless = coudao.getLessonByid(lessid);
                 Video oldvideo = viddao.getVideoByVideoid(oldless.getVideoid());
                 Video newvideo = new Video(oldvideo.getId(), videourl, videotitle, subjectid, classid);
-                Lesson newLesson = new Lesson(oldless.getId(), lessonname, module.getId(), true, oldless.getContentid(), newvideo.getId(), true);
+                if (type.equalsIgnoreCase("Premium")) {
+                    newLesson = new Lesson(oldless.getId(), lessonname, module.getId(), true, oldless.getContentid(), newvideo.getId(), true);
+                } else {
+                    newLesson = new Lesson(oldless.getId(), lessonname, module.getId(), true, oldless.getContentid(), newvideo.getId(), false);
+                }
                 if (number != null && !number.isEmpty()) {
                     int nums = Integer.parseInt(number);
                     request.setAttribute("contentid", contentid);
@@ -137,7 +143,7 @@ public class UpdateLessonController extends HttpServlet {
                     viddao.updateVideo(newvideo);
                     coudao.updateLesson(newLesson);
                     response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");
-               }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 response.getWriter().write("An error occurred: " + e.getMessage());

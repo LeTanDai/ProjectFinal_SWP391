@@ -305,10 +305,13 @@
                                         <option value="2" ${video.getClassid() == 2 ? 'selected' : ''}>11</option>
                                         <option value="3" ${video.getClassid() == 3 ? 'selected' : ''}>12</option>
                                     </select>
-
+                                    <label for="classType">Loại bài học</label>
+                                    <select id="docType" name="type" required>
+                                        <option value="Premium">Premium</option>
+                                        <option value="Normal">Normal</option>
+                                    </select>
                                     <label for="chapter">Chương</label>
                                     <input type="text" id="chapter" name="chapter" value="${module.getName()}" required>
-
                                     <label for="video-url">Video url</label>
                                     <textarea id="video-url" name="videourl" rows="3" value="${video.getUrl()}"></textarea>
                                     <label for="title">Tiêu Đề</label>

@@ -305,9 +305,13 @@
                                             <option value="${item.getId()}">${item.getName()}</option>
                                         </c:forEach>
                                     </select>
+                                    <label for="classType">Loại bài học</label>
+                                    <select id="docType" name="type" required>
+                                        <option value="Premium">Premium</option>
+                                        <option value="Normal">Normal</option>
+                                    </select>
                                     <label for="video-url">Video url</label>
                                     <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
-
                                     <label for="title">Tiêu Đề</label>
                                     <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
                                     <label for="title">Số lượng đề mục</label>

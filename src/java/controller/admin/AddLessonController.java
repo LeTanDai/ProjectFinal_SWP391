@@ -76,8 +76,9 @@ public class AddLessonController extends HttpServlet {
         String classes = request.getParameter("classid");
         String videourl = request.getParameter("videourl");
         String videotitle = request.getParameter("videotitle");
+        String type = request.getParameter("type");
         HttpSession session = request.getSession();
-        if (number != null && lessonname != null && subject != null && classes != null && videourl != null && videotitle != null) {
+        if (type != null && number != null && lessonname != null && subject != null && classes != null && videourl != null && videotitle != null) {
             try {
                 int nums = Integer.parseInt(number);
                 int subjectid = Integer.parseInt(subject);
@@ -89,6 +90,7 @@ public class AddLessonController extends HttpServlet {
                 request.setAttribute("classid", classid);
                 request.setAttribute("listmod", listmod);
                 session.setAttribute("lessonname", lessonname);
+                session.setAttribute("type", type);
                 session.setAttribute("subject", subject);
                 session.setAttribute("classes", classes);
                 session.setAttribute("videourl", videourl);
@@ -124,6 +126,7 @@ public class AddLessonController extends HttpServlet {
         String chapter = request.getParameter("chapter");
         String videourl = (String) session.getAttribute("videourl");
         String videotitle = (String) session.getAttribute("videotitle");
+        String type = (String) session.getAttribute("type");
         int i = 0;
         String contenthtml = null;
         Video vid = null;
@@ -162,7 +165,11 @@ public class AddLessonController extends HttpServlet {
                 lescont = new Lesson_Content(0, contenthtml, title);
                 condao.addContent(lescont);
                 model.Module module = moddao.GetModuleById(moduleid);
-                les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), false);
+                if (type.equalsIgnoreCase("Premium")) {
+                     les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), true);
+                } else {
+                     les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), false);
+                }
                 coudao.addLesson(les);
                 response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");
             } catch (Exception e) {
