@@ -193,7 +193,7 @@
                             <span class="font-weight-bold">Theo Môn</span>
                             <label class="d-block"><input type="checkbox" class="subject-filter" value="Toán"> Toán</label>
                             <label class="d-block"><input type="checkbox" class="subject-filter" value="Lý"> Lý</label>
-                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Hoá"> Hóa</label>
+                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Hóa"> Hóa</label>
                         </div>
                     </div>
                 </div>

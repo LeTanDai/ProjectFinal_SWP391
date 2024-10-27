@@ -18,7 +18,7 @@ public class ModuleDAO extends DBContext {
                 + "JOIN Subjects s ON m.subject_id = s.subject_id "
                 + "JOIN Classes c ON m.class_id = c.class_id";
 
-        try ( Statement stmt = connection.createStatement();  ResultSet rs = stmt.executeQuery(sql)) {
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 int moduleId = rs.getInt("module_id");
@@ -85,5 +85,25 @@ public class ModuleDAO extends DBContext {
             System.out.println(e);
         }
         return module;
+    }
+
+    public int getModuleIdByName(String moduleName, int subjectId, int classId) {
+        int moduleId = -1;
+        String sql = "SELECT module_id FROM Module WHERE module_name = ? AND subject_id = ? AND class_id = ?"; // Adjust the SQL based on your actual table structure
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, moduleName);
+            ps.setInt(2, subjectId);
+            ps.setInt(3, classId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                moduleId = rs.getInt("module_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving module ID: " + e.getMessage());
+        }
+
+        return moduleId;
     }
 }

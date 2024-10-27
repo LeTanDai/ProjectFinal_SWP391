@@ -105,6 +105,24 @@ public class ClassDAO extends DBContext {
         return className;
     }
 
+    public int getClassIdByName(String className) {
+        int classId = 0;
+        String sql = "SELECT class_id FROM Classes WHERE class_name = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, className);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                classId = rs.getInt("class_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving class ID: " + e.getMessage());
+        }
+
+        return classId;
+    }
+
     public static void main(String[] args) throws SQLException {
         ClassDAO dao = new ClassDAO();
         List<Classes> cl = dao.getAllClass();
