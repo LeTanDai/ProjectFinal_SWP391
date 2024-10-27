@@ -175,12 +175,6 @@
                     <div class="filter-container">
                         <div class="filter-header">BỘ LỌC TÌM KIẾM</div>
 
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            </div>
-                        </div>
 
                         <div class="filter-section">
                             <span class="font-weight-bold">Theo Lớp</span>
