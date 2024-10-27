@@ -207,7 +207,7 @@
                             <h2>Câu hỏi</h2>
                             <a
                                 class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block"
-                                href="FlashCardQuizController?moduleId=${requestScope.modules}"
+                                href="CheckPremiumController?moduleId=${requestScope.modules}"
                                 style="width: 200px; height: 40px;">Làm bài kiểm
                                 tra</a>
                         </div>
