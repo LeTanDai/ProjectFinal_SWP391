@@ -92,7 +92,7 @@ public class CourseDAO extends DBContext {
         return less;
     }
 
-    public void addLesson(Lesson les) {
+    public void addLesson(Lesson les) throws Exception {
         PreparedStatement prepare = null;
         ResultSet rs = null;
         try {
@@ -109,7 +109,7 @@ public class CourseDAO extends DBContext {
         }
     }
 
-    public int getMaxLessonId() {
+    public int getMaxLessonId() throws Exception {
         PreparedStatement prepare = null;
         ResultSet rs = null;
         try {
@@ -122,5 +122,78 @@ public class CourseDAO extends DBContext {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public ArrayList<Lesson> getAllLessonBySearch(String search) throws Exception {
+        ArrayList<Lesson> list = new ArrayList<>();
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        try {
+            prepare = connection.prepareStatement("select * from Lesson\n"
+                    + "where Lesson.lesson_name like ? ");
+            prepare.setString(1, "%" + search + "%");
+            rs = prepare.executeQuery();
+            while (rs.next()) {
+                list.add(new Lesson(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5), rs.getInt(6), rs.getBoolean(7)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<Lesson> getAllLesson() throws Exception {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        Lesson less = null;
+        ArrayList<Lesson> list = new ArrayList<>();
+        try {
+            prepare = connection.prepareStatement("select * from Lesson");
+            rs = prepare.executeQuery();
+            while (rs.next()) {
+                less = new Lesson(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5), rs.getInt(6), rs.getBoolean(7));
+                list.add(less);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Lesson getLessonByid(int id) throws Exception {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        Lesson less = null;
+        try {
+            prepare = connection.prepareStatement("select * from Lesson where Lesson.lesson_id = ?");
+            prepare.setInt(1, id);
+            rs = prepare.executeQuery();
+            while (rs.next()) {
+                less = new Lesson(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBoolean(4), rs.getInt(5), rs.getInt(6), rs.getBoolean(7));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return less;
+    }
+
+    public void updateLesson(Lesson less) throws Exception {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        try {
+            prepare = connection.prepareStatement("update Lesson\n"
+                    + "set lesson_name = ?, module_id = ?, status_lesson = ?,content_id = ?, video_id = ?, isPremium = ?\n"
+                    + "where Lesson.lesson_id = ?");
+            prepare.setString(1, less.getName());
+            prepare.setInt(2, less.getModuleid());
+            prepare.setBoolean(3, less.isStatus());
+            prepare.setInt(4, less.getContentid());
+            prepare.setInt(5, less.getVideoid());
+            prepare.setBoolean(6, less.isIsPremium());
+            prepare.setInt(7, less.getId());
+            prepare.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

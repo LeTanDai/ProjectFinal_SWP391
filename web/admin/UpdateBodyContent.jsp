@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -267,10 +266,10 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Thêm Bài Học</h4>
+                                <h4>Chỉnh sửa nội dung bài học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="AdminListLesson"
+                                <a href="AdminUpdateLessonController"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -285,43 +284,50 @@
                                         Quay Lại</button></a>
                             </div>
                         </div>
+                        <!-- Dynamic Lesson Content Container -->
+                        <form action="AdminUpdateContentLessonController">
+                            <input type="hidden" name="contentid" value="${contentid}">
+                            <%
+                                Integer number = (Integer) request.getAttribute("number");
+                                if (number == null) {
+                                    number = 1; 
+                                }
+                                for (int i = 1; i <= number; i++) {
+                            %>
+                            <div id="lessonContentContainer<%=i%>">
+                                <div class="bg-white rounded-3 p-3 content-section" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
+                                    <label for="docName<%=i%>">Đề Mục <%=i%></label>
+                                    <input type="text" id="docName<%=i%>" name="docName[]" placeholder="Nhập tiêu đề" required>
 
-                        <form action="AdminAddLesson" method="get">
-                            <!-- Lesson Information Section -->
-                            <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
-                                <div>
-                                    <label for="docName">Tên Bài Học</label>
-                                    <input type="text" id="docName" name="lessonname" placeholder="Nhập tên bài học" required>
-
-                                    <label for="docType">Môn</label>
-                                    <select id="docType" name="subjectid" required>
-                                        <c:forEach var="item" items="${listsub}">
-                                            <option value="${item.getId()}">${item.getName()}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="classType">Lớp</label>
-                                    <select id="classType" name="classid" required>
-                                        <c:forEach var="item" items="${listclass}">
-                                            <option value="${item.getId()}">${item.getName()}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="video-url">Video url</label>
-                                    <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
-
-                                    <label for="title">Tiêu Đề</label>
-                                    <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
-                                    <label for="title">Số lượng đề mục</label>
-                                    <input type="text" id="number" name="numbersubheading" placeholder="1,2,3,..." required>
+                                    <label for="description<%=i%>">Nội Dung Đề Mục</label>
+                                    <textarea id="description<%=i%>" name="description[]" rows="10" placeholder="Enter a brief description"></textarea>
                                 </div>
                             </div>
+                            <%
+                                } 
+                            %>
+
+                            <!-- Buttons (Always at the bottom) -->
                             <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">
-                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Xác nhận">
+                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Lưu bài học">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Popup for confirmation -->
+        <div class="popup-overlay" id="popup-addDocument">
+            <div class="popup-addDocument">
+                <h2>Xác Nhận</h2>
+                <p>Bạn có chắc chắn muốn thêm tài liệu này không?</p>
+                <button type="button" id="confirmButton">Xác Nhận</button>
+                <button type="button" class="cancel-btn" id="cancelButton">Hủy Bỏ</button>
+            </div>
+        </div>
+
+
     </body>
 
 </html>

@@ -18,14 +18,14 @@ import model.Classes;
  */
 public class ClassDAO extends DBContext {
 
-    public ClassDAO() {
+    public ClassDAO() throws SQLException {
     }
 
     public List<Classes> getAllClass() {
         List<Classes> classtList = new ArrayList<>();
         String sql = "SELECT * FROM Classes";
 
-        try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
 
@@ -47,10 +47,10 @@ public class ClassDAO extends DBContext {
         Classes _class = null;
         String sql = "SELECT * FROM Classes WHERE class_id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id); // Set the subject ID parameter
 
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     _class = new Classes(
                             rs.getInt("class_id"),
@@ -69,10 +69,10 @@ public class ClassDAO extends DBContext {
         Classes _class = null;
         String sql = "SELECT * FROM Classes WHERE class_name = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, className); // Set the class name parameter
 
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     _class = new Classes(
                             rs.getInt("class_id"),
@@ -85,24 +85,6 @@ public class ClassDAO extends DBContext {
         }
 
         return _class; // Returns null if no class found
-    }
-
-    public String getClassNameById(int classId) {
-        String className = null;
-        String sql = "SELECT class_name FROM Classes WHERE class_id = ?";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, classId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    className = rs.getString("class_name");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return className;
     }
 
     public static void main(String[] args) throws SQLException {

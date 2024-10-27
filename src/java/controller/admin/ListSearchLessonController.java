@@ -4,17 +4,33 @@
  */
 package controller.admin;
 
+import dao.ClassDAO;
+import dao.ContentDAO;
+import dao.CourseDAO;
+import dao.SubjectDAO;
+import dao.VideoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import model.Classes;
+import model.Lesson;
+import model.Lesson_Content;
+import model.Subjects;
+import model.Video;
 
 /**
  *
  * @author Admin
  */
+@WebServlet("/admin/AdminListSearchLesson")
 public class ListSearchLessonController extends HttpServlet {
 
     /**
@@ -34,7 +50,7 @@ public class ListSearchLessonController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListSearchLessonController</title>");            
+            out.println("<title>Servlet ListSearchLessonController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ListSearchLessonController at " + request.getContextPath() + "</h1>");
@@ -55,7 +71,89 @@ public class ListSearchLessonController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        String currentPage_get = request.getParameter("currentPage");
+        String search = null;
+        if (request.getAttribute("search") != null) {
+            search = (String) request.getAttribute("search");
+        } else {
+            search = request.getParameter("search");
+        }
+        if (search == null) {
+            request.getRequestDispatcher("AdminListDocument").forward(request, response);
+        }
+        // String searchrs = request.getParameter("search");
+        int currentPage = 0;
+        int totalItems = 0;
+        int totalPage = 0;
+        int startItems = 0;
+        int endItems = 0;
+        HttpSession session = request.getSession();
+        ArrayList<Lesson> listlesson = new ArrayList<>();
+        Map< Lesson, Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>>> lmap = new LinkedHashMap<>();
+        try {
+            VideoDAO viddao = new VideoDAO();
+            ClassDAO classdao = new ClassDAO();
+            SubjectDAO subdao = new SubjectDAO();
+            CourseDAO coudao = new CourseDAO();
+            ContentDAO condao = new ContentDAO();
+            listlesson = coudao.getAllLessonBySearch(search);
+            for (Lesson lesson : listlesson) {
+                Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> map = new LinkedHashMap<>();
+                Map<Video, Lesson_Content> maplc = new LinkedHashMap<>();
+                Map<Subjects, Classes> mapsc = new LinkedHashMap<>();
+                Video vid = viddao.getVideoByVideoid(lesson.getVideoid());
+                Subjects sub = subdao.getSubjectById(vid.getSubjectid());
+                Classes c = classdao.getClassById(vid.getClassid());
+                Lesson_Content lc = condao.getContentByContentid(coudao.getLessonByVideoid(vid.getId()).getContentid());
+                mapsc.put(sub, c);
+                maplc.put(vid, lc);
+                map.put(maplc, mapsc);
+                Lesson les = coudao.getLessonByVideoid(vid.getId());
+                lmap.put(les, map);
+            }
+            totalItems = lmap.size();
+            if (action != null && currentPage_get != null) {
+                currentPage = Integer.parseInt(currentPage_get);
+                if (action.equals("previous")) {
+                    if (currentPage == 1) {
+                        currentPage = 1;
+                    } else if (currentPage > 1) {
+                        currentPage--;
+                    }
+                } else if (action.equals("next")) {
+                    totalPage = (int) Math.ceil((double) totalItems / 5);
+                    if (currentPage < totalPage) {
+                        currentPage++;
+                    } else {
+                        currentPage = totalPage;
+                    }
+                }
+            } else {
+                currentPage = 1;
+            }
+            Map< Lesson, Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>>> submap = new LinkedHashMap<>();
+            startItems = (currentPage - 1) * 5;
+            endItems = Math.min(startItems + 5, totalItems);
+            int currentIndex = 0;
+            for (Map.Entry<Lesson, Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>>> entry : lmap.entrySet()) {
+                if (currentIndex >= startItems && currentIndex <= endItems) {
+                    submap.put(entry.getKey(), entry.getValue());
+                }
+                currentIndex++;
+                if (currentIndex >= endItems) {
+                    break;
+                }
+            }
+            request.setAttribute("submapvideo", submap);
+            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("totalPage", totalPage);
+            request.setAttribute("search", search);
+            request.getRequestDispatcher("ListSearchLesson.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("An error occurred: " + e.getMessage());
+        }
     }
 
     /**
@@ -69,7 +167,26 @@ public class ListSearchLessonController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            VideoDAO viddao = new VideoDAO();
+            HttpSession session = request.getSession();
+            String operate = request.getParameter("operatevideo");
+            String videoid = request.getParameter("videoid");
+            String contentid = request.getParameter("contentid");
+            if (operate != null) {
+                if (operate.equals("delete")) {
+                    int vidid = Integer.parseInt(videoid);
+                    int contid = Integer.parseInt(contentid);
+                    viddao.DeleteVideobyVideoid(vidid, contid);
+                    String search = request.getParameter("search");
+                    request.setAttribute("search", search);
+                    doGet(request, response);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("An error occurred: " + e.getMessage());
+        }
     }
 
     /**

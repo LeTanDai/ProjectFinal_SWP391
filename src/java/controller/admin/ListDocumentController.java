@@ -153,9 +153,6 @@ public class ListDocumentController extends HttpServlet {
             String docid = request.getParameter("documentid");
             if (operate != null) {
                 if (operate.equals("delete")) {
-                    if ( docid != null ) {
-                        request.getRequestDispatcher("listUser.jsp").forward(request, response);
-                    }
                     int doccid = Integer.parseInt(docid);
                     docdao.deleteDocument(doccid);
                     doGet(request, response);

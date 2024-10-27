@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -267,7 +266,7 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Thêm Bài Học</h4>
+                                <h4>Chỉnh sửa Bài Học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
                                 <a href="AdminListLesson"
@@ -286,32 +285,36 @@
                             </div>
                         </div>
 
-                        <form action="AdminAddLesson" method="get">
+                        <form action="AdminUpdateLessonController" method="post">
                             <!-- Lesson Information Section -->
                             <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
                                 <div>
+                                    <input type="hidden" name="lessonid" value="${lesson.getId()}">
+                                    <input type="hidden" name="contentid" value="${lesson.getContentid()}">
                                     <label for="docName">Tên Bài Học</label>
-                                    <input type="text" id="docName" name="lessonname" placeholder="Nhập tên bài học" required>
-
+                                    <input type="text" id="docName" name="lessonname" value="${lesson.getName()}" required>
                                     <label for="docType">Môn</label>
                                     <select id="docType" name="subjectid" required>
-                                        <c:forEach var="item" items="${listsub}">
-                                            <option value="${item.getId()}">${item.getName()}</option>
-                                        </c:forEach>
+                                        <option value="1" ${video.getSubjectid() == 1 ? 'selected' : ''}>Toán</option>
+                                        <option value="2" ${video.getSubjectid() == 2 ? 'selected' : ''}>Lý</option>
+                                        <option value="3" ${video.getSubjectid() == 3 ? 'selected' : ''}>Hóa</option>
                                     </select>
                                     <label for="classType">Lớp</label>
                                     <select id="classType" name="classid" required>
-                                        <c:forEach var="item" items="${listclass}">
-                                            <option value="${item.getId()}">${item.getName()}</option>
-                                        </c:forEach>
+                                        <option value="1" ${video.getClassid() == 1 ? 'selected' : ''}>10</option>
+                                        <option value="2" ${video.getClassid() == 2 ? 'selected' : ''}>11</option>
+                                        <option value="3" ${video.getClassid() == 3 ? 'selected' : ''}>12</option>
                                     </select>
-                                    <label for="video-url">Video url</label>
-                                    <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
 
+                                    <label for="chapter">Chương</label>
+                                    <input type="text" id="chapter" name="chapter" value="${module.getName()}" required>
+
+                                    <label for="video-url">Video url</label>
+                                    <textarea id="video-url" name="videourl" rows="3" value="${video.getUrl()}"></textarea>
                                     <label for="title">Tiêu Đề</label>
-                                    <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
+                                    <input type="text" id="title" name="videotitle" value="${video.getTitle()}" required>
                                     <label for="title">Số lượng đề mục</label>
-                                    <input type="text" id="number" name="numbersubheading" placeholder="1,2,3,..." required>
+                                    <input type="text" id="number" name="numbersubheading" placeholder="Nếu muốn giữ nguyên nội dung thì không điền mục này" >
                                 </div>
                             </div>
                             <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">

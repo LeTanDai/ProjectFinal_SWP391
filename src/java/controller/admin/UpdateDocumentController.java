@@ -6,7 +6,6 @@ package controller.admin;
 
 import dao.ClassDAO;
 import dao.DocumentDAO;
-import dao.SubjectDAO;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,14 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Classes;
 import model.Document;
-import model.Subjects;
 
 /**
  *
  * @author Admin
  */
-@WebServlet("/admin/AdminAddDocument")
-public class AddDocumentController extends HttpServlet {
+@WebServlet("/admin/AdminUpdateDocumentController")
+public class UpdateDocumentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class AddDocumentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddDocumentController</title>");
+            out.println("<title>Servlet UpdateDocumentController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddDocumentController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateDocumentController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,25 +61,16 @@ public class AddDocumentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String documentname = request.getParameter("documentname");
-        String subject = request.getParameter("subjectid");
-        String classes = request.getParameter("classid");
-        String imageurl = request.getParameter("imageurl");
-        String bookurl = request.getParameter("bookurl");
-        if (documentname != null && subject != null && classes != null && imageurl != null && bookurl != null) {
+        String documentid = request.getParameter("docid");
+        if (documentid != null) {
             try {
                 DocumentDAO docdao = new DocumentDAO();
-                SubjectDAO subdao = new SubjectDAO();
-                ClassDAO classdao = new ClassDAO();
-                Document doc = null;
-                Classes classess = classdao.getClassByName("Lớp " + classes);
-                int subjectid = Integer.parseInt(subject);
-                doc = new Document(0, bookurl, documentname, imageurl, subjectid, classess.getId());
-                docdao.createDocument(doc);
-                request.getRequestDispatcher("AdminListDocument").forward(request, response);
+                int docid = Integer.parseInt(documentid);
+                Document doc = docdao.getDocumentById(docid);
+                request.setAttribute("document", doc);
+                request.getRequestDispatcher("UpdateDocument.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
-                response.getWriter().write("An error occurred: " + e.getMessage());
             }
         }
     }
@@ -97,7 +86,27 @@ public class AddDocumentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String documentid = request.getParameter("documentid");
+        String documentname = request.getParameter("documentname");
+        String subject = request.getParameter("subjectid");
+        String classes = request.getParameter("classid");
+        String imageurl = request.getParameter("imageurl");
+        String bookurl = request.getParameter("bookurl");
+        if (documentid != null && documentname != null && subject != null && classes != null && imageurl != null && bookurl != null) {
+            try {
+                ClassDAO classdao = new ClassDAO();
+                int docid = Integer.parseInt(documentid);
+                Classes clas = classdao.getClassByName("Lớp " + Integer.parseInt(classes));
+                int subjectid = Integer.parseInt(subject);
+                Document doc = new Document(docid, bookurl, documentname, imageurl, subjectid, clas.getId());
+                DocumentDAO docdao = new DocumentDAO();
+                docdao.updateDocument(doc);
+                response.sendRedirect(request.getContextPath() + "/admin/AdminListDocument");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.getWriter().write("An error occurred: " + e.getMessage());
+            }
+        }
     }
 
     /**

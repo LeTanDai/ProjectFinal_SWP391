@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -269,7 +270,7 @@
                                 <h4>Thêm Bài Học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="listLesson.html"
+                                <a href="AdminAddLesson"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -286,6 +287,26 @@
                         </div>
                         <!-- Dynamic Lesson Content Container -->
                         <form action="AdminAddLesson" method="post">
+                            <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
+                                <label for="chapter">Chương</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <select id="chapter" name="chapter" required style="width: 1000px;">
+                                        <c:forEach var="item" items="${listmod}">
+                                            <option value="${item.getId()}">${item.getName()}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <a href="AdminAddModule?subjectid=${subjectid}&classid=${classid}" style="text-decoration: none;">
+                                        <div class="btn btn-primary py-1 px-3 font-weight-semi-bold" style="display: flex; align-items: center; gap: 5px;">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 5V19M5 12H19" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            Thêm chương
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+
                             <%
                                 Integer number = (Integer) request.getAttribute("number");
                                 if (number == null) {
@@ -300,8 +321,6 @@
 
                                     <label for="description<%=i%>">Nội Dung Đề Mục</label>
                                     <textarea id="description<%=i%>" name="description[]" rows="10" placeholder="Enter a brief description"></textarea>
-
-                                    <button type="button" class="delete-button">Xóa</button>
                                 </div>
                             </div>
                             <%
@@ -318,15 +337,7 @@
             </div>
         </div>
 
-        <!-- Popup for confirmation -->
-        <div class="popup-overlay" id="popup-addDocument">
-            <div class="popup-addDocument">
-                <h2>Xác Nhận</h2>
-                <p>Bạn có chắc chắn muốn thêm tài liệu này không?</p>
-                <button type="button" id="confirmButton">Xác Nhận</button>
-                <button type="button" class="cancel-btn" id="cancelButton">Hủy Bỏ</button>
-            </div>
-        </div>
+
 
 
     </body>

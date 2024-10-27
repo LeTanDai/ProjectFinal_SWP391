@@ -64,7 +64,7 @@ public class VideoDAO extends DBContext {
         return video;
     }
 
-    public void DeleteVideobyVideoid(int videoid, int contentid) {
+    public void DeleteVideobyVideoid(int videoid, int contentid) throws Exception {
         PreparedStatement prepare = null;
         ResultSet rs = null;
         Video video = null;
@@ -74,7 +74,7 @@ public class VideoDAO extends DBContext {
             CourseDAO courdao = new CourseDAO();
             prepare = connection.prepareStatement("delete from Lesson where Lesson.video_id = ? and Lesson.content_id = ? \n"
                     + "delete from Video where Video.video_id = ?\n"
-                    + "delete from Lesson_Content where Lesson_Content.content_id = ?" );
+                    + "delete from Lesson_Content where Lesson_Content.content_id = ?");
 //                    + "DBCC CHECKIDENT ('Lesson', RESEED, ?);\n"
 //                    + "DBCC CHECKIDENT ('Video', RESEED, ?);\n"
 //                    + "DBCC CHECKIDENT ('Lesson_Content', RESEED, ?);");
@@ -91,7 +91,7 @@ public class VideoDAO extends DBContext {
         }
     }
 
-    public ArrayList<Video> getListVideoBySearch(String search) {
+    public ArrayList<Video> getListVideoBySearch(String search) throws Exception {
         ArrayList<Video> list = new ArrayList<>();
         PreparedStatement prepare = null;
         ResultSet rs = null;
@@ -109,7 +109,7 @@ public class VideoDAO extends DBContext {
         return list;
     }
 
-    public void addVideo(Video video) {
+    public void addVideo(Video video) throws Exception {
         PreparedStatement prepare = null;
         ResultSet rs = null;
         try {
@@ -124,7 +124,7 @@ public class VideoDAO extends DBContext {
         }
     }
 
-    public int getMaxVideoId() {
+    public int getMaxVideoId() throws Exception {
         PreparedStatement prepare = null;
         ResultSet rs = null;
         try {
@@ -139,21 +139,41 @@ public class VideoDAO extends DBContext {
         return -1;
     }
 
+    public void updateVideo(Video video) throws Exception {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        try {
+            prepare = connection.prepareStatement("update Video\n"
+                    + "set video_url = ?, video_title = ?, subject_id = ?, class_id = ?\n"
+                    + "where Video.video_id = ?");
+            prepare.setString(1, video.getUrl());
+            prepare.setString(2, video.getTitle());
+            prepare.setInt(3, video.getSubjectid());
+            prepare.setInt(4, video.getClassid());
+            prepare.setInt(5, video.getId());
+            prepare.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         try {
-            VideoDAO vid = new VideoDAO();
-            SubjectDAO dao = new SubjectDAO();
-            Subjects sub = dao.getSubjectByName("Lý");
-            ClassDAO cldao = new ClassDAO();
-            ContentDAO contdao = new ContentDAO();
-            CourseDAO coudao = new CourseDAO();
-            ModuleDAO modao = new ModuleDAO();
-            DocumentDAO docdao = new DocumentDAO();
-            DocumentPendingDAO docpenddao = new DocumentPendingDAO();
-            ArrayList<Document> listdoc = docpenddao.getAllDocumentWithSubject();
-            for ( Document doc : listdoc ) {
-                System.out.println(doc.getDocName());
+//            VideoDAO vid = new VideoDAO();
+//            SubjectDAO dao = new SubjectDAO();
+//            Subjects sub = dao.getSubjectByName("Lý");
+//            ClassDAO cldao = new ClassDAO();
+//            ContentDAO contdao = new ContentDAO();
+//            CourseDAO coudao = new CourseDAO();
+//            ModuleDAO modao = new ModuleDAO();
+//            DocumentDAO docdao = new DocumentDAO();
+//            DocumentPendingDAO docpenddao = new DocumentPendingDAO();
+            ModuleDAO moddao = new ModuleDAO();
+            ArrayList<model.Module> listmod = (ArrayList<model.Module>) moddao.getAllModulesWithSubject(2, 2);
+            for ( model.Module m : listmod ) {
+                System.out.println(m.getDescription());
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

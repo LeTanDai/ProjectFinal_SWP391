@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="model.Classes" %>
+<%@page import="model.Subjects" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -267,7 +268,7 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Thêm Bài Học</h4>
+                                <h4>Thêm Chương</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
                                 <a href="AdminListLesson"
@@ -286,32 +287,20 @@
                             </div>
                         </div>
 
-                        <form action="AdminAddLesson" method="get">
+                        <form action="AdminAddModule" method="post">
                             <!-- Lesson Information Section -->
                             <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
                                 <div>
-                                    <label for="docName">Tên Bài Học</label>
-                                    <input type="text" id="docName" name="lessonname" placeholder="Nhập tên bài học" required>
-
+                                    <input type="hidden" id="docName" name="subject" value="${subject.getId()}" >
+                                    <input type="hidden" id="docName" name="classes" value="${classes.getId()}" >
                                     <label for="docType">Môn</label>
-                                    <select id="docType" name="subjectid" required>
-                                        <c:forEach var="item" items="${listsub}">
-                                            <option value="${item.getId()}">${item.getName()}</option>
-                                        </c:forEach>
-                                    </select>
+                                    <input type="text" id="docName" value="${subject.getName()}" disabled>
                                     <label for="classType">Lớp</label>
-                                    <select id="classType" name="classid" required>
-                                        <c:forEach var="item" items="${listclass}">
-                                            <option value="${item.getId()}">${item.getName()}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <label for="video-url">Video url</label>
-                                    <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
-
-                                    <label for="title">Tiêu Đề</label>
-                                    <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
-                                    <label for="title">Số lượng đề mục</label>
-                                    <input type="text" id="number" name="numbersubheading" placeholder="1,2,3,..." required>
+                                    <input type="text" id="docName" value="${classes.getName()}" disabled>
+                                    <label for="docName">Số chương</label>
+                                    <input type="text" id="docName" name="modulename" placeholder="Nhập số chương : Chương I, Chương II,..." required>
+                                    <label for="chapter">Tên Chương</label>
+                                    <input type="text" id="chapter" name="moduledescription" placeholder="Nhập tên chương" required>
                                 </div>
                             </div>
                             <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">

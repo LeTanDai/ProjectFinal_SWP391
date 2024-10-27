@@ -30,9 +30,7 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link rel="stylesheet" href="../css/style.css">
-
     </head>
-
     <body style="background-color: #f7f8fc;">
 
         <div class="container-fluid">
@@ -102,40 +100,39 @@
                                     <path
                                         d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
                                     </svg>
-                                    <span class="menu-text">Tài Liệu</span>
+                                    <span class="menu-text">Sách</span>
                                 </div>
-                            </a>
-                            <a href="listLesson.jsp" class="nav-item nav-link">
-                                <div
-                                    class="menu-item d-flex align-items-center "
-                                    style="gap: 5px; color: black;">
-                                    <svg
-                                        style="width: 24px; height: 24px;"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="16" height="16"
-                                        fill="currentColor"
-                                        class="bi bi-journal-text"
-                                        viewBox="0 0 16 16">
-                                    <path
-                                        d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                                    <path
-                                        d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                                    <path
-                                        d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                                    </svg>
-                                    <span class="menu-text">Bài Học</span>
-                                </div>
-                            </a>
-                            <a href="listQuiz.jsp" class="nav-item nav-link">
-                                <div
-                                    class="menu-item d-flex align-items-center "
-                                    style="gap: 5px; color: black;">
-                                    <img src="../img/quiz.png" class="me-3"
-                                         alt="Calendar Icon"
-                                         style="width: 24px; height: 24px;">
-                                    <span class="menu-text">Bài kiểm tra</span>
-                                </div>
-                            </a>
+                                <a href="listLesson.jsp" class="nav-item nav-link">
+                                    <div
+                                        class="menu-item d-flex align-items-center "
+                                        style="gap: 5px; color: black;">
+                                        <svg
+                                            style="width: 24px; height: 24px;"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16" height="16"
+                                            fill="currentColor"
+                                            class="bi bi-journal-text"
+                                            viewBox="0 0 16 16">
+                                        <path
+                                            d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                        <path
+                                            d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                        <path
+                                            d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                        </svg>
+                                        <span class="menu-text">Bài Học</span>
+                                    </div>
+                                </a>
+                                <a href="listQuiz.jsp" class="nav-item nav-link">
+                                    <div
+                                        class="menu-item d-flex align-items-center "
+                                        style="gap: 5px; color: black;">
+                                        <img src="../img/quiz.png" class="me-3"
+                                             alt="Calendar Icon"
+                                             style="width: 24px; height: 24px;">
+                                        <span class="menu-text">Bài kiểm tra</span>
+                                    </div>
+                                </a>
                         </div>
 
                     </div>
@@ -162,24 +159,46 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3"
                              style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px;">
-                            <div
-                                style="gap: 15px; display: flex; align-items: baseline;">
-
-                            </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="AdminListDocument" style="text-decoration: none;";"><button
+                                <a href="AdminListDocumentPending" style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px;"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 16.0001C9.85217 16.0001 10.2974 15.0145 9.78323 14.3775L9.70711 14.2929L7.41603 12.0007C8.68529 10.7976 10.6983 10.0001 13 10.0001C16.9183 10.0001 20 12.3113 20 15.0001C20 15.5523 20.4477 16.0001 21 16.0001C21.5523 16.0001 22 15.5523 22 15.0001C22 11.0613 17.9183 8.00005 13 8.00005C10.1933 8.00005 7.65905 8.99699 6.00031 10.585L3.70711 8.29294C3.10453 7.69037 2.09282 8.07238 2.00598 8.88642L2 9.00005V15.0001C2 15.5129 2.38604 15.9356 2.88338 15.9933L3 16.0001H9Z" fill="#ffff"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 20C21.5523 20 22 20.4477 22 21C22 21.5523 21.5523 22 21 22H3C2.44772 22 2 21.5523 2 21C2 20.4477 2.44772 20 3 20H21ZM6.29289 13.2929L17.2929 2.29289C17.6534 1.93241 18.2206 1.90468 18.6129 2.2097L18.7071 2.29289L21.7071 5.29289C22.0676 5.65338 22.0953 6.22061 21.7903 6.6129L21.7071 6.70711L10.7071 17.7071C10.5508 17.8634 10.3481 17.9626 10.1314 17.9913L10 18H7C6.48716 18 6.06449 17.614 6.00673 17.1166L6 17V14C6 13.779 6.07316 13.5655 6.20608 13.392L6.29289 13.2929L17.2929 2.29289L6.29289 13.2929ZM18 4.41421L8 14.4142V16H9.58579L19.5858 6L18 4.41421Z" fill="#ffff"/>
                                         </svg>
 
-
-                                        Quay Lại</button></a>
+                                        Phê Duyệt Tài Liệu</button></a>
+                                <a href="addDocument.jsp" style="text-decoration: none;"><button
+                                        class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px;"> <svg width="24" height="24"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14 2C14.2652 2 14.5196 2.10536 14.7071 2.29289L19.7071 7.29289C19.8946 7.48043 20 7.73478 20 8V9C20 9.55228 19.5523 10 19 10H13C12.4872 10 12.0645 9.61396 12.0067 9.11662L12 9L11.999 4H7C6.44772 4 6 4.44772 6 5V19C6 19.5523 6.44772 20 7 20H9C9.55228 20 10 20.4477 10 21C10 21.5523 9.55228 22 9 22H7C5.34315 22 4 20.6569 4 19V5C4 3.34315 5.34315 2 7 2H14ZM17 12C17.5523 12 18 12.4477 18 13V16H21C21.5523 16 22 16.4477 22 17C22 17.5523 21.5523 18 21 18H18V21C18 21.5523 17.5523 22 17 22C16.4477 22 16 21.5523 16 21V18H13C12.4477 18 12 17.5523 12 17C12 16.4477 12.4477 16 13 16H16V13C16 12.4477 16.4477 12 17 12ZM13.999 4.414L14 8H17.586L13.999 4.414Z" fill="#fff"/>
+                                        </svg>
+                                        Thêm Tài Liệu</button></a>
                             </div>
                         </div>
 
                         <div class=" bg-white rounded-3 p-3"
                              style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px; max-height: 530px;">
+                            <!-- search bar -->
+                            <form action="AdminListSearchDocument" style="display: flex">
+                                <div class="group-search" style="margin: 0 3px;">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                                    <g>
+                                    <path
+                                        d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                                    </path>
+                                    </g>
+                                    </svg>
+                                    <input id="query" class="input-search" type="search" placeholder="Tìm kiếm..." name="search" />
+                                </div>
+                                <div style="gap: 20px; padding: 20px">
+                                    <button
+                                        type="submit"
+                                        name="buttonsearch"
+                                        class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+                            </form>
 
+                            <!-- List document -->
                             <div>
                                 <table class="table">
                                     <thead>
@@ -193,8 +212,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <c:forEach var="entry" items="${submapdocumentpending}">
+                                        <c:forEach var="entry" items="${submapdocument}">
                                             <tr>
                                                 <td style="padding: 20px;">${entry.key.getDocName()}</td>
                                                 <c:forEach var="entry2" items="${entry.value}">
@@ -203,19 +221,20 @@
                                                 </c:forEach>
                                                 <td style="padding: 20px;"><a href="AdminListDetailBook?documentId=${entry.key.getDocId()}">${entry.key.getDocName()}</a></td>
                                                 <td style="padding: 20px; gap: 20px; display: flex;">
-                                                    <form action="AdminListDocumentPending" method="post" style="display: inline;">
-                                                        <input type="hidden" name="documentpendingid" value="${entry.key.getDocId()}" />
-                                                        <button type="submit" name="operatedocumentpending" value="add" style="background: none; border: none; cursor: pointer;">
+                                                    <form action="AdminListSearchDocument" method="post" style="display: inline;">
+                                                        <input type="hidden" name="documentid" value="${entry.key.getDocId()}" />
+                                                        <input type="hidden" name="search" value="${search}" />
+                                                        <button name="operatedocument" type="submit" value="delete" method="post" style="background: none; border: none; padding: 0;">
                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15.2929 8.29289L10 13.5858L8.70711 12.2929C8.31658 11.9024 7.68342 11.9024 7.29289 12.2929C6.90237 12.6834 6.90237 13.3166 7.29289 13.7071L9.29289 15.7071C9.68342 16.0976 10.3166 16.0976 10.7071 15.7071L16.7071 9.70711C17.0976 9.31658 17.0976 8.68342 16.7071 8.29289C16.3166 7.90237 15.6834 7.90237 15.2929 8.29289Z" fill="#06152B"/>
-                                                            </svg>
-                                                        </button>
-                                                        <button type="submit" name="operatedocumentpending" value="delete" style="background: none; border: none; cursor: pointer;">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM7.29325 7.29325C7.65417 6.93233 8.22045 6.90456 8.61296 7.20996L8.70725 7.29325L12.0002 10.5863L15.2933 7.29325C15.6842 6.90225 16.3162 6.90225 16.7072 7.29325C17.0682 7.65417 17.0959 8.22045 16.7905 8.61296L16.7072 8.70725L13.4142 12.0002L16.7072 15.2933C17.0982 15.6842 17.0982 16.3162 16.7072 16.7072C16.5122 16.9022 16.2562 17.0002 16.0002 17.0002C15.7869 17.0002 15.5736 16.9322 15.3956 16.7967L15.2933 16.7072L12.0002 13.4142L8.70725 16.7072C8.51225 16.9022 8.25625 17.0002 8.00025 17.0002C7.74425 17.0002 7.48825 16.9022 7.29325 16.7072C6.93233 16.3463 6.90456 15.7801 7.20996 15.3875L7.29325 15.2933L10.5863 12.0002L7.29325 8.70725C6.90225 8.31625 6.90225 7.68425 7.29325 7.29325Z" fill="#06152B"/>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14 2C14.2652 2 14.5196 2.10536 14.7071 2.29289L19.7071 7.29289C19.8946 7.48043 20 7.73478 20 8V9C20 9.55228 19.5523 10 19 10H13C12.4872 10 12.0645 9.61396 12.0067 9.11662L12 9L11.999 4H7C6.44772 4 6 4.44772 6 5V19C6 19.5523 6.44772 20 7 20H9C9.55228 20 10 20.4477 10 21C10 21.5523 9.55228 22 9 22H7C5.34315 22 4 20.6569 4 19V5C4 3.34315 5.34315 2 7 2H14ZM15.7071 14.2929L18 16.585L20.2929 14.2929C20.6534 13.9324 21.2206 13.9047 21.6129 14.2097L21.7071 14.2929C22.0676 14.6534 22.0953 15.2206 21.7903 15.6129L21.7071 15.7071L19.415 18L21.7071 20.2929C22.0976 20.6834 22.0976 21.3166 21.7071 21.7071C21.3166 22.0976 20.6834 22.0976 20.2929 21.7071L18 19.415L15.7071 21.7071C15.3466 22.0676 14.7794 22.0953 14.3871 21.7903L14.2929 21.7071C13.9324 21.3466 13.9047 20.7794 14.2097 20.3871L14.2929 20.2929L16.585 18L14.2929 15.7071C13.9024 15.3166 13.9024 14.6834 14.2929 14.2929C14.6834 13.9024 15.3166 13.9024 15.7071 14.2929ZM13.999 4.414L14 8H17.586L13.999 4.414Z" fill="#06152B"/>
                                                             </svg>
                                                         </button>
                                                     </form>
+                                                    <a href="UpdateDocument.jsp" role="operatedocument" data-value="edit" style="background: none; border: none; padding: 0;">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14 2C14.2652 2 14.5196 2.10536 14.7071 2.29289L19.7071 7.29289C19.8946 7.48043 20 7.73478 20 8V9C20 9.55228 19.5523 10 19 10H13C12.4872 10 12.0645 9.61396 12.0067 9.11662L12 9L11.999 4H7C6.44772 4 6 4.44772 6 5V19C6 19.5523 6.44772 20 7 20H9C9.55228 20 10 20.4477 10 21C10 21.5523 9.55228 22 9 22H7C5.34315 22 4 20.6569 4 19V5C4 3.34315 5.34315 2 7 2H14ZM17.2929 12.2929C17.6534 11.9324 18.2206 11.9047 18.6129 12.2097L18.7071 12.2929L21.7071 15.2929C22.0676 15.6534 22.0953 16.2206 21.7903 16.6129L21.7071 16.7071L16.7071 21.7071C16.5508 21.8634 16.3481 21.9626 16.1314 21.9913L16 22H13C12.4872 22 12.0645 21.614 12.0067 21.1166L12 21V18C12 17.779 12.0732 17.5655 12.2061 17.392L12.2929 17.2929L17.2929 12.2929ZM18 14.4142L14 18.4142V20H15.5858L19.5858 16L18 14.4142ZM13.999 4.414L14 8H17.586L13.999 4.414Z" fill="#06152B"/>
+                                                        </svg>
+                                                    </a>
                                                 </td>
                                             </tr> 
                                         </c:forEach>
@@ -226,8 +245,9 @@
 
                         <div class="pagination"
                              style="margin: 20px 30px 20px 10px; gap: 10px; display: flex; justify-content: space-between;">
-                            <form action="AdminListDocumentPending">
+                            <form action="AdminListSearchDocument">
                                 <input type="hidden" name="currentPage" value="${currentPage}" />
+                                <input type="hidden" name="search" value="${search}" />
                                 <button type="submit" name="action" value="previous" ${currentPage == 1 ? 'disabled' : ''}>Trước</button>
                                 <button type="submit" name="action" value="next" ${currentPage == totalPages ? 'disabled' : ''}>Sau</button>
                             </form>

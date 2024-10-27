@@ -269,7 +269,7 @@
                                 <h4>Thêm Bài Học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="listLesson.html"
+                                <a href="AdminListDocument"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -294,9 +294,9 @@
 
                                     <label for="docType">Môn</label>
                                     <select id="docType" name="subjectid" required>
-                                        <option value="Toán">Toán</option>
-                                        <option value="Lý">Lý</option>
-                                        <option value="Hoá">Hóa</option>
+                                        <option value="1">Toán</option>
+                                        <option value="2">Lý</option>
+                                        <option value="3">Hóa</option>
                                     </select>
 
                                     <label for="classType">Lớp</label>
@@ -306,7 +306,7 @@
                                         <option value="12">12</option>
                                     </select>
 
-                                   <label for="video-url">Hình ảnh url</label>
+                                    <label for="video-url">Hình ảnh url</label>
                                     <textarea id="video-url" name="imageurl" rows="3" placeholder="Nhập URL hình ảnh"></textarea>
 
                                     <label for="video-url">Tài liệu sách url</label>
