@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
 
 /**
@@ -32,24 +33,51 @@ public class SignUpController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+                response.setContentType("text/html;charset=UTF-8");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String re_pass = request.getParameter("repassword");
 
-        if (!password.equals(re_pass)) {
-            response.sendRedirect("login.jsp");
+        UserDAO uDAO = new UserDAO();
+
+        String emailRegex = ".*[a-z0-9A-Z]@+.*[a-zA-Z]+\\.+.*[a-zA-z]";
+        String phoneRegex = "^\\d{10}$";
+
+        if (!email.matches(emailRegex)) {
+            request.setAttribute("error", "Invalid email format");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (uDAO.checkEmail(email) != null) {
+            request.setAttribute("error", "Email already exist");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (uDAO.checkPhone(phone) != null) {
+            request.setAttribute("error", "Phone number already exist");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (phone.matches(".*[a-zA-Z].*")) {
+            request.setAttribute("error", "Phone number must be number");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (phone.matches(".*[a-zA-Z].*")) {
+            request.setAttribute("error", "Phone number must be number");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (!phone.matches(phoneRegex)) {
+            request.setAttribute("error", "Phone number must be 10 digits");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (password.length() < 6) {
+            request.setAttribute("error", "Password must be at least 6 characters");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (!password.equals(re_pass)) {
+            request.setAttribute("error", "Password mismatch");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {
-            UserDAO loginDAO = new UserDAO();
-            User user = loginDAO.checkAccountExist(username);
+
+            User user = uDAO.checkAccountExist(username);
             if (user == null) {
-                loginDAO.signUp(username, password, email, phone);
-                User u = loginDAO.getUserByUsername(username);
+                uDAO.signUp(username, password, email, phone);
+                User u = uDAO.getUserByUsername(username);
+                HttpSession session = request.getSession();
+                session.setAttribute("account", u);
                 response.sendRedirect("index.jsp");
-            } else {
-                response.sendRedirect("login.jsp");
             }
         }
     }

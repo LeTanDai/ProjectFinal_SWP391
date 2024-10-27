@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Module" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dao.ModuleDAO" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,18 +154,32 @@
             <div class="">
                 <%
                     Module m = (Module) request.getAttribute("module");
+                    List<Module> listModule = (List<Module>) request.getAttribute("listModule");
                 %>
                 <h2 style="text-align: center;"><%=m.getName()%> : <%= m.getDescription()%></h2>
                 <div class="">
                     <!-- Flash Card Slider Start -->
                     <div class="flashcard-container">
-                        <div class="row d-flex justify-content-between " style="margin: 10px auto;">
+                        <div class="row d-flex justify-content-between" style="margin: 10px -15px;">
 
-                            <a class="btn btn-primary py-2 px-4" href="FlashCardController?moduleId=${requestScope.modules -1}" style="width: 200px; height: 40px;">Chương trước</a>
-                            <a
-                                class="btn btn-primary py-2 px-4"
-                                href="FlashCardController?moduleId=${requestScope.modules + 1}"
-                                style="width: 200px; height: 40px;">Chương tiếp theo</a>
+                            <!-- Previous Chapter Button (Left Aligned) -->
+                            <div class="col-md-6" style="text-align: left;">
+                                <c:if test="${requestScope.modules != 1}">
+                                    <a class="btn btn-primary py-2 px-4" 
+                                       href="FlashCardController?moduleId=${requestScope.modules - 1}" 
+                                       style="width: 200px; height: 40px;">Chương trước</a>
+                                </c:if>
+                            </div>
+
+                            <!-- Next Chapter Button (Right Aligned) -->
+                            <div class="col-md-6" style="text-align: right;">
+                                <c:if test="${requestScope.modules < listModule.size() - 1}">
+                                    <a class="btn btn-primary py-2 px-4" 
+                                       href="FlashCardController?moduleId=${requestScope.modules + 1}" 
+                                       style="width: 200px; height: 40px;">Chương tiếp theo</a>
+                                </c:if>
+                            </div>
+
                         </div>
                         <div class="arrow arrow-left" onclick="prevCard()">&#10094;</div>
                         <div class="flashcard" onclick="flipCard()">

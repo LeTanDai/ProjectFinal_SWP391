@@ -28,7 +28,7 @@ public class UserDAO extends DBContext {
         List<User> userList = new ArrayList<>();
         String sql = "select * from Users";
 
-        try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
 
@@ -63,10 +63,10 @@ public class UserDAO extends DBContext {
                 + "FROM Users u "
                 + "WHERE u.user_id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id); // Set the user ID parameter
 
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     user = new User(
                             rs.getInt("user_id"),
@@ -220,12 +220,28 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    public User checkPhone(String phone) {
+        String sql = "SELECT * FROM Users WHERE phone_number = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, phone);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("full_name"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public User checkAccountExistByUsernameAndEmail(String username, String email) {
         String sql = "SELECT * FROM Users WHERE username = ? AND email = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, username);
             st.setString(2, email);
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     return new User(
                             rs.getInt("user_id"),
@@ -261,58 +277,60 @@ public class UserDAO extends DBContext {
         User u = dao.getUserById(2);
         System.out.println(u);
     }
+
     public void updateUser(User user) {
-    String sql = "UPDATE Users SET isPremium = ?, isNormal = ? WHERE user_id = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setBoolean(1, user.isIsPremium());
-        st.setBoolean(2, false); // Đặt isNormal về false (0)
-        st.setInt(3, user.getUserId());
-        st.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+        String sql = "UPDATE Users SET isPremium = ?, isNormal = ? WHERE user_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setBoolean(1, user.isIsPremium());
+            st.setBoolean(2, false); // Đặt isNormal về false (0)
+            st.setInt(3, user.getUserId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
 
- public int countPremiumUser() {
-    String sql = "SELECT COUNT(*) FROM Users WHERE isPremium = 1";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            return rs.getInt(1); // Lấy số lượng Premium user
+    public int countPremiumUser() {
+        String sql = "SELECT COUNT(*) FROM Users WHERE isPremium = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1); // Lấy số lượng Premium user
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return 0; // Trả về 0 nếu có lỗi
     }
-    return 0; // Trả về 0 nếu có lỗi
-}
 
-public int countNormalUser() {
-    String sql = "SELECT COUNT(*) FROM Users WHERE isNormal = 1";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            return rs.getInt(1); // Lấy số lượng Normal user
+    public int countNormalUser() {
+        String sql = "SELECT COUNT(*) FROM Users WHERE isNormal = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1); // Lấy số lượng Normal user
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return 0; // Trả về 0 nếu có lỗi
     }
-    return 0; // Trả về 0 nếu có lỗi
-}
-public int countAdminUser() {
-    String sql = "SELECT COUNT(*) FROM Users WHERE isAdmin = 1"; // Câu lệnh SQL để đếm admin user
-    int count = 0;
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            count = rs.getInt(1); // Lấy số lượng admin user
+
+    public int countAdminUser() {
+        String sql = "SELECT COUNT(*) FROM Users WHERE isAdmin = 1"; // Câu lệnh SQL để đếm admin user
+        int count = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1); // Lấy số lượng admin user
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return count;
     }
-    return count;
-}
 }
