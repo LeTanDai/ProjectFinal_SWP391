@@ -62,7 +62,6 @@ public class CheckPremiumController extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("account");
         if (u != null) {
-            int userId = u.getUserId();
             if (!u.isIsPremium()) {
                 request.getRequestDispatcher("payment.jsp").forward(request, response);
             } else {
