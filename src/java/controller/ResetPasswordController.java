@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
 
 /**
@@ -73,17 +74,21 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserDAO dao = new UserDAO();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("account");
+        int id = user.getUserId();
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String repeatpassword = request.getParameter("repeatpassword");
-        UserDAO user = new UserDAO();
-        User u = user.checkAccountExistByUsernameAndEmail(username, email);
+        User u = dao.checkAccountExistByUsernameAndEmail(username, email);
         if (u != null) {
             if (password.equals(repeatpassword)) {
                 u.setPassword(password);
-                user.updatePassword(u);
+                dao.updatePassword(u);
                 request.setAttribute("mess", "Bạn đã thay đổi mật khẩu thành công!!!");
+                session.setAttribute("account", u);
                 request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
 
             } else {

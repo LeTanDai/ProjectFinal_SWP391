@@ -68,12 +68,12 @@
 
                 <div class="form-group">
                     <label for="username">Tên đăng nhập</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" value="${sessionScope.account.userName}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Nhập Gmail của bạn" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Nhập Gmail của bạn" value="${sessionScope.account.email}" required>
                 </div>
 
                 <div class="form-group">
@@ -94,7 +94,7 @@
 
                 <div class="form-group d-flex justify-content-start mt-4">
                     <button type="submit" class="btn btn-primary">Xác nhận</button>
-                    <a href="index.jsp" class="btn btn-primary btn-separator">Quay lại</a>
+                    <a href="editProfile.jsp" class="btn btn-primary btn-separator">Quay lại</a>
                 </div>
             </form>
         </div>
