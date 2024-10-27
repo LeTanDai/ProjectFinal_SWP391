@@ -67,9 +67,11 @@ public class FlashCardController extends HttpServlet {
         int module_id = Integer.parseInt(request.getParameter("moduleId"));
         ModuleDAO moduleDAO = new ModuleDAO();
         Module module = moduleDAO.GetModuleById(module_id);
+        List<Module> modules = moduleDAO.getAllModules();
         request.setAttribute("module", module);
         FlashCardDAO dao = new FlashCardDAO();
         List<FlashCard> flashList = dao.GetFlashCardByModule(module_id);
+        request.setAttribute("listModule", modules);
         request.setAttribute("flashList", flashList);
         request.setAttribute("modules", module_id);
         request.getRequestDispatcher("flashcard.jsp").forward(request, response);
