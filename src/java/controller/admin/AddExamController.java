@@ -10,6 +10,7 @@ import dao.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +23,8 @@ import model.Exam;
  *
  * @author PC
  */
+@WebServlet(name = "AddExamController", urlPatterns = {"/AddExamController"})
+
 public class AddExamController extends HttpServlet {
 
     /**

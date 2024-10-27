@@ -145,7 +145,7 @@
 
                 <a href="ListExamController" class="nav-item nav-link" data-page="exam">
                     <div class="menu-item d-flex align-items-center" style="gap: 5px;">
-                        <img src="../img/quiz.png" class="me-3" alt="Calendar Icon"
+                        <img src="${pageContext.request.contextPath}/img/quiz.png" class="me-3" alt="Calendar Icon"
                              style="width: 24px; height: 24px;">
                         <span class="menu-text">Bài kiểm tra</span>
                     </div>
@@ -153,7 +153,7 @@
                 
                 <a href="ListQuizController" class="nav-item nav-link" data-page="quiz">
                     <div class="menu-item d-flex align-items-center" style="gap: 5px;">
-                        <img src="../img/quiz.png" class="me-3" alt="Calendar Icon"
+                        <img src="${pageContext.request.contextPath}/img/quiz.png" class="me-3" alt="Calendar Icon"
                              style="width: 24px; height: 24px;">
                         <span class="menu-text">Bài Ôn Tập</span>
                     </div>
