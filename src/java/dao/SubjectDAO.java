@@ -18,7 +18,7 @@ import model.Subjects;
  */
 public class SubjectDAO extends DBContext {
 
-    public SubjectDAO(){
+    public SubjectDAO() {
     }
 
     public List<Subjects> getAllSubject() {
@@ -103,6 +103,24 @@ public class SubjectDAO extends DBContext {
         }
 
         return subjectName;
+    }
+
+    public int getSubjectIdByName(String subjectName) {
+        int subjectId = 0;
+        String sql = "SELECT subject_id FROM Subjects WHERE subject_name = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, subjectName);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                subjectId = rs.getInt("subject_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving subject ID: " + e.getMessage());
+        }
+
+        return subjectId;
     }
 
     public static void main(String[] args) throws SQLException {

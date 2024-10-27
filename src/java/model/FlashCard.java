@@ -18,6 +18,11 @@ public class FlashCard {
     private String true_answer;
     private int points;
     private int index;
+    
+    private Module module;
+    private Subjects subject;
+    private Classes classes;
+
 
     public FlashCard() {
     }
@@ -105,6 +110,35 @@ public class FlashCard {
     public void setIndex(int index) {
         this.index = index;
     }
+
+    public Module getModule() {
+        return module;
+    }
+
+    public void setModule(Module module) {
+        this.module = module;
+    }
+
+    public Subjects getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subjects subject) {
+        this.subject = subject;
+    }
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
+    }
+    
+    
+    
+    
+    
 
     @Override
     public String toString() {

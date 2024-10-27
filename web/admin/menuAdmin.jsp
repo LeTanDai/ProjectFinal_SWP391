@@ -151,7 +151,7 @@
                     </div>
                 </a>
                 
-                <a href="listQuiz.jsp" class="nav-item nav-link" data-page="quiz">
+                <a href="ListQuizController" class="nav-item nav-link" data-page="quiz">
                     <div class="menu-item d-flex align-items-center" style="gap: 5px;">
                         <img src="../img/quiz.png" class="me-3" alt="Calendar Icon"
                              style="width: 24px; height: 24px;">

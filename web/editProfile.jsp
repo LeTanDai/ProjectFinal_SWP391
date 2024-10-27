@@ -121,7 +121,7 @@
                                                 <a href="userProfile.jsp" class="btn btn-secondary py-md-2 px-md-4 font-weight-semi-bold mt-2">Hủy</a>
 
                                                 <!-- Nút Đổi Mật Khẩu -->
-                                                <a href="ChangePassword.jsp" class="btn btn-warning py-md-2 px-md-4 font-weight-semi-bold mt-2">Đổi Mật Khẩu</a>
+                                                <a href="ResetPasswordController" class="btn btn-warning py-md-2 px-md-4 font-weight-semi-bold mt-2">Đổi Mật Khẩu</a>
                                             </div>
                                         </div>
                                     </div>

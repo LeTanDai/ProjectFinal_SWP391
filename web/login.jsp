@@ -149,7 +149,7 @@
                                 <input name="remember" class="form-check-input" type="checkbox" id="rememberMe">
                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                             </div>
-                            <a href="#" class="forgot-password" style="text-decoration: none;">Quên mật khẩu ?</a>
+                            <a href="ForgotPasswordController" class="forgot-password" style="text-decoration: none;">Quên mật khẩu ?</a>
                         </div>
                         <button type="submit" class="btn btn-login btn-block w-100 mt-4">Đăng Nhập</button>
                     </form>
