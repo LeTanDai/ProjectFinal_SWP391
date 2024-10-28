@@ -4,26 +4,28 @@
  */
 package controller.admin;
 
-import dao.ClassDAO;
-import dao.DocumentDAO;
-import dao.SubjectDAO;
-import jakarta.servlet.annotation.WebServlet;
+import dao.ContentDAO;
+import dao.CourseDAO;
+import dao.VideoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Classes;
-import model.Document;
-import model.Subjects;
+import model.Lesson;
+import model.Lesson_Content;
+import model.Video;
 
 /**
  *
  * @author Admin
  */
-@WebServlet("/admin/AdminAddDocument")
-public class AddDocumentController extends HttpServlet {
+@WebServlet("/admin/AdminUpdateContentLessonController")
+public class UpdateContentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +44,10 @@ public class AddDocumentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddDocumentController</title>");
+            out.println("<title>Servlet UpdateContentController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddDocumentController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateContentController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,26 +65,46 @@ public class AddDocumentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String documentname = request.getParameter("documentname");
-        String subject = request.getParameter("subjectid");
-        String classes = request.getParameter("classid");
-        String imageurl = request.getParameter("imageurl");
-        String bookurl = request.getParameter("bookurl");
-        if (documentname != null && subject != null && classes != null && imageurl != null && bookurl != null) {
-            try {
-                DocumentDAO docdao = new DocumentDAO();
-                SubjectDAO subdao = new SubjectDAO();
-                ClassDAO classdao = new ClassDAO();
-                Document doc = null;
-                Classes classess = classdao.getClassByName("Lớp " + classes);
-                int subjectid = Integer.parseInt(subject);
-                doc = new Document(0, bookurl, documentname, imageurl, subjectid, classess.getId());
-                docdao.createDocument(doc);
-                request.getRequestDispatcher("AdminListDocument").forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.getWriter().write("An error occurred: " + e.getMessage());
+        HttpSession session = request.getSession();
+        Lesson less = (Lesson) session.getAttribute("lesson");
+        Video video = (Video) session.getAttribute("video");
+        String[] docNames = request.getParameterValues("docName[]");
+        String[] descriptions = request.getParameterValues("description[]");
+        String subheading = null;
+        String body = null;
+        String title = less.getName();
+        int i = 0;
+        String contenthtml = null;
+        Video vid = null;
+        Lesson les = null;
+        Lesson_Content lescont = null;
+        Classes classess = null;
+        if (title != null) {
+            contenthtml = "<h3 style=\"text-align:center;\"><b style=\"color:#0070c0;\">" + "Lý thuyết " + title + "</b></h3>";
+        }
+        if (docNames != null && descriptions != null) {
+            while (i < docNames.length && i < descriptions.length) {
+                subheading = "<p><strong><span style=\"color: #00b050;\">" + docNames[i] + "</span></strong></p>";
+                body = "<p><span>" + descriptions[i] + "</span></p>";
+                if (contenthtml == null) {
+                    contenthtml = subheading + body;
+                } else {
+                    contenthtml += (subheading + body);
+                }
+                i++;
             }
+        }
+        try {
+            CourseDAO coudao = new CourseDAO();
+            VideoDAO viddao = new VideoDAO();
+            ContentDAO contdao = new ContentDAO();
+            Lesson_Content newcontent = new Lesson_Content(less.getContentid(), contenthtml, less.getName());
+            contdao.updateContent(newcontent);
+            viddao.updateVideo(video);
+            coudao.updateLesson(less);
+            response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");
+        } catch ( Exception e ) {
+            e.printStackTrace();
         }
     }
 

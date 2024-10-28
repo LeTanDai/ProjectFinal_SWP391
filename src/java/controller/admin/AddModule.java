@@ -5,7 +5,7 @@
 package controller.admin;
 
 import dao.ClassDAO;
-import dao.DocumentDAO;
+import dao.ModuleDAO;
 import dao.SubjectDAO;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -14,16 +14,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import model.Classes;
-import model.Document;
 import model.Subjects;
 
 /**
  *
  * @author Admin
  */
-@WebServlet("/admin/AdminAddDocument")
-public class AddDocumentController extends HttpServlet {
+@WebServlet("/admin/AdminAddModule")
+public class AddModule extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +42,10 @@ public class AddDocumentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddDocumentController</title>");
+            out.println("<title>Servlet AddModule</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddDocumentController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddModule at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,22 +63,20 @@ public class AddDocumentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String documentname = request.getParameter("documentname");
-        String subject = request.getParameter("subjectid");
-        String classes = request.getParameter("classid");
-        String imageurl = request.getParameter("imageurl");
-        String bookurl = request.getParameter("bookurl");
-        if (documentname != null && subject != null && classes != null && imageurl != null && bookurl != null) {
+        String subjectid = request.getParameter("subjectid");
+        String classid = request.getParameter("classid");
+        Subjects subject = null;
+        if (subjectid != null && classid != null) {
             try {
-                DocumentDAO docdao = new DocumentDAO();
+                int subid = Integer.parseInt(subjectid);
+                int clid = Integer.parseInt(classid);
                 SubjectDAO subdao = new SubjectDAO();
-                ClassDAO classdao = new ClassDAO();
-                Document doc = null;
-                Classes classess = classdao.getClassByName("Lớp " + classes);
-                int subjectid = Integer.parseInt(subject);
-                doc = new Document(0, bookurl, documentname, imageurl, subjectid, classess.getId());
-                docdao.createDocument(doc);
-                request.getRequestDispatcher("AdminListDocument").forward(request, response);
+                ClassDAO cldao = new ClassDAO();
+                subject = subdao.getSubjectById(subid);
+                Classes classes = cldao.getClassById(clid);
+                request.setAttribute("subject", subject);
+                request.setAttribute("classes", classes);
+                request.getRequestDispatcher("addModule.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
                 response.getWriter().write("An error occurred: " + e.getMessage());
@@ -97,7 +95,28 @@ public class AddDocumentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String modulename = request.getParameter("modulename");
+        String moduledescription = request.getParameter("moduledescription");
+        String subjectid = request.getParameter("subject");
+        String classes = request.getParameter("classes");
+        if (modulename != null && moduledescription != null && subjectid != null && classes != null) {
+            try {
+                int subid = Integer.parseInt(subjectid);
+                int classid = Integer.parseInt(classes);
+                ModuleDAO moddao = new ModuleDAO();
+                ArrayList<model.Module> listmod = (ArrayList<model.Module>) moddao.getAllModulesWithSubject(subid, classid);
+                for (model.Module module : listmod) {
+                    if (module.getName().equalsIgnoreCase(modulename)) {
+                        response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");
+                    }
+                }
+                model.Module newmodule = new model.Module(0, modulename, moduledescription, subid, classid);
+                moddao.addModule(newmodule);
+                response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

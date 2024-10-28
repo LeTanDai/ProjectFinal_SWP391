@@ -66,4 +66,20 @@ public class ContentDAO extends DBContext {
         return -1;
     }
 
+    public void updateContent(Lesson_Content content) {
+        PreparedStatement prepare = null;
+        ResultSet rs = null;
+        try {
+            prepare = connection.prepareStatement("update Lesson_Content\n"
+                    + "set content = ?, content_title = ?\n"
+                    + "where Lesson_Content.content_id = ?");
+            prepare.setString(2, content.getContent_title());
+            prepare.setString(1, content.getContent());
+            prepare.setInt(3, content.getId());
+            prepare.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

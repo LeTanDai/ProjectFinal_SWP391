@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -170,7 +171,7 @@
                                 <h4>Thêm Bài Học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="listLesson.html"
+                                <a href="AdminListLesson"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -186,7 +187,7 @@
                             </div>
                         </div>
 
-                        <form action="AdminAddLesson">
+                        <form action="AdminAddLesson" method="get">
                             <!-- Lesson Information Section -->
                             <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
                                 <div>
@@ -195,24 +196,23 @@
 
                                     <label for="docType">Môn</label>
                                     <select id="docType" name="subjectid" required>
-                                        <option value="Toán">Toán</option>
-                                        <option value="Lý">Lý</option>
-                                        <option value="Hoá">Hóa</option>
+                                        <c:forEach var="item" items="${listsub}">
+                                            <option value="${item.getId()}">${item.getName()}</option>
+                                        </c:forEach>
                                     </select>
-
                                     <label for="classType">Lớp</label>
                                     <select id="classType" name="classid" required>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                        <c:forEach var="item" items="${listclass}">
+                                            <option value="${item.getId()}">${item.getName()}</option>
+                                        </c:forEach>
                                     </select>
-
-                                    <label for="chapter">Chương</label>
-                                    <input type="text" id="chapter" name="chapter" placeholder="Nhập chương" required>
-
+                                    <label for="classType">Loại bài học</label>
+                                    <select id="docType" name="type" required>
+                                        <option value="Premium">Premium</option>
+                                        <option value="Normal">Normal</option>
+                                    </select>
                                     <label for="video-url">Video url</label>
                                     <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
-
                                     <label for="title">Tiêu Đề</label>
                                     <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
                                     <label for="title">Số lượng đề mục</label>
