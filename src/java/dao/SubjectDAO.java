@@ -18,7 +18,11 @@ import model.Subjects;
  * @author PC
  */
 public class SubjectDAO extends DBContext {
+
     public SubjectDAO() throws SQLException {
+
+    public SubjectDAO() {
+
     }
     
     public List<Subjects> getAllSubject() {
@@ -87,7 +91,44 @@ public class SubjectDAO extends DBContext {
 
         return subject; // Returns null if no subject found
     }
-    
+
+
+    public String getSubjectNameById(int subjectId) {
+        String subjectName = null;
+        String sql = "SELECT subject_name FROM Subjects WHERE subject_id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, subjectId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    subjectName = rs.getString("subject_name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return subjectName;
+    }
+
+    public int getSubjectIdByName(String subjectName) {
+        int subjectId = 0;
+        String sql = "SELECT subject_id FROM Subjects WHERE subject_name = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, subjectName);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                subjectId = rs.getInt("subject_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving subject ID: " + e.getMessage());
+        }
+
+        return subjectId;
+    }
+
     public static void main(String[] args) throws SQLException {
         SubjectDAO dao = new SubjectDAO();
         List<Subjects> list = dao.getAllSubject();

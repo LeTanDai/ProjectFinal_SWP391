@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.admin;
 
-import dao.UserDAO;
+import dao.FlashCardDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,22 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.User;
+import java.util.List;
+import model.FlashCard;
 
 /**
  *
- * @author PC
+ * @author TanDai
  */
-@WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet(name="ListQuizController", urlPatterns={"/admin/ListQuizController"})
+public class ListQuizController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,16 +34,49 @@ public class UpdateUserServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateUserServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateUserServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            FlashCardDAO f = new FlashCardDAO();
+            List<FlashCard>listF = f.getAllFlashcardsWithModules();
+            
+            int currentPage = 1;
+            int itemsPerPage = 6;  
+            String action = request.getParameter("action");
+            String currentPageParam = request.getParameter("currentPage");
+            String itemsPerPageParam = request.getParameter("itemsPerPage");
+
+
+            if (currentPageParam != null) {
+                currentPage = Integer.parseInt(currentPageParam);
+            }
+            if (itemsPerPageParam != null) {
+                itemsPerPage = Integer.parseInt(itemsPerPageParam);
+            }
+
+            if ("previous".equals(action) && currentPage > 1) {
+                currentPage--;
+            } else if ("next".equals(action)) {
+                currentPage++;
+            }
+
+            int totalPages = (int) Math.ceil((double) listF.size() / itemsPerPage);
+
+            if (currentPage > totalPages) {
+                currentPage = totalPages;
+            }
+            
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.min(startIndex + itemsPerPage, listF.size());
+
+            List<FlashCard> flashCardForPage = listF.subList(startIndex, endIndex);
+            
+            request.setAttribute("listF",flashCardForPage);
+            
+            request.setAttribute("currentPage", currentPage);  
+            request.setAttribute("totalPages", totalPages);  
+            request.setAttribute("itemsPerPage", itemsPerPage);  
+            
+            request.getRequestDispatcher("listQuiz.jsp").forward(request, response);
+
+
         }
     } 
 
@@ -78,40 +104,8 @@ public class UpdateUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-  
-    try {
-        UserDAO dao = new UserDAO();
-        HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("account");
-        int id = u.getUserId();
-        String fName = request.getParameter("fullName");
-        String dobS = request.getParameter("dob");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phoneNumber");
-        String address = request.getParameter("address");
-        String avatar = request.getParameter("avatar");
-        
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date dob = formatter.parse(dobS);
-        java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
-        
-        // Update user profile without avatar
-        dao.updateUserProfile(fName, email, sqlDob, phone, address, avatar, id);
-        
-        u.setAvatar(avatar);
-        u.setfName(fName);
-        u.setDob(sqlDob);
-        u.setAddress(address);
-        u.setPhone(phone);
-        u.setEmail(email);
-        session.setAttribute("account", u);
-        request.getRequestDispatcher("userProfile.jsp").forward(request, response);
-        
-    } catch (ParseException ex) {
-        Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        processRequest(request, response);
     }
-}
-
 
     /** 
      * Returns a short description of the servlet.

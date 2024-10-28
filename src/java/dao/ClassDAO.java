@@ -48,7 +48,7 @@ public class ClassDAO extends DBContext {
         String sql = "SELECT * FROM Classes WHERE class_id = ?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, id); // Set the subject ID parameter
+            st.setInt(1, id);
 
             try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
@@ -62,7 +62,7 @@ public class ClassDAO extends DBContext {
             System.out.println(e);
         }
 
-        return _class; // Returns null if no subject found
+        return _class; 
     }
 
     public Classes getClassByName(String className) {
@@ -84,8 +84,46 @@ public class ClassDAO extends DBContext {
             System.out.println(e);
         }
 
-        return _class; // Returns null if no class found
+        return _class; 
     }
+
+
+    public String getClassNameById(int classId) {
+        String className = null;
+        String sql = "SELECT class_name FROM Classes WHERE class_id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, classId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    className = rs.getString("class_name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return className;
+    }
+
+    public int getClassIdByName(String className) {
+        int classId = 0;
+        String sql = "SELECT class_id FROM Classes WHERE class_name = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, className);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                classId = rs.getInt("class_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving class ID: " + e.getMessage());
+        }
+
+        return classId;
+    }
+
 
     public static void main(String[] args) throws SQLException {
         ClassDAO dao = new ClassDAO();

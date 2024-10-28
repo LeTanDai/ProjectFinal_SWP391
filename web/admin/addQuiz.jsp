@@ -138,7 +138,7 @@
                                 <div
                                     class="field-item d-flex align-items-center justify-content-between">
                                     <div class="text">
-                                        <h2>Quản Lý Bài Kiểm Tra</h2>
+                                        <h2>Quản Lý Ôn Tập</h2>
                                     </div>
                                 </div>
                             </div>
@@ -151,10 +151,10 @@
                              style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div
                                 style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Thêm Bài Kiểm Tra</h4>
+                                <h4>Thêm Câu Hỏi</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="ListExamController"
+                                <a href="../ListQuizController"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -175,12 +175,24 @@
                             <div style="margin: 0 3px;"></div>
 
                             <div>
-                                <form id="examForm" action="/FinalProject_SWP391/AddExamController" method="post" >
-                                    <label for="examName">Tên Bài Kiểm Tra</label>
-                                    <input type="text" id="examName" name="examName" placeholder="Nhập tên kỳ thi" required>
+                                <form id="examForm" action="/FinalProject_SWP391/admin/AddQuizController" method="POST" >
+                                    <label for="quizName">Câu hỏi</label>
+                                    <input type="text" id="quizName" name="quizName" placeholder="Nhập câu hỏi" required>
 
-                                    <label for="examUrl">URL</label>
-                                    <input type="text" id="examUrl" name="examUrl" placeholder="Nhập URL kỳ thi" required>
+                                    <label for="option1">Đáp án 1</label>
+                                    <input type="text" id="option1" name="option1" placeholder="Nhập đáp án 1" required>
+
+                                    <label for="option2">Đáp án 2</label>
+                                    <input type="text" id="option2" name="option2" placeholder="Nhập đáp án 2" required>
+
+                                    <label for="option3">Đáp án 3</label>
+                                    <input type="text" id="option3" name="option3" placeholder="Nhập đáp án 3" required>
+
+                                    <label for="option4">Đáp án 4</label>
+                                    <input type="text" id="option4" name="option4" placeholder="Nhập đáp án 4" required>
+
+                                    <label for="true_answer">Đáp án đúng</label>
+                                    <input type="text" id="true_answer" name="true_answer" placeholder="Nhập đáp án đúng" required>
 
                                     <label for="className">Lớp</label>
                                     <select id="className" name="className" required>
@@ -196,7 +208,10 @@
                                         <option>Hóa</option>
                                     </select>
 
-                                    <button type="button" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Thêm Bài Kiểm Tra</button>
+                                    <label for="module">Chương</label>
+                                    <input type="text" id="module" name="module" placeholder="Nhập chương bạn muốn thêm câu hỏi" required>
+
+                                    <button type="button" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Thêm Câu Hỏi</button>
                                 </form>
                             </div>
                         </div>
@@ -205,7 +220,7 @@
                         <div class="popup-overlay" id="popup-addDocument" style="display:none;">
                             <div class="popup-addDocument">
                                 <h2>Xác Nhận</h2>
-                                <p>Bạn có chắc chắn muốn thêm bài kiểm tra này không?</p>
+                                <p>Bạn có chắc chắn muốn thêm bài ôn tập này không?</p>
                                 <button type="button" id="confirmButton">Xác Nhận</button>
                                 <button type="button" class="cancel-btn" id="cancelButton">Hủy Bỏ</button>
                             </div>
@@ -235,7 +250,6 @@
                                 examForm.submit();
                             });
                         </script>
-
                         <script
                         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
                         </body>

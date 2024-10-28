@@ -115,7 +115,7 @@ public class LoginController extends HttpServlet {
             response.addCookie(cpass);
             response.addCookie(crem);
             if (u.isIsAdmin() == true) {
-                response.sendRedirect("admin/listUser.jsp");
+                response.sendRedirect("admin/dashBoard.jsp");
             } else {
                 response.sendRedirect("index.jsp");
             }

@@ -18,6 +18,7 @@ public class ModuleDAO extends DBContext {
                 + "JOIN Subjects s ON m.subject_id = s.subject_id "
                 + "JOIN Classes c ON m.class_id = c.class_id";
 
+
         try ( Statement stmt = connection.createStatement();  ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
@@ -60,6 +61,7 @@ public class ModuleDAO extends DBContext {
     }
 
     public Module getModuleByName(String name, int classid, int subjectid) {
+
         Module module = null;
         String sql = "select * from Module\n"
                 + "where Module.module_name like ? \n"
@@ -83,6 +85,7 @@ public class ModuleDAO extends DBContext {
         }
         return module;
     }
+
 
     public void addModule(Module module) {
         String sql = "INSERT INTO Module (module_name, module_description,subject_id,class_id) VALUES \n"
@@ -127,5 +130,25 @@ public class ModuleDAO extends DBContext {
         }
 
         return modules;
+
+    public int getModuleIdByName(String moduleName, int subjectId, int classId) {
+        int moduleId = -1;
+        String sql = "SELECT module_id FROM Module WHERE module_name = ? AND subject_id = ? AND class_id = ?"; // Adjust the SQL based on your actual table structure
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, moduleName);
+            ps.setInt(2, subjectId);
+            ps.setInt(3, classId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                moduleId = rs.getInt("module_id");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving module ID: " + e.getMessage());
+        }
+
+        return moduleId;
+
     }
 }

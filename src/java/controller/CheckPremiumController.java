@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,10 +16,10 @@ import model.User;
 
 /**
  *
- * @author TanDai
+ * @author lethe
  */
-@WebServlet(name = "ResetPasswordController", urlPatterns = {"/ResetPasswordController"})
-public class ResetPasswordController extends HttpServlet {
+@WebServlet(name = "CheckPremiumController", urlPatterns = {"/CheckPremiumController"})
+public class CheckPremiumController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +33,15 @@ public class ResetPasswordController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ResetPasswordController</title>");
+            out.println("<title>Servlet CheckPremiumController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ResetPasswordController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CheckPremiumController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +59,19 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("account");
+        if (u != null) {
+            if (!u.isIsPremium()) {
+                request.getRequestDispatcher("payment.jsp").forward(request, response);
+            } else {
+                int module_id = Integer.parseInt(request.getParameter("moduleId"));
+                request.setAttribute("modules", module_id);
+                request.getRequestDispatcher("FlashCardQuizController").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -74,31 +85,7 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO dao = new UserDAO();
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("account");
-        int id = user.getUserId();
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String repeatpassword = request.getParameter("repeatpassword");
-        User u = dao.checkAccountExistByUsernameAndEmail(username, email);
-        if (u != null) {
-            if (password.equals(repeatpassword)) {
-                u.setPassword(password);
-                dao.updatePassword(u);
-                request.setAttribute("mess", "Bạn đã thay đổi mật khẩu thành công!!!");
-                session.setAttribute("account", u);
-                request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
-
-            } else {
-                request.setAttribute("error1", "Mật khẩu không trùng khớp!!!");
-                request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
-            }
-        } else {
-            request.setAttribute("error2", "Username hoặc email sai!!!");
-            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

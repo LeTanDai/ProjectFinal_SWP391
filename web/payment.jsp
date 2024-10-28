@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -30,6 +31,26 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <style>
+            .button-payment {
+                background-color: #ff6600;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .button-payment:hover {
+                background-color: #e06f12;
+            }
+
+            .disabled-button {
+                background-color: #ffcc99; 
+                cursor: not-allowed;
+                opacity: 0.7; 
+            }
+        </style>
     </head>
 
     <body>
@@ -53,9 +74,23 @@
                         <li class="list">✔ Ôn tập bằng các bài test</li>
                         <li class="list">✔ Đọc và tải các tài liệu Premium</li>
                     </ul>
-                    <a href="/FinalProject_SWP391/checkout" class="btn-container">
-                        <button type="button" class="button-payment"style="background-color: #ff6600">Nâng cấp</button>
-                    </a>
+                    <c:if test="${sessionScope.account.isPremium == false}">
+                        <a href="/FinalProject_SWP391/checkout" class="btn-container">
+                            <button type="button" class="button-payment"style="background-color: #ff6600">Nâng cấp</button>
+                        </a>
+                    </c:if>
+
+                    <c:if test="${sessionScope.account == null}">
+                        <a href="/FinalProject_SWP391/checkout" class="btn-container">
+                            <button type="button" class="button-payment"style="background-color: #ff6600">Nâng cấp</button>
+                        </a>
+                    </c:if>
+
+                    <c:if test="${sessionScope.account != null && sessionScope.account.isPremium == true}">
+                        <a class="btn-container">
+                            <button type="button" class="button-payment disabled-button" disabled>Nâng cấp</button>
+                        </a>
+                    </c:if>
                 </div>
             </div>
         </div>
