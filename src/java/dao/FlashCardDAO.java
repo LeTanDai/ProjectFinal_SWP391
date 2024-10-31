@@ -122,7 +122,7 @@ public class FlashCardDAO extends DBContext {
             ps.setString(5, flashCard.getOption4());
             ps.setString(6, flashCard.getTrue_answer());
             ps.setInt(7, flashCard.getFlashCardId());
-            
+
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -277,4 +277,79 @@ public class FlashCardDAO extends DBContext {
         return moduleId;
     }
 
+    public List<FlashCard> searchQuiz(String searchTerm) throws SQLException {
+        List<FlashCard> flashList = new ArrayList<>();
+
+        String sql = "SELECT f.flashcard_id, "
+                + "f.question_name, "
+                + "f.option1, "
+                + "f.option2, "
+                + "f.option3, "
+                + "f.option4, "
+                + "f.true_answer, "
+                + "f.points, "
+                + "f.[index], "
+                + "m.module_name, "
+                + "s.subject_name, "
+                + "c.class_name "
+                + "FROM Flashcards f "
+                + "JOIN Module_Flashcard mf ON f.flashcard_id = mf.flashcard_id "
+                + "JOIN Module m ON mf.module_id = m.module_id "
+                + "JOIN Subjects s ON m.subject_id = s.subject_id "
+                + "JOIN Classes c ON m.class_id = c.class_id "
+                + "WHERE f.question_name LIKE ? OR "
+                + "f.option1 LIKE ? OR "
+                + "f.option2 LIKE ? OR "
+                + "f.option3 LIKE ? OR "
+                + "f.option4 LIKE ? ";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            String likeTerm = "%" + searchTerm + "%";
+            ps.setString(1, likeTerm);
+            ps.setString(2, likeTerm);
+            ps.setString(3, likeTerm);
+            ps.setString(4, likeTerm);
+            ps.setString(5, likeTerm);
+
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                FlashCard flashCard = new FlashCard();
+                flashCard.setFlashCardId(rs.getInt("flashcard_id"));
+                flashCard.setQuestionName(rs.getString("question_name"));
+                flashCard.setOption1(rs.getString("option1"));
+                flashCard.setOption2(rs.getString("option2"));
+                flashCard.setOption3(rs.getString("option3"));
+                flashCard.setOption4(rs.getString("option4"));
+                flashCard.setTrue_answer(rs.getString("true_answer"));
+                flashCard.setPoints(rs.getInt("points"));
+                flashCard.setIndex(rs.getInt("index"));
+
+                Module module = new Module();
+                module.setName(rs.getString("module_name"));
+                flashCard.setModule(module);
+
+                Subjects subject = new Subjects();
+                subject.setName(rs.getString("subject_name"));
+                flashCard.setSubject(subject);
+
+                Classes classes = new Classes();
+                classes.setName(rs.getString("class_name"));
+                flashCard.setClasses(classes);
+
+                flashList.add(flashCard);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Exception while searching for quiz: " + e.getMessage());
+            throw e; 
+        }
+
+        return flashList;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        FlashCardDAO flash = new FlashCardDAO();
+        List<FlashCard> results = flash.searchQuiz("Cho tập A có 3 phần tử. Số tập con của tập A là:?");
+        System.out.println(results);
+
+    }
 }

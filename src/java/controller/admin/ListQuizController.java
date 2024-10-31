@@ -13,7 +13,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.FlashCard;
 
 /**
@@ -91,7 +95,61 @@ public class ListQuizController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String searchQuery = request.getParameter("searchQuery");
+        FlashCardDAO flashCardDAO = new FlashCardDAO();
+
+        List<FlashCard> flashCardList = new ArrayList<>();
+
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            try {
+                flashCardList = flashCardDAO.searchQuiz(searchQuery);
+            } catch (SQLException ex) {
+                Logger.getLogger(ListQuizController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            flashCardList = flashCardDAO.getAllFlashcardsWithModules();
+        }
+        if (flashCardList.isEmpty()) {
+            request.setAttribute("error", "Không tìm thấy kết quả!!!");
+            request.getRequestDispatcher("listQuiz.jsp").forward(request, response);
+            return;
+        }
+        int currentPage = 1;
+        int itemsPerPage = 6;
+        String action = request.getParameter("action");
+        String currentPageParam = request.getParameter("currentPage");
+        String itemsPerPageParam = request.getParameter("itemsPerPage");
+
+        if (currentPageParam != null) {
+            currentPage = Integer.parseInt(currentPageParam);
+        }
+        if (itemsPerPageParam != null) {
+            itemsPerPage = Integer.parseInt(itemsPerPageParam);
+        }
+
+        if ("previous".equals(action) && currentPage > 1) {
+            currentPage--;
+        } else if ("next".equals(action)) {
+            currentPage++;
+        }
+
+        int totalPages = (int) Math.ceil((double) flashCardList.size() / itemsPerPage);
+
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        int startIndex = (currentPage - 1) * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, flashCardList.size());
+
+        List<FlashCard> flashCardForPage = flashCardList.subList(startIndex, endIndex);
+
+        request.setAttribute("listF", flashCardForPage);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("itemsPerPage", itemsPerPage);
+
+        request.getRequestDispatcher("listQuiz.jsp").forward(request, response);
     } 
 
     /** 
