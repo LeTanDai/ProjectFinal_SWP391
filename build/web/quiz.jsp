@@ -150,7 +150,7 @@
             <div class="buttons">
                 <button class="restart" style="background: #007bff">Làm lại</button>
                 <button class="quit quit-quiz" style="background: red; color: white;">Thoát</button>
-                <form action="QuizController" method="POST">
+                <form action="FlashCardQuizController" method="POST">
                     <input type="hidden" name="point" id="point" value = "0">
                     <input type="hidden" name="totalQuestions" id="totalQuestions" value="">
                     <button type="submit"style="background: #00ed7a">Nộp bài</button>
@@ -186,7 +186,7 @@
 
                 {
                     numb:${qu.index},
-                    question: "${qu.name}",
+                    question: "${qu.questionName}",
                     answer: "${qu.true_answer}",
                     options: [
                         "${qu.option1}",

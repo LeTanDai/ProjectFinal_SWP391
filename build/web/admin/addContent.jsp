@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,7 +157,7 @@
                             <div class="fields">
                                 <div class="field-item d-flex align-items-center justify-content-between">
                                     <div class="text">
-                                        <h2>Quản Lý Tài Liệu</h2>
+                                        <h2>Quản Lý Bài Học</h2>
                                     </div>
                                 </div>
                             </div>
@@ -167,10 +168,10 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Thêm Tài Liệu</h4>
+                                <h4>Thêm Bài Học</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="AdminListDocument"
+                                <a href="AdminAddLesson"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg
@@ -185,44 +186,61 @@
                                         Quay Lại</button></a>
                             </div>
                         </div>
-
-                        <form action="AdminAddDocument">
-                            <!-- Lesson Information Section -->
+                        <!-- Dynamic Lesson Content Container -->
+                        <form action="AdminAddLesson" method="post">
                             <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
-                                <div>
-                                    <label for="docName">Tên Tài Liệu</label>
-                                    <input type="text" id="docName" name="documentname" placeholder="Nhập tên tài liệu" required>
-
-                                    <label for="docType">Môn</label>
-                                    <select id="docType" name="subjectid" required>
-                                        <option value="1">Toán</option>
-                                        <option value="2">Lý</option>
-                                        <option value="3">Hóa</option>
+                                <label for="chapter">Chương</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <select id="chapter" name="chapter" required style="width: 1000px;">
+                                        <c:forEach var="item" items="${listmod}">
+                                            <option value="${item.getId()}">${item.getName()}</option>
+                                        </c:forEach>
                                     </select>
-
-                                    <label for="classType">Lớp</label>
-                                    <select id="classType" name="classid" required>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-
-                                    <label for="video-url">Hình ảnh url</label>
-                                    <textarea id="video-url" name="imageurl" rows="3" placeholder="Nhập URL hình ảnh"></textarea>
-
-                                    <label for="video-url">Tài liệu sách url</label>
-                                    <textarea id="video-url" name="bookurl" rows="3" placeholder="Nhập URL tài liệu sách"></textarea>
-
+                                    <a href="AdminAddModule?subjectid=${subjectid}&classid=${classid}" style="text-decoration: none;">
+                                        <div class="btn btn-primary py-1 px-3 font-weight-semi-bold" style="display: flex; align-items: center; gap: 5px;">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 5V19M5 12H19" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            Thêm chương
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
+
+
+                            <%
+                                Integer number = (Integer) request.getAttribute("number");
+                                if (number == null) {
+                                    number = 1; 
+                                }
+                                for (int i = 1; i <= number; i++) {
+                            %>
+                            <div id="lessonContentContainer<%=i%>">
+                                <div class="bg-white rounded-3 p-3 content-section" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
+                                    <label for="docName<%=i%>">Đề Mục <%=i%></label>
+                                    <input type="text" id="docName<%=i%>" name="docName[]" placeholder="Nhập tiêu đề" required>
+
+                                    <label for="description<%=i%>">Nội Dung Đề Mục</label>
+                                    <textarea id="description<%=i%>" name="description[]" rows="10" placeholder="Enter a brief description"></textarea>
+                                </div>
+                            </div>
+                            <%
+                                } 
+                            %>
+
+                            <!-- Buttons (Always at the bottom) -->
                             <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">
-                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Xác nhận">
+                                <input type="submit" id="addButton" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" value="Lưu bài học">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
     </body>
 
 </html>

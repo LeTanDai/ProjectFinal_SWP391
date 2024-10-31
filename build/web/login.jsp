@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +33,6 @@
 
         <style>
             body, html {
-                height: 100%;
                 margin: 0;
                 font-family: Arial, sans-serif;
             }
@@ -100,9 +100,8 @@
             .alert {
                 display: block;
                 white-space: nowrap;
-                overflow: hidden;
                 text-overflow: ellipsis;
-                margin: 15px;
+                padding: 10px !important;
             }
             .btn-back {
                 background-color: transparent;
@@ -147,10 +146,10 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <input name="remember" class="form-check-input" type="checkbox" id="rememberMe">
                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                             </div>
-                            <a href="#" class="forgot-password" style="text-decoration: none;">Quên mật khẩu ?</a>
+                            <a href="ForgotPasswordController" class="forgot-password" style="text-decoration: none;">Quên mật khẩu ?</a>
                         </div>
                         <button type="submit" class="btn btn-login btn-block w-100 mt-4">Đăng Nhập</button>
                     </form>
