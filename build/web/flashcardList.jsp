@@ -175,12 +175,6 @@
                     <div class="filter-container">
                         <div class="filter-header">BỘ LỌC TÌM KIẾM</div>
 
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            </div>
-                        </div>
 
                         <div class="filter-section">
                             <span class="font-weight-bold">Theo Lớp</span>
@@ -193,7 +187,7 @@
                             <span class="font-weight-bold">Theo Môn</span>
                             <label class="d-block"><input type="checkbox" class="subject-filter" value="Toán"> Toán</label>
                             <label class="d-block"><input type="checkbox" class="subject-filter" value="Lý"> Lý</label>
-                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Hoá"> Hóa</label>
+                            <label class="d-block"><input type="checkbox" class="subject-filter" value="Hóa"> Hóa</label>
                         </div>
                     </div>
                 </div>
@@ -208,7 +202,7 @@
                             <% for (Module module : modules) { %>
                             <div class="lesson" data-class="<%= request.getAttribute("className" + module.getId()) %>" 
                                  data-subject="<%= request.getAttribute("subjectName" + module.getId()) %>">
-                                <a href="flashcard.jsp?moduleId=<%= module.getId() %>">
+                                <a href="FlashCardController?moduleId=<%= module.getId() %>">
                                     <div class="lesson-title"><%= module.getName() %></div>
                                     <div class="lesson-description"><%= module.getDescription() %></div>
                                 </a>

@@ -179,4 +179,18 @@ public class VideoDAO extends DBContext {
         }
 
     }
+    public int countVideos() {
+    int count = 0;
+    String sql = "SELECT COUNT(*) AS total FROM Video";
+
+    try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        if (rs.next()) {
+            count = rs.getInt("total");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return count;
+}
 }

@@ -82,7 +82,7 @@
 
                 <!-- Hiển thị mã QR thanh toán -->
                 <div id="qrcode" style="text-align: center;">
-                    <img src="https://img.vietqr.io/image/MB-0702795560-compact.png?amount=30000&addInfo=<%= user.getPhone() %>" alt="QR Code" /> 
+                    <img src="https://img.vietqr.io/image/MB-0926615662-compact.png?amount=10000&addInfo=<%= user.getPhone() %>" alt="QR Code" /> 
                     <div style="margin-top: 20px;">
                         <p id="paid_content"><%= user.getfName() %> update account</p>
                         <p id="paid_price">Price: 30000</p>
@@ -115,7 +115,7 @@
             }
 
             $(document).ready(function () {
-                const thirtySeconds = 30; // Đếm ngược từ 30 giây
+                const thirtySeconds = 40; // Đếm ngược từ 30 giây
                 const display = $('#timer'); // Sử dụng jQuery để tham chiếu
                 startTimer(thirtySeconds, display);
             });
@@ -148,7 +148,7 @@
 
                 try {
                     const response = await fetch(
-                            "https://script.google.com/macros/s/AKfycbzb-NqVK3hb3DiGAQl-hxd3KBjsxdE_ogOJacaswhCPD61zJZfuq2tQn4OdlXI4FPR1VA/exec"
+                            "https://script.google.com/macros/s/AKfycbzNeAEIb5_BCvjuLld70zVkrTecIkQDhnkH9X7CoBVK5TclN0J_tXP-mlBxj9Gw1fU3Kg/exec"
                             );
 
                     const responseData = await response.json();
@@ -167,7 +167,7 @@
                     const currentTime = new Date(); // Thời gian hiện tại
 
                     // Kiểm tra nếu thanh toán xảy ra trong vòng 5 phút (300000 ms)
-                    if (LastPrice >= price && (currentTime - lastPaidTime) <= 3000000 && LastContent.includes(Phone)) {
+                    if (LastPrice >= price && (currentTime - lastPaidTime) <= 300000 && LastContent.includes(Phone)) {
                         alert("Thanh toán thành công");
                         isSuccess = true;
 

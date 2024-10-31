@@ -51,8 +51,10 @@
         <nav class="container-fluid sticky-top bg-white">
             <div class="row border-top-logo px-xl-5">
                 <div class="col-lg-3-logo">
-                    <a href="index.html">
-                        <img class="img-fluid-cat" src="img/Logo.png" alt="ECOURSES Logo" style="width: 67px; height: 67px;">
+                    <a href="index.jsp">
+
+                        <img class="img-fluid-cat" src="${pageContext.request.contextPath}/img/Logo.png" alt="ECOURSES Logo" style="width: 67px; height: 67px;">
+
                     </a>
                 </div>
                 <div class="col-lg-9">
@@ -71,8 +73,8 @@
                                         <a href="CourseServlet?class=12" class="dropdown-item">Lớp 12</a>
                                     </div>
                                 </div>
-                                <a href="document.jsp" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>
-                                <a href="flashcardList.jsp" class="nav-item nav-link" style="font-weight: bold">Ôn tập</a>
+                                <a href="DocumentController" class="nav-item nav-link" style="font-weight: bold">Tài Liệu</a>
+                                <a href="ModuleController" class="nav-item nav-link" style="font-weight: bold">Ôn tập</a>
                                 <a href="payment.jsp" class="nav-item nav-link " style="font-weight: bold">Nâng cấp</a>
                             </div>
 
@@ -84,17 +86,18 @@
                             <div id="userDropdown" class="user-dropdown" style="display: none;">
                                 <div class="dropdown-content">
                                     <c:if test="${sessionScope.account != null}">
-                                    <div class="user-profile">
-                                        <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
-                                        <span>${sessionScope.account.fName}</span>
-                                    </div>
+                                        <div class="user-profile">
+                                            <img src="https://www.phanmemninja.com/wp-content/uploads/2023/06/avatar-facebook-nam-vo-danh.jpeg" alt="User Avatar" class="user-avatar">
+                                            <span>${sessionScope.account.fName}</span>
+                                        </div>
                                         <a href="userProfile.jsp">
                                             <i class="fas fa-user-circle"></i> Thông tin cá nhân
                                         </a>
-
-                                        <a href="admin/dashBoard.jsp">
-                                            <i class="fas fa-user-circle"></i> Quản Lý
-                                        </a>
+                                        <c:if test="${sessionScope.account.isAdmin == true}">
+                                            <a href="admin/dashBoard.jsp">
+                                                <i class="fas fa-user-circle"></i> Quản Lý
+                                            </a>
+                                        </c:if>
                                         <a href="logout">
                                             <i class="fas fa-sign-out-alt"></i> Đăng xuất
                                         </a>
@@ -103,7 +106,7 @@
                                         <a href="login.jsp">
                                             <i class="fas fa-sign-out-alt"></i> Đăng nhập
                                         </a>
-                                        </c:if>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

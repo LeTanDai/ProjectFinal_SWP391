@@ -117,4 +117,20 @@ public class ExamDAO extends DBContext{
         List<Exam> list = dao.getAllExam();
         System.out.println(list);
     }
+    public int countExams() throws SQLException {
+    int count = 0;
+    String sql = "SELECT COUNT(*) AS total FROM Exam";
+
+    try (PreparedStatement st = connection.prepareStatement(sql);
+         ResultSet rs = st.executeQuery()) {
+        if (rs.next()) {
+            count = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    return count;
+}
+
 }
