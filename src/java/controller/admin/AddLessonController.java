@@ -100,7 +100,7 @@ public class AddLessonController extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            request.getRequestDispatcher("listUser.jsp").forward(request, response);
+            request.getRequestDispatcher("AdminListUser").forward(request, response);
         }
     }
 

@@ -29,7 +29,7 @@ import model.Subjects;
  *
  * @author PC
  */
-@WebServlet(name = "ListExamController", urlPatterns = {"/ListExamController"})
+@WebServlet(name = "ListExamController", urlPatterns = {"/admin/ListExamController"})
 public class ListExamController extends HttpServlet {
 
     /**
@@ -114,7 +114,7 @@ public class ListExamController extends HttpServlet {
             request.setAttribute("itemsPerPage", itemsPerPage);  // Truyền số phần tử trên mỗi trang
 
             // Bước 6: Chuyển tiếp đến trang JSP
-            request.getRequestDispatcher("admin/listExam.jsp").forward(request, response);
+            request.getRequestDispatcher("listExam.jsp").forward(request, response);
         }
     }
 

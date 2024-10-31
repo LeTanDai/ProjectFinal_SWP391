@@ -175,7 +175,7 @@
                             <div style="margin: 0 3px;"></div>
 
                             <div>
-                                <form id="examForm" action="/FinalProject_SWP391/AddExamController" method="post" >
+                                <form id="examForm" action="AddExamController" method="post" >
                                     <label for="examName">Tên Bài Kiểm Tra</label>
                                     <input type="text" id="examName" name="examName" placeholder="Nhập tên kỳ thi" required>
 

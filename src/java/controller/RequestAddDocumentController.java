@@ -14,6 +14,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Document;
 
 /**
@@ -75,20 +78,24 @@ public class RequestAddDocumentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String docName = request.getParameter("docName");
-        String docUrl = request.getParameter("docUrl");
-        String imageUrl = request.getParameter("imageUrl");
-        String className = request.getParameter("className");
-        String subjectName = request.getParameter("subjectName");
-
-        DocumentPendingDAO docDAO = new DocumentPendingDAO();
-        ClassDAO clDAO = new ClassDAO();
-        SubjectDAO sjDAO = new SubjectDAO();
-        
-        Document doc =  new Document(0, docUrl, docName, imageUrl, sjDAO.getSubjectByName(subjectName).getId(), clDAO.getClassByName(className).getId());
-        docDAO.createDocument(doc);
-        
-        request.getRequestDispatcher("DocumentController").forward(request, response);
+        try {
+            String docName = request.getParameter("docName");
+            String docUrl = request.getParameter("docUrl");
+            String imageUrl = request.getParameter("imageUrl");
+            String className = request.getParameter("className");
+            String subjectName = request.getParameter("subjectName");
+            
+            DocumentPendingDAO docDAO = new DocumentPendingDAO();
+            ClassDAO clDAO = new ClassDAO();
+            SubjectDAO sjDAO = new SubjectDAO();
+            
+            Document doc =  new Document(0, docUrl, docName, imageUrl, sjDAO.getSubjectByName(subjectName).getId(), clDAO.getClassByName(className).getId());
+            docDAO.createDocument(doc);
+            
+            request.getRequestDispatcher("DocumentController").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RequestAddDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

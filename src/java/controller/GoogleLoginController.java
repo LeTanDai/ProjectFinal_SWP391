@@ -58,18 +58,8 @@ public class GoogleLoginController extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", u);
-            //Tao cookie
-            Cookie cuser = new Cookie("cuser", u.getUserName());
-            Cookie cpass = new Cookie("cpass", u.getPassword());
-
-            cuser.setMaxAge(0);
-            cpass.setMaxAge(0);
-
-            response.addCookie(cuser);
-            response.addCookie(cpass);
-
             if (u.isIsAdmin() == true) {
-                response.sendRedirect("admin/listUser.jsp");
+                response.sendRedirect("admin/dashboard.jsp");
             } else {
                 response.sendRedirect("index.jsp");
             }

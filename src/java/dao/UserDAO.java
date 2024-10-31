@@ -211,7 +211,7 @@ public class UserDAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("full_name"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
+                User u = new User(rs.getInt("user_id"), rs.getString("full_name"), rs.getString("username"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
                 return u;
             }
         } catch (SQLException e) {
@@ -332,5 +332,16 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public void updateUserRole(int userId, String role) throws SQLException {
+        String query = "UPDATE Users SET isAdmin = ?, isPremium = ?, isNormal = ? WHERE user_id = ?";
+        try ( PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setBoolean(1, "Admin".equals(role));
+            stmt.setBoolean(2, "Premium".equals(role));
+            stmt.setBoolean(3, "Normal".equals(role));
+            stmt.setInt(4, userId);
+            stmt.executeUpdate();
+        }
     }
 }

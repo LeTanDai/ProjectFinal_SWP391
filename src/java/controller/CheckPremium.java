@@ -65,6 +65,9 @@ public class CheckPremium extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("account");
+        if ( user == null ) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         if (user.isIsPremium()) {
             String videoid = request.getParameter("video");
             String contentid = request.getParameter("content");

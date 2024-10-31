@@ -130,7 +130,7 @@ public class ModuleDAO extends DBContext {
         }
 
         return modules;
-
+    }
     public int getModuleIdByName(String moduleName, int subjectId, int classId) {
         int moduleId = -1;
         String sql = "SELECT module_id FROM Module WHERE module_name = ? AND subject_id = ? AND class_id = ?"; // Adjust the SQL based on your actual table structure

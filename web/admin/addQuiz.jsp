@@ -154,7 +154,7 @@
                                 <h4>Thêm Câu Hỏi</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
-                                <a href="../ListQuizController"
+                                <a href="ListQuizController"
                                    style="text-decoration: none;"><button
                                         class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                                         style="display: flex; gap: 15px;"> <svg

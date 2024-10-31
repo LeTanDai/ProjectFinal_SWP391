@@ -116,7 +116,10 @@
                                         <c:forEach var="entry2" items="${lesson}">
                                             <c:choose>
                                                 <c:when test="${entry2.key.isIsPremium()}">
-                                                    <a href="CheckPremium?video=${entry2.value.getId()}&content=${entry2.key.getContentid()}">
+                                                    <a href="CheckPremium?video=${entry2.value.getId()}&content=${entry2.key.getContentid()}" style="display: flex">
+                                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C14.6888 2 16.8818 4.12231 16.9954 6.78311L17 7V10C18.6569 10 20 11.3431 20 13V19C20 20.6569 18.6569 22 17 22H7C5.34315 22 4 20.6569 4 19V13C4 11.3431 5.34315 10 7 10V7C7 4.23858 9.23858 2 12 2ZM17 12H7C6.44772 12 6 12.4477 6 13V19C6 19.5523 6.44772 20 7 20H17C17.5523 20 18 19.5523 18 19V13C18 12.4477 17.5523 12 17 12ZM12.1763 4.00509L12 4C10.4023 4 9.09634 5.24892 9.00509 6.82373L9 7V10H15V7C15 5.40232 13.7511 4.09634 12.1763 4.00509L12 4L12.1763 4.00509Z" fill="#ff6600"/>
+                                                        </svg>
                                                         <h6 style="margin: 10px 0;"><b>${entry2.key.getName()}</b></h6>
                                                     </a>
                                                 </c:when>
@@ -137,18 +140,27 @@
                     <div class="sidebar">
                         <div class="sidebar-title">Danh mục môn học</div>
                         <ul class="list-group">
-                            <li class="list-group-item">
+                            <form class="list-group-item" action="CourseServlet" method="post">
                                 <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="courselist.jsp">Toán</a>
-                            </li>
-                            <li class="list-group-item">
+                                <input type="hidden" name="subject" value="Math">
+                                <button type="submit" style="border: none; background: none; color: inherit; padding: 0; font: inherit; cursor: pointer;">
+                                    Toán
+                                </button>
+                            </form>
+                            <form class="list-group-item" action="CourseServlet" method="post">
                                 <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="courselist.jsp">Lý</a>
-                            </li>
-                            <li class="list-group-item">
+                                <input type="hidden" name="subject" value="Physics">
+                                <button type="submit" style="border: none; background: none; color: inherit; padding: 0; font: inherit; cursor: pointer;">
+                                    Lý
+                                </button>
+                            </form>
+                            <form class="list-group-item" action="CourseServlet" method="post">
                                 <i class="fas fa-pencil-alt sidebar-icon"></i>
-                                <a href="courselist.jsp">Hóa</a>
-                            </li>
+                                <input type="hidden" name="subject" value="Chemistry">
+                                <button type="submit" style="border: none; background: none; color: inherit; padding: 0; font: inherit; cursor: pointer;">
+                                    Hóa
+                                </button>
+                            </form>
                         </ul>
                     </div>
                 </div>
