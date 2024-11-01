@@ -163,7 +163,7 @@ public class UserDAO extends DBContext {
     }
 
     public void signUp(String username, String password, String email, String phone) {
-        String sql = "INSERT INTO Users (username, [password], email, phone_number,full_name, dob, gender, avatar, isAdmin,isNormal,isPremium,[address]) VALUES (?,?,?,?,'','','','','0','1','0','')";
+        String sql = "INSERT INTO Users (username, [password], email, phone_number,full_name, dob, gender, avatar, isAdmin,isNormal,isPremium,[address]) VALUES (?,?,?,?,'','','','https://avatar.iran.liara.run/public/boy?username=Ash','0','1','0','')";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);

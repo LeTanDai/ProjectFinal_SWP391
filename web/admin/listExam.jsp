@@ -127,14 +127,7 @@
                         <!-- Pagination Section -->
                         <div class="pagination" style="margin: 20px 30px 20px 10px; gap: 10px; display: flex; justify-content: space-between;">
                             <div>
-                                <span>Số lượng:</span>
-                                <form action="ListExamController" method="get">
-                                    <select name="itemsPerPage" onchange="this.form.submit()">
-                                        <option value="6" ${itemsPerPage == 6 ? 'selected' : ''}>6</option>
-                                        <option value="12" ${itemsPerPage == 12 ? 'selected' : ''}>12</option>
-                                        <option value="18" ${itemsPerPage == 18 ? 'selected' : ''}>18</option>
-                                    </select>
-                                </form>
+
                             </div>
                             <div>
                                 <form action="ListExamController" method="get">

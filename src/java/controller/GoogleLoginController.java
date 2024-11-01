@@ -59,7 +59,7 @@ public class GoogleLoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("account", u);
             if (u.isIsAdmin() == true) {
-                response.sendRedirect("admin/dashboard.jsp");
+                response.sendRedirect("admin/dashBoard.jsp");
             } else {
                 response.sendRedirect("index.jsp");
             }

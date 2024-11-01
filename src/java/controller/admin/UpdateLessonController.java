@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import model.Lesson;
 import model.Video;
 import model.Module;
@@ -75,6 +76,8 @@ public class UpdateLessonController extends HttpServlet {
                 Lesson less = coudao.getLessonByid(lessid);
                 Video video = viddao.getVideoByVideoid(less.getVideoid());
                 Module module = moldao.GetModuleById(less.getModuleid());
+                ArrayList<model.Module> listmod = (ArrayList<model.Module>) moldao.getAllModulesWithSubject(video.getSubjectid(), video.getClassid());
+                request.setAttribute("listmod", listmod);
                 request.setAttribute("lesson", less);
                 request.setAttribute("video", video);
                 request.setAttribute("module", module);
@@ -123,7 +126,9 @@ public class UpdateLessonController extends HttpServlet {
                 int lessid = Integer.parseInt(lessonid);
                 int subjectid = Integer.parseInt(subject);
                 int classid = Integer.parseInt(classes);
-                Module module = moldao.getModuleByName(chapter, classid, subjectid);
+                int modid = Integer.parseInt(chapter);
+//                Module module = moldao.getModuleByName(chapter, classid, subjectid);
+                Module module = moldao.GetModuleById(modid);
                 Lesson oldless = coudao.getLessonByid(lessid);
                 Video oldvideo = viddao.getVideoByVideoid(oldless.getVideoid());
                 Video newvideo = new Video(oldvideo.getId(), videourl, videotitle, subjectid, classid);
@@ -146,7 +151,7 @@ public class UpdateLessonController extends HttpServlet {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                response.getWriter().write("An error occurred: " + e.getMessage());
+                response.getWriter().write("An error occurred: " + e.getMessage() + " modul id = " + chapter);
             }
         } else {
             request.getRequestDispatcher("listUser.jsp").forward(request, response);

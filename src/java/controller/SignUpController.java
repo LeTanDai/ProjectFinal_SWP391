@@ -68,15 +68,13 @@ public class SignUpController extends HttpServlet {
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else if (!password.equals(re_pass)) {
             request.setAttribute("error", "Password mismatch");
+            request.setAttribute("", uDAO);
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {
 
             User user = uDAO.checkAccountExist(username);
             if (user == null) {
                 uDAO.signUp(username, password, email, phone);
-                User u = uDAO.getUserByUsername(username);
-                HttpSession session = request.getSession();
-                session.setAttribute("account", u);
                 response.sendRedirect("index.jsp");
             }
         }

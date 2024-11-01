@@ -157,7 +157,7 @@
                             <div class="fields">
                                 <div class="field-item d-flex align-items-center justify-content-between">
                                     <div class="text">
-                                        <h2>Quản Lý Bài Học</h2>
+                                        <h2>Quản Lý Tài Liệu</h2>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Chỉnh sửa Bài Học</h4>
+                                <h4>Chỉnh sửa Tài Liệu</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
                                 <a href="AdminListDocument"
@@ -191,7 +191,7 @@
                             <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
                                 <div>
                                     <input type="hidden" name="documentid" value="${document.getDocId()}">
-                                    <label for="docName">Tên Bài Học</label>
+                                    <label for="docName">Tên Tài Liệu</label>
                                     <input type="text" id="docName" name="documentname" value="${document.getDocName()}" required>
                                     <label for="docType">Môn</label>
                                     <select id="docType" name="subjectid" required>

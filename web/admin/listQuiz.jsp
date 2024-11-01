@@ -88,7 +88,7 @@
                                                 ">Tìm Kiếm</button>
                                     </form>
                                     <button class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold " style="">
-                                            <a href="admin/addQuiz.jsp" class="no-underline" style="color: white;">
+                                            <a href="addQuiz.jsp" class="no-underline" style="color: white;">
                                             <i class="fas fa-plus-circle"></i> Thêm Câu Hỏi
                                         </a>
                                     </button>

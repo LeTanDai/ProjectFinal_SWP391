@@ -100,7 +100,7 @@ public class AddLessonController extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            request.getRequestDispatcher("AdminListUser").forward(request, response);
+            request.getRequestDispatcher("listUser.jsp").forward(request, response);
         }
     }
 
@@ -166,9 +166,9 @@ public class AddLessonController extends HttpServlet {
                 condao.addContent(lescont);
                 model.Module module = moddao.GetModuleById(moduleid);
                 if (type.equalsIgnoreCase("Premium")) {
-                     les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), true);
+                    les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), true);
                 } else {
-                     les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), false);
+                    les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), false);
                 }
                 coudao.addLesson(les);
                 response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");

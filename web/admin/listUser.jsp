@@ -115,7 +115,6 @@
                                             <th>Email</th>
                                             <th>Địa Chỉ</th>
                                             <th>Vai Trò</th>
-                                            <th>Tùy Chỉnh</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -134,18 +133,6 @@
                                                         <c:when test="${user.isPremium}">Premium User</c:when>
                                                         <c:otherwise>Normal User</c:otherwise>
                                                     </c:choose>
-                                                </td>
-                                                <td>
-                                                    <form action="${pageContext.request.contextPath}/admin/AdminListUser" method="post" onsubmit="return confirmChange()">
-                                                        <input type="hidden" name="userId" value="${user.userId}">
-                                                        <select name="role">
-                                                            <option value="Admin" ${user.isAdmin ? 'selected' : ''}>Admin</option>
-                                                            <option value="Premium" ${user.isPremium ? 'selected' : ''}>Premium User</option>
-                                                            <option value="Normal" ${!user.isAdmin && !user.isPremium ? 'selected' : ''}>Normal User</option>
-                                                        </select>
-                                                        <input type="hidden" name="action" value="updateRole">
-                                                        <button type="submit" style="background-color: #ff6600">Lưu</button>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         </c:forEach>

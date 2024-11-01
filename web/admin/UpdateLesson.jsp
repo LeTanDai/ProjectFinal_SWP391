@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,10 +212,26 @@
                                         <option value="Premium">Premium</option>
                                         <option value="Normal">Normal</option>
                                     </select>
-                                    <label for="chapter">Chương</label>
-                                    <input type="text" id="chapter" name="chapter" value="${module.getName()}" required>
+                                    <div   margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
+                                        <label for="chapter">Chương</label>
+                                        <div style="display: flex; gap: 10px; align-items: center;">
+                                            <select id="chapter" name="chapter" required style="width: 1000px;">
+                                                <c:forEach var="item" items="${listmod}">
+                                                    <option value="${item.getId()}" ${item.getId() == module.getId() ? 'selected' : ''}>${item.getName()}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <a href="AdminAddModule?subjectid=${video.getSubjectid()}&classid=${video.getClassid()}" style="text-decoration: none;">
+                                                <div class="btn btn-primary py-1 px-3 font-weight-semi-bold" style="display: flex; align-items: center; gap: 5px;">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 5V19M5 12H19" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    Thêm chương
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                     <label for="video-url">Video url</label>
-                                    <textarea id="video-url" name="videourl" rows="3" value="${video.getUrl()}"></textarea>
+                                    <input id="video-url" name="videourl" rows="3"  value="${video.getUrl()}">
                                     <label for="title">Tiêu Đề</label>
                                     <input type="text" id="title" name="videotitle" value="${video.getTitle()}" required>
                                     <label for="title">Số lượng đề mục</label>

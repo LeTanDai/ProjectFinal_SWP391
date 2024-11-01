@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>ECOURSES - Online Courses HTML Template</title>
+        <title>Online Learning Website</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -193,7 +193,6 @@
                                 <div>
                                     <label for="docName">Tên Bài Học</label>
                                     <input type="text" id="docName" name="lessonname" placeholder="Nhập tên bài học" required>
-
                                     <label for="docType">Môn</label>
                                     <select id="docType" name="subjectid" required>
                                         <c:forEach var="item" items="${listsub}">
@@ -212,7 +211,7 @@
                                         <option value="Normal">Normal</option>
                                     </select>
                                     <label for="video-url">Video url</label>
-                                    <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video"></textarea>
+                                    <textarea id="video-url" name="videourl" rows="3" placeholder="Nhập URL video" required></textarea>
                                     <label for="title">Tiêu Đề</label>
                                     <input type="text" id="title" name="videotitle" placeholder="Nhập tiêu đề" required>
                                     <label for="title">Số lượng đề mục</label>

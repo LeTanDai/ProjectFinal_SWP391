@@ -155,4 +155,18 @@ public class DocumentDAO extends DBContext {
         }
         return list;
     }
+    public int countDocuments() {
+    int count = 0;
+    String sql = "SELECT COUNT(*) AS total FROM Document";
+
+    try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        if (rs.next()) {
+            count = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    return count;
+}
 }
