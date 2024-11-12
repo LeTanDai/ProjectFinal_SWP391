@@ -30,8 +30,8 @@ import model.Subjects;
  *
  * @author PC
  */
-@WebServlet(name = "DocumentController", urlPatterns = {"/DocumentController"})
-public class DocumentController extends HttpServlet {
+@WebServlet(name = "SearchBookController", urlPatterns = {"/SearchBookController"})
+public class SearchBookController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,52 +43,20 @@ public class DocumentController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //b1 : get data from ProductDAO
-        DocumentDAO documentDAO = new DocumentDAO();
-        ExamDAO exDAO = new ExamDAO();
-        SubjectDAO subjectDAO = new SubjectDAO();
-        ClassDAO classDAO = new ClassDAO();
-
-
-        // Step 2: Get current page from request
-            String pageParam = request.getParameter("page");
-            int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
-            int pageSize = 5; // Set number of items per page
-
-            // Step 3: Get all documents with pagination
-            List<Document> listDoc = documentDAO.getAllDocuments(currentPage, pageSize); // Assumes this method exists
-            int totalDocuments = documentDAO.getTotalDocuments(null); // Get total documents for pagination
-            int totalPages = (int) Math.ceil((double) totalDocuments / pageSize);
-
-            // Step 4: Get all exams
-            List<Exam> listE = exDAO.getAllExam();
-
-            // Step 5: Get subjects and create a map
-            List<Subjects> subjects = subjectDAO.getAllSubject();
-            Map<Integer, String> subjectMap = new HashMap<>();
-            for (Subjects subject : subjects) {
-                subjectMap.put(subject.getId(), subject.getName());
-            }
-
-            // Step 6: Get classes and create a map
-            List<Classes> classes = classDAO.getAllClass();
-            Map<Integer, String> classMap = new HashMap<>();
-            for (Classes cls : classes) {
-                classMap.put(cls.getId(), cls.getName());
-            }
-
-            // Step 7: Set data to JSP
-            request.setAttribute("classMap", classMap);
-            request.setAttribute("subjectMap", subjectMap);
-            request.setAttribute("listDoc", listDoc);
-            request.setAttribute("listE", listE);
-            request.setAttribute("currentPage", currentPage);
-            request.setAttribute("totalPages", totalPages);
-
-            // Step 8: Forward to the JSP page
-            request.getRequestDispatcher("document.jsp").forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SearchBookController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SearchBookController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -103,10 +71,64 @@ public class DocumentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            processRequest(request, response);
+            DocumentDAO documentDAO = new DocumentDAO();
+            ExamDAO exDAO = new ExamDAO();
+            SubjectDAO subjectDAO = new SubjectDAO();
+            ClassDAO classDAO = new ClassDAO();
+
+            String searchQuery = request.getParameter("searchBook");
+            String pageParam = request.getParameter("page");
+            String action = request.getParameter("action");
+            // Step 1: Get total documents for pagination
+            int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+            int pageSize = 5; // Set number of items per page
+            int totalDocuments = documentDAO.getTotalDocuments(searchQuery);
+            int totalPages = (int) Math.ceil((double) totalDocuments / pageSize);
+            // Xử lý hành động "previous" và "next"
+            if ("previous".equals(action) && currentPage > 1) {
+                currentPage--;
+            } else if ("next".equals(action) && currentPage < totalPages) {
+                currentPage++;
+            }
+
+            // Step 2: Get documents based on search query and pagination
+            List<Document> listDoc = (searchQuery == null || searchQuery.trim().isEmpty())
+                    ? documentDAO.getAllDocuments(currentPage, pageSize) // Get all documents
+                    : documentDAO.searchDocuments(searchQuery, currentPage, pageSize); // Search with pagination
+            
+
+            // Step 3: Get all exams
+            List<Exam> listE = exDAO.getAllExam();
+
+            // Step 4: Get all subjects and create a map
+            List<Subjects> subjects = subjectDAO.getAllSubject();
+            Map<Integer, String> subjectMap = new HashMap<>();
+            for (Subjects subject : subjects) {
+                subjectMap.put(subject.getId(), subject.getName());
+            }
+
+            // Step 5: Get all classes and create a map
+            List<Classes> classes = classDAO.getAllClass();
+            Map<Integer, String> classMap = new HashMap<>();
+            for (Classes cls : classes) {
+                classMap.put(cls.getId(), cls.getName());
+            }
+
+            // Step 6: Set data to JSP
+            request.setAttribute("listDoc", listDoc);
+            request.setAttribute("listE", listE);
+            request.setAttribute("subjectMap", subjectMap);
+            request.setAttribute("classMap", classMap);
+            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("searchQuery", searchQuery);
+
+            // Step 7: Forward to the JSP page
+            request.getRequestDispatcher("document.jsp").forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchBookController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -121,11 +143,7 @@ public class DocumentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

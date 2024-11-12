@@ -223,6 +223,12 @@
 
         <!-- Main Content Section -->
         <div class="container">
+            <div class="mb-4">
+                <form action="SearchBookController" method="GET" class="form-inline">
+                    <input type="text" name="searchBook" class="form-control mr-2" placeholder="Tìm tài liệu..." >
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </form>
+            </div>
             <div class="row">
                 <!-- Left Content: Tài liệu Sách -->
                 <div class="col-lg-8">
@@ -252,8 +258,8 @@
                         <ul class="list-group">
                             <c:if test="${empty listE}">
                                 <li class="list-group-item">Không có đề thi nào được tìm thấy.</li>
-                            </c:if>
-                            <c:forEach items="${listE}" var="ex">
+                                </c:if>
+                                <c:forEach items="${listE}" var="ex">
                                 <li class="list-group-item">
                                     <i class="fas fa-pencil-alt sidebar-icon"></i>
                                     <a href="ExamDetailController?examId=${ex.examId}">${ex.examName}</a>
@@ -272,6 +278,16 @@
                                     </svg>
                                     Thêm Tài Liệu</button></a></div>
                     </div>
+                </div>
+            </div>
+            <div class="pagination" style="margin: 20px 30px 20px 10px; gap: 10px; display: flex; justify-content: space-between;">                           
+                <div>
+                    <form action="SearchBookController" method="get">
+                        <input type="hidden" name="searchBook" value="${searchQuery}" />
+                        <input type="hidden" name="page" value="${currentPage}" />
+                        <button type="submit" name="action" value="previous" ${currentPage == 1 ? 'disabled' : ''}>Trước</button>
+                        <button type="submit" name="action" value="next" ${currentPage == totalPages ? 'disabled' : ''}>Sau</button>
+                    </form>
                 </div>
             </div>
         </div>
