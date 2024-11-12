@@ -344,4 +344,34 @@ public class UserDAO extends DBContext {
             stmt.executeUpdate();
         }
     }
+    
+    public ArrayList<User> getAllUserBySearch( String search) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE full_name like ? ";
+        User doc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%"+search+"%" );
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                doc = new User(rs.getInt("user_id"),
+                            rs.getString("full_name"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getDate("dob"),
+                            rs.getBoolean("gender"),
+                            rs.getString("phone_number"),
+                            rs.getString("email"),
+                            rs.getString("avatar"),
+                            rs.getBoolean("isNormal"),
+                            rs.getBoolean("isPremium"),
+                            rs.getBoolean("isAdmin"),
+                            rs.getString("address"));
+                list.add(doc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
