@@ -1,7 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="dao.UserDAO"%>
+<%@page import="dao.DocumentDAO"%>
+<%@page import="dao.ExamDAO"%>
+<%@page import="dao.VideoDAO"%>
 <%
     UserDAO userDao = new UserDAO();
+    DocumentDAO documentDao = new DocumentDAO();
+    ExamDAO examDao = new ExamDAO();
+    VideoDAO videoDao = new VideoDAO();
+    
+    int documentCount = documentDao.countDocuments();
+    int examCount = examDao.countExams();
+    int videoCount = videoDao.countVideos();
+        
     int normalUserCount = userDao.countNormalUser(); // Lấy số lượng Normal User
     int premiumUserCount = userDao.countPremiumUser(); // Lấy số lượng Premium User
     int adminUserCount = userDao.countAdminUser(); // Lấy số lượng Admin User
@@ -112,7 +123,7 @@
                                                     d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
                                             </svg>
                             <div class="card-text ms-3">
-                                <div class="number">20+</div>
+                                <div class="number"><%= videoCount %></div>
                                 <div class="label">Bài Học</div>
                             </div>
                         </div>
@@ -132,7 +143,7 @@
                                                     d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
                                             </svg>
                             <div class="card-text ms-3">
-                                <div class="number">190+</div>
+                                <div class="number"><%= documentCount %></div>
                                 <div class="label">Tài Liệu</div>
                             </div>
                         </div>
@@ -141,7 +152,7 @@
                         <div class="analytics-card d-flex align-items-center" style="gap: 15px;">
                             <img src="../img/quiz.png" class="me-3" alt="Calendar Icon" style="width: 38px; height: 38px;" >
                             <div class="card-text ms-3">
-                                <div class="number">12+</div>
+                                <div class="number"><%= examCount %></div>
                                 <div class="label">Bài Ôn Tập</div>
                             </div>
                         </div>

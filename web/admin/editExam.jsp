@@ -173,7 +173,7 @@
                         </div>
 
                         <div>
-                            <form id="examForm" action="${pageContext.request.contextPath}/EditExamController" method="post">
+                            <form id="examForm" action="EditExamController" method="post">
                                 <input type="hidden" id="examId" name="id" value="${exam.examId}">
 
                                 <label for="examName">Tên Bài Kiểm Tra</label>

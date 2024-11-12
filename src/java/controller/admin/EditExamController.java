@@ -25,7 +25,7 @@ import model.Subjects;
  *
  * @author PC
  */
-@WebServlet(name = "EditExamController", urlPatterns = {"/EditExamController"})
+@WebServlet(name = "EditExamController", urlPatterns = {"/admin/EditExamController"})
 
 public class EditExamController extends HttpServlet {
 
@@ -95,7 +95,7 @@ public class EditExamController extends HttpServlet {
             request.setAttribute("exam", ex);
 
             // Forward to the JSP page
-            request.getRequestDispatcher("admin/editExam.jsp").forward(request, response);
+            request.getRequestDispatcher("editExam.jsp").forward(request, response);
         } catch (NumberFormatException | SQLException e) {
             Logger.getLogger(EditExamController.class.getName()).log(Level.SEVERE, "Invalid exam ID format.", e);
             request.setAttribute("errorMessage", "Invalid exam ID format.");

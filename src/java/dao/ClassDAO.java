@@ -18,14 +18,14 @@ import model.Classes;
  */
 public class ClassDAO extends DBContext {
 
-    public ClassDAO() {
+    public ClassDAO() throws SQLException {
     }
 
     public List<Classes> getAllClass() {
         List<Classes> classtList = new ArrayList<>();
         String sql = "SELECT * FROM Classes";
 
-        try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
 
@@ -47,10 +47,10 @@ public class ClassDAO extends DBContext {
         Classes _class = null;
         String sql = "SELECT * FROM Classes WHERE class_id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, id); // Set the subject ID parameter
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
 
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     _class = new Classes(
                             rs.getInt("class_id"),
@@ -62,17 +62,17 @@ public class ClassDAO extends DBContext {
             System.out.println(e);
         }
 
-        return _class; // Returns null if no subject found
+        return _class; 
     }
 
     public Classes getClassByName(String className) {
         Classes _class = null;
         String sql = "SELECT * FROM Classes WHERE class_name = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, className); // Set the class name parameter
 
-            try (ResultSet rs = st.executeQuery()) {
+            try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
                     _class = new Classes(
                             rs.getInt("class_id"),
@@ -84,8 +84,9 @@ public class ClassDAO extends DBContext {
             System.out.println(e);
         }
 
-        return _class; // Returns null if no class found
+        return _class; 
     }
+
 
     public String getClassNameById(int classId) {
         String className = null;
@@ -122,6 +123,7 @@ public class ClassDAO extends DBContext {
 
         return classId;
     }
+
 
     public static void main(String[] args) throws SQLException {
         ClassDAO dao = new ClassDAO();

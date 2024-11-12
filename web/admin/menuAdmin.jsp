@@ -96,7 +96,7 @@
              style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <!-- Menu Items -->
             <div class="menu mt-5">
-                <a href="dashBoard.jsp" class="nav-item nav-link" data-page="dashboard">
+                <a href="dashBoard.jsp" class="nav-item nav-link active" data-page="dashboard">
                     <div class="menu-item d-flex align-items-center" style="gap: 5px;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +108,7 @@
                     </div>
                 </a>
 
-                <a href="listUser.jsp" class="nav-item nav-link" data-page="user">
+                <a href="AdminListUser" class="nav-item nav-link" data-page="user">
                     <div class="menu-item d-flex align-items-center" style="gap: 5px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                              fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">

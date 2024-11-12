@@ -1,10 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="utf-8">
-        <title>Online Learning Website</title>
+        <title>ECOURSES - Online Courses HTML Template</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -167,7 +168,7 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex;">
                             <div style="gap: 15px; display: flex; align-items: baseline; padding-top: 10px;">
-                                <h4>Thêm Tài Liệu</h4>
+                                <h4>Chỉnh sửa Tài Liệu</h4>
                             </div>
                             <div style="display: flex; gap: 20px;">
                                 <a href="AdminListDocument"
@@ -186,33 +187,28 @@
                             </div>
                         </div>
 
-                        <form action="AdminAddDocument">
-                            <!-- Lesson Information Section -->
+                        <form action="AdminUpdateDocumentController" method="post">
                             <div class="bg-white rounded-3 p-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px;">
                                 <div>
+                                    <input type="hidden" name="documentid" value="${document.getDocId()}">
                                     <label for="docName">Tên Tài Liệu</label>
-                                    <input type="text" id="docName" name="documentname" placeholder="Nhập tên tài liệu" required>
-
+                                    <input type="text" id="docName" name="documentname" value="${document.getDocName()}" required>
                                     <label for="docType">Môn</label>
                                     <select id="docType" name="subjectid" required>
-                                        <option value="1">Toán</option>
-                                        <option value="2">Lý</option>
-                                        <option value="3">Hóa</option>
+                                        <option value="1" ${document.getSubject_id() == 1 ? 'selected' : ''}>Toán</option>
+                                        <option value="2" ${document.getSubject_id() == 2 ? 'selected' : ''}>Lý</option>
+                                        <option value="3" ${document.getSubject_id() == 3 ? 'selected' : ''}>Hóa</option>
                                     </select>
-
                                     <label for="classType">Lớp</label>
                                     <select id="classType" name="classid" required>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                        <option value="10" ${document.getClass_id() == 1 ? 'selected' : ''}>10</option>
+                                        <option value="11" ${document.getClass_id() == 2 ? 'selected' : ''}>11</option>
+                                        <option value="12" ${document.getClass_id() == 3 ? 'selected' : ''}>12</option>
                                     </select>
-
-                                    <label for="video-url">Hình ảnh url</label>
-                                    <textarea id="video-url" name="imageurl" rows="3" placeholder="Nhập URL hình ảnh"></textarea>
-
+                                   <label for="video-url">Hình ảnh url</label>
+                                    <textarea id="video-url" name="imageurl" rows="3" >${document.getImage_url()}</textarea>
                                     <label for="video-url">Tài liệu sách url</label>
-                                    <textarea id="video-url" name="bookurl" rows="3" placeholder="Nhập URL tài liệu sách"></textarea>
-
+                                    <textarea id="video-url" name="bookurl" rows="3">${document.getDoc_url()}</textarea>
                                 </div>
                             </div>
                             <div class="button-container p-2" style="margin-top: 20px; display: flex; gap: 20px; margin-bottom: 30px;">

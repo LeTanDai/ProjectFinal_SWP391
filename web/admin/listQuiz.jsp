@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
         <title>Online Learning Website</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
@@ -29,9 +29,12 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+
+        <!-- Custom CSS -->
         <style>
             .btn a:hover {
                 text-decoration: none;
+            }
             </style>
 
 
@@ -44,11 +47,9 @@
             </script>
 
         </head>
-
-        <body style="background-color: #f7f8fc;">
+        <body>
 
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-md-2 p-0">
                         <jsp:include page="menuAdmin.jsp"/>
@@ -72,18 +73,34 @@
                             <!-- Module Input Form -->
                             <div>
                                 <!-- Action Buttons -->
-                                <div class="mb-4" style="display: flex;
+                                <div class="mb-4" style="display: flex; justify-content: space-between;
                                      gap: 20px;">
-                                    <button class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">
-                                        <a href="addQuiz.jsp" class="no-underline" style="color: white;">
+                                    <form action="ListQuizController" method="get" style="display: flex;
+                                          align-items: center;">
+                                        <input type="text" name="searchQuery" placeholder="Tìm kiếm câu hỏi..." required
+                                               style="border: 1px solid black;
+                                               border-radius: 5px;
+                                               padding: 7px;
+                                               width: 300px;">
+                                        <button type="submit" class="btn btn-primary" style="
+                                                padding: 7px;
+                                                margin-left: 10px;
+                                                ">Tìm Kiếm</button>
+                                    </form>
+                                    <button class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold " style="">
+                                            <a href="addQuiz.jsp" class="no-underline" style="color: white;">
                                             <i class="fas fa-plus-circle"></i> Thêm Câu Hỏi
                                         </a>
                                     </button>
                                 </div>
                             </div>
+
                             <h3 style="color: green;
                                 text-align: center;
                                 margin: 20px 0">${requestScope.mess}</h3>
+                            <h3 style="color: red;
+                                text-align: center;
+                                margin: 20px 0">${requestScope.error}</h3>
 
                                 <!-- Module Table -->
                                 <div class="card mb-3">

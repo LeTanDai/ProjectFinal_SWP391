@@ -23,7 +23,7 @@ import model.Exam;
  *
  * @author PC
  */
-@WebServlet(name = "AddExamController", urlPatterns = {"/AddExamController"})
+@WebServlet(name = "AddExamController", urlPatterns = {"/admin/AddExamController"})
 
 public class AddExamController extends HttpServlet {
 

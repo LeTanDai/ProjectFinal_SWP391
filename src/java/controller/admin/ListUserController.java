@@ -5,15 +5,9 @@
 package controller.admin;
 
 import dao.ClassDAO;
-import dao.ContentDAO;
-import dao.CourseDAO;
 import dao.DocumentDAO;
-import dao.VideoDAO;
+import dao.UserDAO;
 import dao.SubjectDAO;
-import model.Classes;
-import model.Lesson_Content;
-import model.Subjects;
-import model.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,18 +15,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Classes;
 import model.Document;
+import model.User;
+import model.Subjects;
 
 /**
  *
- * @author Admin
+ * @author dinhb
  */
-@WebServlet("/admin/AdminListDocument")
-public class ListDocumentController extends HttpServlet {
+@WebServlet(name = "ListUserController", urlPatterns = {"/admin/AdminListUser"})
+public class ListUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +47,7 @@ public class ListDocumentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -60,15 +61,7 @@ public class ListDocumentController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+// Chuyển tiếp request vào processRequest cho cả GET và POST
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -79,27 +72,16 @@ public class ListDocumentController extends HttpServlet {
         int totalPage = 0;
         int startItems = 0;
         int endItems = 0;
+
         try {
-            DocumentDAO docdao = new DocumentDAO();
-            SubjectDAO subdao = new SubjectDAO();
-            ClassDAO cldao = new ClassDAO();
-            ArrayList<Document> doclist = docdao.getAllDocumentWithSubject();
-            Map<Document, Map<Subjects, Classes>> map = new LinkedHashMap<>();
-            Map<Subjects, Classes> mapclsj = new LinkedHashMap<>();
-            for (Document doc : doclist) {
-                mapclsj = new LinkedHashMap<>();
-                Subjects sub = subdao.getSubjectById(doc.getSubject_id());
-                Classes class_ = cldao.getClassById(doc.getClass_id());
-                mapclsj.put(sub, class_);
-                map.put(doc, mapclsj);
-            }
-            totalItems = map.size();
+            UserDAO userDao = new UserDAO(); // Khởi tạo UserDAO
+            List<User> userList = userDao.getAllUser(); // Lấy tất cả người dùng
+            totalItems = userList.size();
+
             if (action != null && currentPage_get != null) {
                 currentPage = Integer.parseInt(currentPage_get);
                 if (action.equals("previous")) {
-                    if (currentPage == 1) {
-                        currentPage = 1;
-                    } else if (currentPage > 1) {
+                    if (currentPage > 1) {
                         currentPage--;
                     }
                 } else if (action.equals("next")) {
@@ -113,23 +95,20 @@ public class ListDocumentController extends HttpServlet {
             } else {
                 currentPage = 1;
             }
-            Map<Document, Map<Subjects, Classes>> submap = new LinkedHashMap<>();
-            startItems = (currentPage - 1) * 3;
-            endItems = Math.min(startItems + 3, totalItems);
-            int currentIndex = 0;
-            for (Map.Entry<Document, Map<Subjects, Classes>> entry : map.entrySet()) {
-                if (currentIndex >= startItems && currentIndex <= endItems) {
-                    submap.put(entry.getKey(), entry.getValue());
-                }
-                currentIndex++;
-                if (currentIndex >= endItems) {
-                    break;
-                }
+
+            // Phân trang dữ liệu
+            ArrayList<User> subUserList = new ArrayList<>();
+            startItems = (currentPage - 1) * 4;
+            endItems = Math.min(startItems + 4, totalItems);
+            for (int i = startItems; i < endItems; i++) {
+                subUserList.add(userList.get(i));
             }
-            request.setAttribute("submapdocument", submap);
+
+            // Gửi dữ liệu đến JSP
+            request.setAttribute("subUserList", subUserList);
             request.setAttribute("currentPage", currentPage);
-            request.setAttribute("totalPage", totalPage);
-            request.getRequestDispatcher("listDocument.jsp").forward(request, response);
+            request.setAttribute("totalPage", (int) Math.ceil((double) totalItems / 3));
+            request.getRequestDispatcher("listUser.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().write("An error occurred: " + e.getMessage());
@@ -147,28 +126,26 @@ public class ListDocumentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            DocumentDAO docdao = new DocumentDAO();
-            String operate = request.getParameter("operatedocument");
-            String docid = request.getParameter("documentid");
-            if (operate != null) {
-                if (operate.equals("delete")) {
-                    int doccid = Integer.parseInt(docid);
-                    docdao.deleteDocument(doccid);
-                    doGet(request, response);
-                }
+        String action = request.getParameter("action");
+
+        if ("updateRole".equals(action)) {
+            int userId = Integer.parseInt(request.getParameter("userId"));
+            String role = request.getParameter("role");
+
+            try {
+                UserDAO userDao = new UserDAO();
+                userDao.updateUserRole(userId, role);
+                response.sendRedirect(request.getContextPath() + "/admin/AdminListUser");
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle errors appropriately
+                request.setAttribute("errorMessage", "Error updating user role.");
+                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().write("An error occurred: " + e.getMessage());
+        } else {
+            processRequest(request, response);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

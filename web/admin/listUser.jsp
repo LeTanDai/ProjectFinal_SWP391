@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,6 +30,31 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link rel="stylesheet" href="../css/style.css">
 
+        <style>
+        .page-indicator {
+            position: fixed;
+            bottom: 20px; /* Adjust as needed */
+            right: 20px; /* Adjust as needed */
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .current-page {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Optional: Add an icon */
+        .page-indicator::before {
+            content: '📄'; /* You can replace this with any icon */
+            margin-right: 5px;
+        }
+    </style>
     </head>
 
     <body style="background-color: #f7f8fc;">
@@ -62,37 +87,41 @@
                     <div class>
                         <div class="header bg-white rounded-3 p-3"
                              style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px;">
-                            <div
-                                style="gap: 15px; display: flex; align-items: baseline;">
+                            <div style="gap: 15px; display: flex; align-items: baseline;">
                                 <label>Xem:</label>
-                                <select>
-                                    <option>Tất cả</option>
-                                    <option>Admin</option>
-                                    <option>Người dùng</option>
-                                    <!-- Add more options as needed -->
+                                <select id="roleSelect" onchange="filterUsers()">
+                                    <option value="All">Tất cả</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Premium">Premium User</option>
+                                    <option value="Normal">Normal User</option>
                                 </select>
                             </div>
 
                         </div>
 
                         <div class=" bg-white rounded-3 p-3"
-                             style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px; max-height: 556px;">
-                            <div class="group-search" style="margin: 0 3px;">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"
-                                     class="search-icon">
-                                <g>
-                                <path
-                                    d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-                                </g>
-                                </svg>
-
-                                <input
-                                    id="query"
-                                    class="input-search"
-                                    type="search"
-                                    placeholder="Tìm kiếm..."
-                                    name="searchbar" />
-                            </div>
+                             style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin: 20px 30px 20px 10px; display: flex; flex-direction: column; gap: 15px; max-height: 530px;">
+                            <!-- search bar -->
+                            <form action="AdminListSearchUser" style="display: flex">
+                                <div class="group-search" style="margin: 0 3px;">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                                    <g>
+                                    <path
+                                        d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                                    </path>
+                                    </g>
+                                    </svg>
+                                    <input id="query" class="input-search" type="search" placeholder="Tìm kiếm..." name="search" />
+                                </div>
+                                <div style="gap: 20px; padding: 20px">
+                                    <button
+                                        type="submit"
+                                        name="buttonsearch"
+                                        class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+                            </form>
 
                             <div>
                                 <table class="table">
@@ -100,115 +129,46 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Tên</th>
+                                            <th>Ngày Sinh</th>
+                                            <th>Giới Tính</th>
+                                            <th>SĐT</th>
                                             <th>Email</th>
                                             <th>Địa Chỉ</th>
-                                            <th>SĐT</th>
                                             <th>Vai Trò</th>
-                                            <th>Trạng Thái</th>
-                                            <th>Tùy Chỉnh</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td style="padding: 20px; width: 60px;">1</td>
-                                            <td><img src="https://via.placeholder.com/40" alt="Avatar" class="customer-avatar me-2">
-                                                Chieko Chute</td>
-                                            <td style="padding: 20px;">chieko@mail.com</td>
-                                            <td style="padding: 20px;">Philadelphia, USA</td>
-                                            <td style="padding: 20px;">1234567890</td>
-                                            <td style="padding: 20px;">Admin</td>
-                                            <td style="padding: 20px;">Active</td>
-                                            <td style="padding: 20px 40px;"><svg class="edit-btn" data-name="Chieko Chute" data-role="Admin" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98314 11.0001C5.4959 10.9915 5.92502 11.3704 5.99117 11.8666L5.99986 11.9831L6.00349 12.2069C6.11245 15.4322 8.76324 18 12 18C12.187 18 12.3727 17.9915 12.5567 17.9746L12.2929 17.7071C11.9024 17.3166 11.9024 16.6834 12.2929 16.2929C12.6834 15.9024 13.3166 15.9024 13.7071 16.2929L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071L13.7071 21.7071C13.3166 22.0976 12.6834 22.0976 12.2929 21.7071C11.9024 21.3166 11.9024 20.6834 12.2929 20.2929L12.6112 19.977C12.4086 19.9923 12.2048 20 12 20C7.7687 20 4.28886 16.7094 4.01667 12.5105L4.0042 12.2575L4.00015 12.0169C3.99083 11.4647 4.43093 11.0095 4.98314 11.0001ZM11.7071 2.29289C12.0676 2.65338 12.0953 3.22061 11.7903 3.6129L11.7071 3.70711L11.3892 4.02302C11.5916 4.00771 11.7953 4 12 4C16.4183 4 20 7.58172 20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 8.68629 15.3137 6 12 6C11.8129 6 11.6271 6.00853 11.443 6.02545L11.7071 6.29289C12.0976 6.68342 12.0976 7.31658 11.7071 7.70711C11.3466 8.06759 10.7794 8.09532 10.3871 7.7903L10.2929 7.70711L8.2929 5.70711C7.93241 5.34662 7.90468 4.77939 8.20971 4.3871L8.2929 4.29289L10.2929 2.29289C10.6834 1.90237 11.3166 1.90237 11.7071 2.29289Z" fill="#06152B"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
-                                        <!-- More rows as needed -->
-                                        <tr>
-                                            <td style="padding: 20px; width: 60px;">1</td>
-                                            <td><img src="https://via.placeholder.com/40" alt="Avatar" class="customer-avatar me-2">
-                                                Chieko Chute</td>
-                                            <td style="padding: 20px;">chieko@mail.com</td>
-                                            <td style="padding: 20px;">Philadelphia, USA</td>
-                                            <td style="padding: 20px;">1234567890</td>
-                                            <td style="padding: 20px;">Admin</td>
-                                            <td style="padding: 20px;">Active</td>
-                                            <td style="padding: 20px 40px;"><svg class="edit-btn" data-name="Chieko Chute" data-role="Admin" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98314 11.0001C5.4959 10.9915 5.92502 11.3704 5.99117 11.8666L5.99986 11.9831L6.00349 12.2069C6.11245 15.4322 8.76324 18 12 18C12.187 18 12.3727 17.9915 12.5567 17.9746L12.2929 17.7071C11.9024 17.3166 11.9024 16.6834 12.2929 16.2929C12.6834 15.9024 13.3166 15.9024 13.7071 16.2929L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071L13.7071 21.7071C13.3166 22.0976 12.6834 22.0976 12.2929 21.7071C11.9024 21.3166 11.9024 20.6834 12.2929 20.2929L12.6112 19.977C12.4086 19.9923 12.2048 20 12 20C7.7687 20 4.28886 16.7094 4.01667 12.5105L4.0042 12.2575L4.00015 12.0169C3.99083 11.4647 4.43093 11.0095 4.98314 11.0001ZM11.7071 2.29289C12.0676 2.65338 12.0953 3.22061 11.7903 3.6129L11.7071 3.70711L11.3892 4.02302C11.5916 4.00771 11.7953 4 12 4C16.4183 4 20 7.58172 20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 8.68629 15.3137 6 12 6C11.8129 6 11.6271 6.00853 11.443 6.02545L11.7071 6.29289C12.0976 6.68342 12.0976 7.31658 11.7071 7.70711C11.3466 8.06759 10.7794 8.09532 10.3871 7.7903L10.2929 7.70711L8.2929 5.70711C7.93241 5.34662 7.90468 4.77939 8.20971 4.3871L8.2929 4.29289L10.2929 2.29289C10.6834 1.90237 11.3166 1.90237 11.7071 2.29289Z" fill="#06152B"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="padding: 20px; width: 60px;">1</td>
-                                            <td><img src="https://via.placeholder.com/40" alt="Avatar" class="customer-avatar me-2">
-                                                Chieko Chute</td>
-                                            <td style="padding: 20px;">chieko@mail.com</td>
-                                            <td style="padding: 20px;">Philadelphia, USA</td>
-                                            <td style="padding: 20px;">1234567890</td>
-                                            <td style="padding: 20px;">Admin</td>
-                                            <td style="padding: 20px;">Active</td>
-                                            <td style="padding: 20px 40px;"><svg class="edit-btn" data-name="Chieko Chute" data-role="Admin" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98314 11.0001C5.4959 10.9915 5.92502 11.3704 5.99117 11.8666L5.99986 11.9831L6.00349 12.2069C6.11245 15.4322 8.76324 18 12 18C12.187 18 12.3727 17.9915 12.5567 17.9746L12.2929 17.7071C11.9024 17.3166 11.9024 16.6834 12.2929 16.2929C12.6834 15.9024 13.3166 15.9024 13.7071 16.2929L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071L13.7071 21.7071C13.3166 22.0976 12.6834 22.0976 12.2929 21.7071C11.9024 21.3166 11.9024 20.6834 12.2929 20.2929L12.6112 19.977C12.4086 19.9923 12.2048 20 12 20C7.7687 20 4.28886 16.7094 4.01667 12.5105L4.0042 12.2575L4.00015 12.0169C3.99083 11.4647 4.43093 11.0095 4.98314 11.0001ZM11.7071 2.29289C12.0676 2.65338 12.0953 3.22061 11.7903 3.6129L11.7071 3.70711L11.3892 4.02302C11.5916 4.00771 11.7953 4 12 4C16.4183 4 20 7.58172 20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 8.68629 15.3137 6 12 6C11.8129 6 11.6271 6.00853 11.443 6.02545L11.7071 6.29289C12.0976 6.68342 12.0976 7.31658 11.7071 7.70711C11.3466 8.06759 10.7794 8.09532 10.3871 7.7903L10.2929 7.70711L8.2929 5.70711C7.93241 5.34662 7.90468 4.77939 8.20971 4.3871L8.2929 4.29289L10.2929 2.29289C10.6834 1.90237 11.3166 1.90237 11.7071 2.29289Z" fill="#06152B"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="padding: 20px; width: 60px;">1</td>
-                                            <td><img src="https://via.placeholder.com/40" alt="Avatar" class="customer-avatar me-2">
-                                                Chieko Chute</td>
-                                            <td style="padding: 20px;">chieko@mail.com</td>
-                                            <td style="padding: 20px;">Philadelphia, USA</td>
-                                            <td style="padding: 20px;">1234567890</td>
-                                            <td style="padding: 20px;">Admin</td>
-                                            <td style="padding: 20px;">Active</td>
-                                            <td style="padding: 20px 40px;"><svg class="edit-btn" data-name="Chieko Chute" data-role="Admin" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98314 11.0001C5.4959 10.9915 5.92502 11.3704 5.99117 11.8666L5.99986 11.9831L6.00349 12.2069C6.11245 15.4322 8.76324 18 12 18C12.187 18 12.3727 17.9915 12.5567 17.9746L12.2929 17.7071C11.9024 17.3166 11.9024 16.6834 12.2929 16.2929C12.6834 15.9024 13.3166 15.9024 13.7071 16.2929L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071L13.7071 21.7071C13.3166 22.0976 12.6834 22.0976 12.2929 21.7071C11.9024 21.3166 11.9024 20.6834 12.2929 20.2929L12.6112 19.977C12.4086 19.9923 12.2048 20 12 20C7.7687 20 4.28886 16.7094 4.01667 12.5105L4.0042 12.2575L4.00015 12.0169C3.99083 11.4647 4.43093 11.0095 4.98314 11.0001ZM11.7071 2.29289C12.0676 2.65338 12.0953 3.22061 11.7903 3.6129L11.7071 3.70711L11.3892 4.02302C11.5916 4.00771 11.7953 4 12 4C16.4183 4 20 7.58172 20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 8.68629 15.3137 6 12 6C11.8129 6 11.6271 6.00853 11.443 6.02545L11.7071 6.29289C12.0976 6.68342 12.0976 7.31658 11.7071 7.70711C11.3466 8.06759 10.7794 8.09532 10.3871 7.7903L10.2929 7.70711L8.2929 5.70711C7.93241 5.34662 7.90468 4.77939 8.20971 4.3871L8.2929 4.29289L10.2929 2.29289C10.6834 1.90237 11.3166 1.90237 11.7071 2.29289Z" fill="#06152B"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="padding: 20px; width: 60px;">1</td>
-                                            <td><img src="https://via.placeholder.com/40" alt="Avatar" class="customer-avatar me-2">
-                                                Chieko Chute</td>
-                                            <td style="padding: 20px;">chieko@mail.com</td>
-                                            <td style="padding: 20px;">Philadelphia, USA</td>
-                                            <td style="padding: 20px;">1234567890</td>
-                                            <td style="padding: 20px;">Admin</td>
-                                            <td style="padding: 20px;">Active</td>
-                                            <td style="padding: 20px 40px;"><svg class="edit-btn" data-name="Chieko Chute" data-role="Admin" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98314 11.0001C5.4959 10.9915 5.92502 11.3704 5.99117 11.8666L5.99986 11.9831L6.00349 12.2069C6.11245 15.4322 8.76324 18 12 18C12.187 18 12.3727 17.9915 12.5567 17.9746L12.2929 17.7071C11.9024 17.3166 11.9024 16.6834 12.2929 16.2929C12.6834 15.9024 13.3166 15.9024 13.7071 16.2929L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071L13.7071 21.7071C13.3166 22.0976 12.6834 22.0976 12.2929 21.7071C11.9024 21.3166 11.9024 20.6834 12.2929 20.2929L12.6112 19.977C12.4086 19.9923 12.2048 20 12 20C7.7687 20 4.28886 16.7094 4.01667 12.5105L4.0042 12.2575L4.00015 12.0169C3.99083 11.4647 4.43093 11.0095 4.98314 11.0001ZM11.7071 2.29289C12.0676 2.65338 12.0953 3.22061 11.7903 3.6129L11.7071 3.70711L11.3892 4.02302C11.5916 4.00771 11.7953 4 12 4C16.4183 4 20 7.58172 20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 8.68629 15.3137 6 12 6C11.8129 6 11.6271 6.00853 11.443 6.02545L11.7071 6.29289C12.0976 6.68342 12.0976 7.31658 11.7071 7.70711C11.3466 8.06759 10.7794 8.09532 10.3871 7.7903L10.2929 7.70711L8.2929 5.70711C7.93241 5.34662 7.90468 4.77939 8.20971 4.3871L8.2929 4.29289L10.2929 2.29289C10.6834 1.90237 11.3166 1.90237 11.7071 2.29289Z" fill="#06152B"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="padding: 20px; width: 60px;">1</td>
-                                            <td><img src="https://via.placeholder.com/40" alt="Avatar" class="customer-avatar me-2">
-                                                Chieko Chute</td>
-                                            <td style="padding: 20px;">chieko@mail.com</td>
-                                            <td style="padding: 20px;">Philadelphia, USA</td>
-                                            <td style="padding: 20px;">1234567890</td>
-                                            <td style="padding: 20px;">Admin</td>
-                                            <td style="padding: 20px;">Active</td>
-                                            <td style="padding: 20px 40px;"><svg class="edit-btn" data-name="Chieko Chute" data-role="Admin" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98314 11.0001C5.4959 10.9915 5.92502 11.3704 5.99117 11.8666L5.99986 11.9831L6.00349 12.2069C6.11245 15.4322 8.76324 18 12 18C12.187 18 12.3727 17.9915 12.5567 17.9746L12.2929 17.7071C11.9024 17.3166 11.9024 16.6834 12.2929 16.2929C12.6834 15.9024 13.3166 15.9024 13.7071 16.2929L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071L13.7071 21.7071C13.3166 22.0976 12.6834 22.0976 12.2929 21.7071C11.9024 21.3166 11.9024 20.6834 12.2929 20.2929L12.6112 19.977C12.4086 19.9923 12.2048 20 12 20C7.7687 20 4.28886 16.7094 4.01667 12.5105L4.0042 12.2575L4.00015 12.0169C3.99083 11.4647 4.43093 11.0095 4.98314 11.0001ZM11.7071 2.29289C12.0676 2.65338 12.0953 3.22061 11.7903 3.6129L11.7071 3.70711L11.3892 4.02302C11.5916 4.00771 11.7953 4 12 4C16.4183 4 20 7.58172 20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 8.68629 15.3137 6 12 6C11.8129 6 11.6271 6.00853 11.443 6.02545L11.7071 6.29289C12.0976 6.68342 12.0976 7.31658 11.7071 7.70711C11.3466 8.06759 10.7794 8.09532 10.3871 7.7903L10.2929 7.70711L8.2929 5.70711C7.93241 5.34662 7.90468 4.77939 8.20971 4.3871L8.2929 4.29289L10.2929 2.29289C10.6834 1.90237 11.3166 1.90237 11.7071 2.29289Z" fill="#06152B"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
+                                        <c:forEach var="user" items="${subUserList}">
+                                            <tr>
+                                                <td style="padding: 20px;">${user.userId}</td>
+                                                <td style="padding: 20px;">${user.fName}</td>
+                                                <td style="padding: 20px;">${user.dob}</td>
+                                                <td style="padding: 20px;">${user.gender ? 'Male' : 'Female'}</td>
+                                                <td style="padding: 20px;">${user.phone}</td>
+                                                <td style="padding: 20px;">${user.email}</td>
+                                                <td style="padding: 20px;">${user.address}</td>
+                                                <td style="padding: 20px;">
+                                                    <c:choose>
+                                                        <c:when test="${user.isAdmin}">Admin</c:when>
+                                                        <c:when test="${user.isPremium}">Premium User</c:when>
+                                                        <c:otherwise>Normal User</c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
 
                         <div class="pagination"
-                             style="margin: 20px 30px 20px 10px; gap: 10px; display: flex; justify-content: end;">
-                            <div>
-                                <button>Trước</button>
-                                <button>Sau</button>
-                            </div>
+                             style="margin: 20px 30px 20px 10px; gap: 10px; display: flex; justify-content: space-between;">
+                            <form action="AdminListUser">
+                                <input type="hidden" name="currentPage" value="${currentPage}" />
+                                <button type="submit" name="action" value="previous" ${currentPage == 1 ? 'disabled' : ''}>Trước</button>
+                                <button type="submit" name="action" value="next" ${currentPage == totalPages ? 'disabled' : ''}>Sau</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -216,61 +176,28 @@
 
         </div>
 
-        <div class="popup-overlay" id="popup">
-            <div class="popup">
-                <h2>Edit User Role</h2>
-                <form id="editForm">
-                    <label for="userName">Name:</label>
-                    <input type="text" id="userName" name="userName" readonly style="text-align: center; border-radius: 5px; font-weight: 500; width: 100%; height: 40px; margin-bottom: 10px;">
-
-                    <label for="role">Role:</label>
-                    <select id="role" name="role" style="border-radius: 5px;">
-                        <option value="Admin">Admin</option>
-                        <option value="User">User</option>
-                    </select>
-
-                    <button type="submit" style="border-radius: 10px;">Save</button>
-                    <button type="button" style="border-radius: 10px;" class="close-btn">Close</button>
-                </form>
-            </div>
-        </div>
-
         <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
         <script>
-            // Function to open the popup
-            function openPopup(name, role) {
-                document.getElementById('popup').style.display = 'flex';
-                document.getElementById('userName').value = name;
-                document.getElementById('role').value = role;
+                                                        function filterUsers() {
+                                                            const roleSelect = document.getElementById('roleSelect');
+                                                            const selectedRole = roleSelect.value;
+                                                            const tableRows = document.querySelectorAll('table tbody tr');
+
+                                                            tableRows.forEach(row => {
+                                                                const roleCell = row.cells[7].textContent; // Điều chỉnh dựa trên cột
+                                                                if (selectedRole === 'All' || roleCell.includes(selectedRole)) {
+                                                                    row.style.display = ''; // Hiển thị hàng
+                                                                } else {
+                                                                    row.style.display = 'none'; // Ẩn hàng
+                                                                }
+                                                            });
+                                                        }
+        </script>
+        <script>
+            function confirmChange() {
+                return confirm("Bạn chắc chắn muốn thay đổi chứ?");
             }
-
-            // Function to close the popup
-            function closePopup() {
-                document.getElementById('popup').style.display = 'none';
-            }
-
-            // Add click event to all SVG icons
-            document.querySelectorAll('.edit-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    const userName = btn.getAttribute('data-name');
-                    const userRole = btn.getAttribute('data-role');
-                    openPopup(userName, userRole);
-                });
-            });
-
-            // Close button event
-            document.querySelector('.close-btn').addEventListener('click', closePopup);
-
-            // Handle form submission (for demonstration)
-            document.getElementById('editForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-                const userName = document.getElementById('userName').value;
-                const newRole = document.getElementById('role').value;
-                alert(`User ${userName} role changed to ${newRole}`);
-                closePopup();
-            });
         </script>
     </body>
 </html>

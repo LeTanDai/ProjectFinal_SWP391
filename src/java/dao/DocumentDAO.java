@@ -62,14 +62,13 @@ public class DocumentDAO extends DBContext {
             st.setInt(3, document.getSubject_id());
             st.setString(4, document.getImage_url());
             st.setInt(5, document.getClass_id());
-
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
-    public void updateDocument(Document document) {
+    public void updateDocument(Document document) throws SQLException {
         String sql = "UPDATE Document SET document_url = ?, document_name = ?, subject_id = ?, image_url = ?, class_id = ? WHERE document_id = ?"; // Thêm class_id
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
@@ -79,7 +78,6 @@ public class DocumentDAO extends DBContext {
             st.setString(4, document.getImage_url());
             st.setInt(5, document.getClass_id());
             st.setInt(6, document.getDocId());
-
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -124,12 +122,16 @@ public class DocumentDAO extends DBContext {
 
     public static void main(String[] args) throws SQLException {
         DocumentDAO dao = new DocumentDAO();
+
         List<Document> list = dao.searchDocuments("Toán", 1, 5);
         int totalDocuments = dao.getTotalDocuments(null);
         int totalPages = (int) Math.ceil((double) totalDocuments / 5);
         System.out.println(list);
         System.out.println(totalDocuments);
         System.out.println(totalPages);
+
+        dao.updateDocument(new Document(15,"hello", "loheee", "eeee", 1, 1));
+
     }
 
     public ArrayList<Document> getAllDocumentWithSubject() throws Exception {
@@ -140,6 +142,30 @@ public class DocumentDAO extends DBContext {
         Document doc = null;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                doc = new Document(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(6), rs.getInt(5));
+                list.add(doc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<Document> getAllDocumentBySearch( String search) throws Exception {
+        if ( search.equalsIgnoreCase("hoá học") || search.equalsIgnoreCase("hoá") ) {
+            search = "hóa học";
+        }
+        ArrayList<Document> list = new ArrayList<>();
+        String sql = "select Document.document_id, Document.document_url, Document.document_name,Document.image_url, Classes.class_id, Subjects.subject_id from Document\n"
+                + "join Subjects on Document.subject_id = Subjects.subject_id\n"
+                + "join Classes on Document.class_id = Classes.class_id\n"
+                + "where Document.document_name like ? ";
+        Document doc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%"+search+"%" );
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 doc = new Document(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(6), rs.getInt(5));
@@ -235,4 +261,20 @@ public class DocumentDAO extends DBContext {
 
         return totalDocuments;
     }
+
+    public int countDocuments() {
+    int count = 0;
+    String sql = "SELECT COUNT(*) AS total FROM Document";
+
+    try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        if (rs.next()) {
+            count = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    return count;
+    }
+
 }

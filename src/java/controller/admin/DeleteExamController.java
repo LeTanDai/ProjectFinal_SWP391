@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author PC
  */
-@WebServlet(name = "DeleteExamController", urlPatterns = {"/DeleteExamController"})
+@WebServlet(name = "DeleteExamController", urlPatterns = {"/admin/DeleteExamController"})
 
 public class DeleteExamController extends HttpServlet {
    

@@ -163,7 +163,7 @@ public class UserDAO extends DBContext {
     }
 
     public void signUp(String username, String password, String email, String phone) {
-        String sql = "INSERT INTO Users (username, [password], email, phone_number,full_name, dob, gender, avatar, isAdmin,isNormal,isPremium,[address]) VALUES (?,?,?,?,'','','','','0','1','0','')";
+        String sql = "INSERT INTO Users (username, [password], email, phone_number,full_name, dob, gender, avatar, isAdmin,isNormal,isPremium,[address]) VALUES (?,?,?,?,'','','','https://avatar.iran.liara.run/public/boy?username=Ash','0','1','0','')";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -211,7 +211,7 @@ public class UserDAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("full_name"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
+                User u = new User(rs.getInt("user_id"), rs.getString("full_name"), rs.getString("username"), rs.getString("password"), rs.getDate("dob"), rs.getBoolean("gender"), rs.getString("phone_number"), rs.getString("email"), rs.getString("avatar"), rs.getBoolean("isNormal"), rs.getBoolean("isPremium"), rs.getBoolean("isAdmin"), rs.getString("address"));
                 return u;
             }
         } catch (SQLException e) {
@@ -332,5 +332,46 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public void updateUserRole(int userId, String role) throws SQLException {
+        String query = "UPDATE Users SET isAdmin = ?, isPremium = ?, isNormal = ? WHERE user_id = ?";
+        try ( PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setBoolean(1, "Admin".equals(role));
+            stmt.setBoolean(2, "Premium".equals(role));
+            stmt.setBoolean(3, "Normal".equals(role));
+            stmt.setInt(4, userId);
+            stmt.executeUpdate();
+        }
+    }
+    
+    public ArrayList<User> getAllUserBySearch( String search) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE full_name like ? ";
+        User doc = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%"+search+"%" );
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                doc = new User(rs.getInt("user_id"),
+                            rs.getString("full_name"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getDate("dob"),
+                            rs.getBoolean("gender"),
+                            rs.getString("phone_number"),
+                            rs.getString("email"),
+                            rs.getString("avatar"),
+                            rs.getBoolean("isNormal"),
+                            rs.getBoolean("isPremium"),
+                            rs.getBoolean("isAdmin"),
+                            rs.getString("address"));
+                list.add(doc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

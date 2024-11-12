@@ -18,9 +18,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import model.Classes;
 import model.Lesson;
 import model.Lesson_Content;
+import model.Subjects;
 import model.Video;
 
 /**
@@ -72,18 +74,25 @@ public class AddLessonController extends HttpServlet {
         String lessonname = request.getParameter("lessonname");
         String subject = request.getParameter("subjectid");
         String classes = request.getParameter("classid");
-        String chapter = request.getParameter("chapter");
         String videourl = request.getParameter("videourl");
         String videotitle = request.getParameter("videotitle");
+        String type = request.getParameter("type");
         HttpSession session = request.getSession();
-        if (number != null && lessonname != null && subject != null && classes != null && chapter != null && videourl != null && videotitle != null) {
+        if (type != null && number != null && lessonname != null && subject != null && classes != null && videourl != null && videotitle != null) {
             try {
                 int nums = Integer.parseInt(number);
+                int subjectid = Integer.parseInt(subject);
+                int classid = Integer.parseInt(classes);
+                ModuleDAO moddao = new ModuleDAO();
+                ArrayList<model.Module> listmod = (ArrayList<model.Module>) moddao.getAllModulesWithSubject(subjectid, classid);
                 request.setAttribute("number", nums);
+                request.setAttribute("subjectid", subjectid);
+                request.setAttribute("classid", classid);
+                request.setAttribute("listmod", listmod);
                 session.setAttribute("lessonname", lessonname);
+                session.setAttribute("type", type);
                 session.setAttribute("subject", subject);
                 session.setAttribute("classes", classes);
-                session.setAttribute("chapter", chapter);
                 session.setAttribute("videourl", videourl);
                 session.setAttribute("videotitle", videotitle);
                 request.getRequestDispatcher("addContent.jsp").forward(request, response);
@@ -114,15 +123,17 @@ public class AddLessonController extends HttpServlet {
         String title = (String) session.getAttribute("lessonname");
         String subject = (String) session.getAttribute("subject");
         String classes = (String) session.getAttribute("classes");
-        String chapter = (String) session.getAttribute("chapter");
+        String chapter = request.getParameter("chapter");
         String videourl = (String) session.getAttribute("videourl");
         String videotitle = (String) session.getAttribute("videotitle");
+        String type = (String) session.getAttribute("type");
         int i = 0;
         String contenthtml = null;
         Video vid = null;
         Lesson les = null;
         Lesson_Content lescont = null;
         Classes classess = null;
+        Subjects subjects = null;
         if (title != null) {
             contenthtml = "<h3 style=\"text-align:center;\"><b style=\"color:#0070c0;\">" + "Lý thuyết " + title + "</b></h3>";
         }
@@ -144,18 +155,26 @@ public class AddLessonController extends HttpServlet {
                 CourseDAO coudao = new CourseDAO();
                 ModuleDAO moddao = new ModuleDAO();
                 ContentDAO condao = new ContentDAO();
-                vid = new Video(0, videourl, videotitle, subdao.getSubjectByName(subject).getId(), classdao.getClassByName("Lớp " + classes).getId());
+                int subjectid = Integer.parseInt(subject);
+                int classid = Integer.parseInt(classes);
+                int moduleid = Integer.parseInt(chapter);
+                classess = classdao.getClassById(classid);
+                subjects = subdao.getSubjectById(subjectid);
+                vid = new Video(0, videourl, videotitle, subjects.getId(), classess.getId());
                 viddao.addVideo(vid);
-                lescont = new Lesson_Content(0, contenthtml, title );
+                lescont = new Lesson_Content(0, contenthtml, title);
                 condao.addContent(lescont);
-                classess = classdao.getClassByName("Lớp " + classes);
-                les = new Lesson(0, title, moddao.getModuleByName(chapter, classess.getId(),subdao.getSubjectByName(subject).getId()).getId()
-                        , false,condao.getMaxContentId() ,viddao.getMaxVideoId(), false);
+                model.Module module = moddao.GetModuleById(moduleid);
+                if (type.equalsIgnoreCase("Premium")) {
+                    les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), true);
+                } else {
+                    les = new Lesson(0, title, module.getId(), false, condao.getMaxContentId(), viddao.getMaxVideoId(), false);
+                }
                 coudao.addLesson(les);
-                request.getRequestDispatcher("listUser.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/admin/AdminListLesson");
             } catch (Exception e) {
                 e.printStackTrace();
-                response.getWriter().write("An error occurred: " + e.getMessage());
+                response.getWriter().write("An error occurred: " + e.getMessage() + " sub = " + chapter);
             }
         }
     }

@@ -125,23 +125,23 @@
                         <form class="form-signin" action="SignUpController" method="post">
                             <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                                 <label for="username">Tên đăng nhập</label>
-                                <input name="username"  type="text" id="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
+                                <input name="username"  type="text" id="username" class="form-control" value="" required>
                             </div>
                             <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                                 <label for="username">Email</label>
-                                <input name="email"  type="text" id="username" class="form-control" placeholder="Nhập Email" required>
+                                <input name="email"  type="text" id="username" class="form-control" value="" required>
                             </div>
                             <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                                 <label for="username">Số điện thoại</label>
-                                <input name="phone"  type="text" id="username" class="form-control" placeholder="Nhập số điện thoại" required>
+                                <input name="phone"  type="text" id="username" class="form-control" value="" required>
                             </div>
                             <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                                 <label for="password">Mật khẩu</label>
-                                <input name="password"  type="password" id="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                                <input name="password"  type="password" id="password" class="form-control" value="" placeholder="Nhập mật khẩu" required>
                             </div>
                             <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                                 <label for="password">Nhập lại mật khẩu</label>
-                                <input name="repassword"  type="password" id="password" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                                <input name="repassword"  type="password" id="password" class="form-control" value="" placeholder="Nhập lại mật khẩu" required>
                             </div>
                             <button type="submit" class="btn btn-login btn-block w-100 mt-4">Đăng Ký</button>
                     </form>

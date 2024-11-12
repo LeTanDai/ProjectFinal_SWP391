@@ -79,36 +79,41 @@ public class AddQuizController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String quizName = request.getParameter("quizName");
-        String option1 = request.getParameter("option1");
-        String option2 = request.getParameter("option2");
-        String option3 = request.getParameter("option3");
-        String option4 = request.getParameter("option4");
-        String trueAnswer = request.getParameter("true_answer");
-        String className = request.getParameter("className");
-        String subjectName = request.getParameter("subjectName");
-        String moduleName = request.getParameter("module");
-
-        ClassDAO classDAO = new ClassDAO();
-        SubjectDAO subjectDAO = new SubjectDAO();
-        ModuleDAO moduleDAO = new ModuleDAO();
-
-        int classid = classDAO.getClassIdByName(className);
-        int subjectid = subjectDAO.getSubjectIdByName(subjectName);
-        int moduleid = moduleDAO.getModuleIdByName(moduleName, subjectid, classid);
-
-        FlashCard flashCard = new FlashCard();
-        flashCard.setQuestionName(quizName);
-        flashCard.setOption1(option1);
-        flashCard.setOption2(option2);
-        flashCard.setOption3(option3);
-        flashCard.setOption4(option4);
-        flashCard.setTrue_answer(trueAnswer);
-        
-        FlashCardDAO f = new FlashCardDAO();
         try {
-            f.addFlashCardToExistingModule(flashCard, moduleid);
-            request.getRequestDispatcher("ListQuizController").forward(request, response);
+            String quizName = request.getParameter("quizName");
+            String option1 = request.getParameter("option1");
+            String option2 = request.getParameter("option2");
+            String option3 = request.getParameter("option3");
+            String option4 = request.getParameter("option4");
+            String trueAnswer = request.getParameter("true_answer");
+            String className = request.getParameter("className");
+            String subjectName = request.getParameter("subjectName");
+            String moduleName = request.getParameter("module");
+            
+            ClassDAO classDAO = new ClassDAO();
+            SubjectDAO subjectDAO = new SubjectDAO();
+            ModuleDAO moduleDAO = new ModuleDAO();
+            
+            int classid = classDAO.getClassIdByName(className);
+            int subjectid = subjectDAO.getSubjectIdByName(subjectName);
+            int moduleid = moduleDAO.getModuleIdByName(moduleName, subjectid, classid);
+            
+            FlashCard flashCard = new FlashCard();
+            flashCard.setQuestionName(quizName);
+            flashCard.setOption1(option1);
+            flashCard.setOption2(option2);
+            flashCard.setOption3(option3);
+            flashCard.setOption4(option4);
+            flashCard.setTrue_answer(trueAnswer);
+            
+            FlashCardDAO f = new FlashCardDAO();
+            try {
+                f.addFlashCardToExistingModule(flashCard, moduleid);
+                request.getRequestDispatcher("ListQuizController").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(AddQuizController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(AddQuizController.class.getName()).log(Level.SEVERE, null, ex);
         }

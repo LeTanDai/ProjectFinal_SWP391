@@ -75,15 +75,16 @@
 
             .home-button:hover {
                 background-color: #0056b3;
+                text-decoration: none;
             }
         </style>
     </head>
     <body>
         <jsp:include page="menu.jsp"/>
         <div class="success-container">
-            <h2 class="success-title">Payment Successful</h2>
-            <p class="success-message">Your payment has been processed successfully!your account has been upgrade to premium!</p>
-            <a href="index.jsp" class="home-button">Return to Homepage</a>
+            <h2 class="success-title">Thanh Toán Thành Công</h2>
+            <p class="success-message">Thanh toán của bạn đã được xử lý thành công! Tài khoản đã được nâng cấp lên Premium!</p>
+            <a href="index.jsp" class="home-button">Trở về trang chủ</a>
         </div>
         <jsp:include page="footer.jsp"/>
         

@@ -75,7 +75,7 @@
                                     class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2" style="display: flex; gap: 15px;"> <svg width="24" height="24"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M14 2C14.2652 2 14.5196 2.10536 14.7071 2.29289L19.7071 7.29289C19.8946 7.48043 20 7.73478 20 8V9C20 9.55228 19.5523 10 19 10H13C12.4872 10 12.0645 9.61396 12.0067 9.11662L12 9L11.999 4H7C6.44772 4 6 4.44772 6 5V19C6 19.5523 6.44772 20 7 20H9C9.55228 20 10 20.4477 10 21C10 21.5523 9.55228 22 9 22H7C5.34315 22 4 20.6569 4 19V5C4 3.34315 5.34315 2 7 2H14ZM17 12C17.5523 12 18 12.4477 18 13V16H21C21.5523 16 22 16.4477 22 17C22 17.5523 21.5523 18 21 18H18V21C18 21.5523 17.5523 22 17 22C16.4477 22 16 21.5523 16 21V18H13C12.4477 18 12 17.5523 12 17C12 16.4477 12.4477 16 13 16H16V13C16 12.4477 16.4477 12 17 12ZM13.999 4.414L14 8H17.586L13.999 4.414Z" fill="#fff"/>
                                     </svg>
-                                    <a href="admin/addExam.jsp" style="color: white">Thêm Bài Kiểm Tra</a>
+                                    <a href="addExam.jsp" style="color: white">Thêm Bài Kiểm Tra</a>
                                 </button>
                             </div>
                         </div>
@@ -127,14 +127,7 @@
                         <!-- Pagination Section -->
                         <div class="pagination" style="margin: 20px 30px 20px 10px; gap: 10px; display: flex; justify-content: space-between;">
                             <div>
-                                <span>Số lượng:</span>
-                                <form action="ListExamController" method="get">
-                                    <select name="itemsPerPage" onchange="this.form.submit()">
-                                        <option value="6" ${itemsPerPage == 6 ? 'selected' : ''}>6</option>
-                                        <option value="12" ${itemsPerPage == 12 ? 'selected' : ''}>12</option>
-                                        <option value="18" ${itemsPerPage == 18 ? 'selected' : ''}>18</option>
-                                    </select>
-                                </form>
+
                             </div>
                             <div>
                                 <form action="ListExamController" method="get">

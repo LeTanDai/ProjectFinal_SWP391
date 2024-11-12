@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import model.Classes;
+import model.Lesson;
 import model.Lesson_Content;
 import model.Subjects;
 import model.Video;
@@ -79,30 +80,30 @@ public class ListLessonController extends HttpServlet {
         int startItems = 0;
         int endItems = 0;
         HttpSession session = request.getSession();
-        ArrayList<Video> listvid = new ArrayList<>();
-        Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> map = new LinkedHashMap<>();
+        ArrayList<Lesson> listlesson = new ArrayList<>();
+        Map< Lesson, Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>>> lmap = new LinkedHashMap<>();
         try {
             VideoDAO viddao = new VideoDAO();
             ClassDAO classdao = new ClassDAO();
             SubjectDAO subdao = new SubjectDAO();
             CourseDAO coudao = new CourseDAO();
             ContentDAO condao = new ContentDAO();
-            listvid = viddao.getAllVideo();
-//            if (searchrs != null) {
-//                listvid = viddao.getListVideoBySearch(searchrs);
-//            }
-
-            for (Video vid : listvid) {
+            listlesson = coudao.getAllLesson();
+            for (Lesson lesson : listlesson) {
+                Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> map = new LinkedHashMap<>();
                 Map<Video, Lesson_Content> maplc = new LinkedHashMap<>();
                 Map<Subjects, Classes> mapsc = new LinkedHashMap<>();
+                Video vid = viddao.getVideoByVideoid(lesson.getVideoid());
                 Subjects sub = subdao.getSubjectById(vid.getSubjectid());
                 Classes c = classdao.getClassById(vid.getClassid());
                 Lesson_Content lc = condao.getContentByContentid(coudao.getLessonByVideoid(vid.getId()).getContentid());
                 mapsc.put(sub, c);
                 maplc.put(vid, lc);
                 map.put(maplc, mapsc);
+                Lesson les = coudao.getLessonByVideoid(vid.getId());
+                lmap.put(les, map);
             }
-            totalItems = map.size();
+            totalItems = lmap.size();
             if (action != null && currentPage_get != null) {
                 currentPage = Integer.parseInt(currentPage_get);
                 if (action.equals("previous")) {
@@ -112,7 +113,7 @@ public class ListLessonController extends HttpServlet {
                         currentPage--;
                     }
                 } else if (action.equals("next")) {
-                    totalPage = (int) Math.ceil((double) totalItems / 6);
+                    totalPage = (int) Math.ceil((double) totalItems / 5);
                     if (currentPage < totalPage) {
                         currentPage++;
                     } else {
@@ -122,11 +123,11 @@ public class ListLessonController extends HttpServlet {
             } else {
                 currentPage = 1;
             }
-            Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>> submap = new LinkedHashMap<>();
-            startItems = (currentPage - 1) * 6;
-            endItems = Math.min(startItems + 6, totalItems);
+            Map< Lesson, Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>>> submap = new LinkedHashMap<>();
+            startItems = (currentPage - 1) * 5;
+            endItems = Math.min(startItems + 5, totalItems);
             int currentIndex = 0;
-            for (Map.Entry<Map<Video, Lesson_Content>, Map<Subjects, Classes>> entry : map.entrySet()) {
+            for (Map.Entry<Lesson, Map<Map<Video, Lesson_Content>, Map<Subjects, Classes>>> entry : lmap.entrySet()) {
                 if (currentIndex >= startItems && currentIndex <= endItems) {
                     submap.put(entry.getKey(), entry.getValue());
                 }

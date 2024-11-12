@@ -15,7 +15,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Module;
 
 /**
@@ -63,21 +66,25 @@ public class ModuleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ModuleDAO moduleDAO = new ModuleDAO();
-        ClassDAO classDAO = new ClassDAO();
-        SubjectDAO subjectDAO = new SubjectDAO();
-        List<Module> modules = moduleDAO.getAllModules();
-        for (Module module : modules) {
-            String className = classDAO.getClassNameById(module.getClassid());
-            String subjectName = subjectDAO.getSubjectNameById(module.getSubjectsid());
-
-            request.setAttribute("className" + module.getId(), className);
-            request.setAttribute("subjectName" + module.getId(), subjectName);
+        try {
+            ModuleDAO moduleDAO = new ModuleDAO();
+            ClassDAO classDAO = new ClassDAO();
+            SubjectDAO subjectDAO = new SubjectDAO();
+            List<Module> modules = moduleDAO.getAllModules();
+            for (Module module : modules) {
+                String className = classDAO.getClassNameById(module.getClassid());
+                String subjectName = subjectDAO.getSubjectNameById(module.getSubjectsid());
+                
+                request.setAttribute("className" + module.getId(), className);
+                request.setAttribute("subjectName" + module.getId(), subjectName);
+            }
+            
+            request.setAttribute("modules", modules);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("flashcardList.jsp");
+            dispatcher.forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModuleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        request.setAttribute("modules", modules);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("flashcardList.jsp");
-        dispatcher.forward(request, response);
     }
 
     /**
