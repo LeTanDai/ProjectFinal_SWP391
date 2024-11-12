@@ -41,6 +41,18 @@ public class DocumentDAO extends DBContext {
         return documentList;
     }
 
+    public List<Document> searchDocuments(String query) throws SQLException {
+        DocumentDAO dao = new DocumentDAO();
+        List<Document> results = new ArrayList<>();
+        for (Document doc : dao.getAllDocument()) {
+            if (doc.getDocName().toLowerCase().contains(query.toLowerCase())) {
+                results.add(doc);
+            }
+        }
+
+        return results;
+    }
+
     public void createDocument(Document document) {
         String sql = "INSERT INTO Document (document_url, document_name, subject_id, image_url, class_id) VALUES (?, ?, ?, ?, ?)"; // Thêm class_id
 
@@ -110,7 +122,16 @@ public class DocumentDAO extends DBContext {
 
     public static void main(String[] args) throws SQLException {
         DocumentDAO dao = new DocumentDAO();
+
+        List<Document> list = dao.searchDocuments("Toán", 1, 5);
+        int totalDocuments = dao.getTotalDocuments(null);
+        int totalPages = (int) Math.ceil((double) totalDocuments / 5);
+        System.out.println(list);
+        System.out.println(totalDocuments);
+        System.out.println(totalPages);
+
         dao.updateDocument(new Document(15,"hello", "loheee", "eeee", 1, 1));
+
     }
 
     public ArrayList<Document> getAllDocumentWithSubject() throws Exception {
@@ -155,6 +176,92 @@ public class DocumentDAO extends DBContext {
         }
         return list;
     }
+
+    // Method to get all documents with pagination
+    public List<Document> getAllDocuments(int page, int pageSize) {
+        List<Document> documents = new ArrayList<>();
+        String sql = "SELECT * FROM Document ORDER BY document_id "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        try ( PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, (page - 1) * pageSize); // Tính toán offset
+            pstmt.setInt(2, pageSize);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Document doc = new Document(
+                        rs.getInt("document_id"),
+                        rs.getString("document_url"),
+                        rs.getString("document_name"),
+                        rs.getString("image_url"),
+                        rs.getInt("subject_id"),
+                        rs.getInt("class_id")
+                );
+                documents.add(doc);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return documents;
+    }
+
+    // Method to search documents with pagination
+    public List<Document> searchDocuments(String query, int page, int pageSize) {
+        List<Document> documents = new ArrayList<>();
+        String sql = "SELECT * FROM Document WHERE document_name LIKE ? "
+                + "ORDER BY document_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        try ( PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + query + "%");
+            pstmt.setInt(2, (page - 1) * pageSize); // Tính toán offset
+            pstmt.setInt(3, pageSize);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Document doc = new Document(
+                        rs.getInt("document_id"),
+                        rs.getString("document_url"),
+                        rs.getString("document_name"),
+                        rs.getString("image_url"),
+                        rs.getInt("subject_id"),
+                        rs.getInt("class_id")
+                );
+                documents.add(doc);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return documents;
+    }
+
+    // Method to get the total number of documents
+    public int getTotalDocuments(String searchQuery) {
+        int totalDocuments = 0;
+        String sql;
+
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            sql = "SELECT COUNT(*) FROM Document";
+        } else {
+            sql = "SELECT COUNT(*) FROM Document WHERE document_name LIKE ?";
+        }
+
+        try ( PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+                pstmt.setString(1, "%" + searchQuery + "%");
+            }
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalDocuments = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalDocuments;
+    }
+
     public int countDocuments() {
     int count = 0;
     String sql = "SELECT COUNT(*) AS total FROM Document";
@@ -168,5 +275,6 @@ public class DocumentDAO extends DBContext {
     }
 
     return count;
-}
+    }
+
 }
