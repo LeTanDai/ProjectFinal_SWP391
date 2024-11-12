@@ -176,7 +176,7 @@
                         window.location.href = "premiumUpgrade";
                     } else {
 
-                        alert("Thanh toán thất bại" + LastContent);
+                        alert("Thanh toán thất bại");
                     }
                 } catch (error) {
                     console.error("Lỗi", error);
